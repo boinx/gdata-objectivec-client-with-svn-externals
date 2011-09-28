@@ -6684,8 +6684,8 @@
 					"$(inherited)",
 					"-DGDATA_IPHONE=1",
 					"-DGDATA_REQUIRE_SERVICE_INCLUDES=1",
-					"-DGDATA_INCLUDE_OAUTH2=1",
 					"-DGDATA_INCLUDE_YOUTUBE_SERVICE=1",
+					"-DGTM_INCLUDE_OAUTH2=1",
 				);
 				PRODUCT_NAME = GDataTouchStaticLib;
 				SDKROOT = iphoneos;
@@ -6702,8 +6702,8 @@
 					"$(inherited)",
 					"-DGDATA_IPHONE=1",
 					"-DGDATA_REQUIRE_SERVICE_INCLUDES=1",
-					"-DGDATA_INCLUDE_OAUTH2=1",
 					"-DGDATA_INCLUDE_YOUTUBE_SERVICE=1",
+					"-DGTM_INCLUDE_OAUTH2=1",
 				);
 				PRODUCT_NAME = GDataTouchStaticLib;
 				SDKROOT = iphoneos;
