@@ -1313,29 +1313,24 @@
 		4F5C294E0D9C60D100C647A5 /* GDataQueryGooglePhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C294B0D9C60D100C647A5 /* GDataQueryGooglePhotos.m */; };
 		4F5C294F0D9C60D100C647A5 /* GDataQueryGooglePhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F5C294B0D9C60D100C647A5 /* GDataQueryGooglePhotos.m */; };
 		4F61C6AE1353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A51353A654009CEDA4 /* GTMHTTPFetcher.m */; };
-		4F61C6AF1353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A71353A654009CEDA4 /* GTMHTTPFetcherLogging.m */; };
 		4F61C6B01353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A91353A654009CEDA4 /* GTMHTTPFetcherService.m */; };
 		4F61C6B11353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AB1353A654009CEDA4 /* GTMHTTPFetchHistory.m */; };
 		4F61C6B21353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AD1353A654009CEDA4 /* GTMHTTPUploadFetcher.m */; };
 		4F61C6B31353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A51353A654009CEDA4 /* GTMHTTPFetcher.m */; };
-		4F61C6B41353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A71353A654009CEDA4 /* GTMHTTPFetcherLogging.m */; };
 		4F61C6B51353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A91353A654009CEDA4 /* GTMHTTPFetcherService.m */; };
 		4F61C6B61353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AB1353A654009CEDA4 /* GTMHTTPFetchHistory.m */; };
 		4F61C6B71353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AD1353A654009CEDA4 /* GTMHTTPUploadFetcher.m */; };
 		4F61C6B81353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A51353A654009CEDA4 /* GTMHTTPFetcher.m */; };
-		4F61C6B91353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A71353A654009CEDA4 /* GTMHTTPFetcherLogging.m */; };
 		4F61C6BA1353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A91353A654009CEDA4 /* GTMHTTPFetcherService.m */; };
 		4F61C6BB1353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AB1353A654009CEDA4 /* GTMHTTPFetchHistory.m */; };
 		4F61C6BC1353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AD1353A654009CEDA4 /* GTMHTTPUploadFetcher.m */; };
 		4F61C6BD1353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A51353A654009CEDA4 /* GTMHTTPFetcher.m */; };
-		4F61C6BE1353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A71353A654009CEDA4 /* GTMHTTPFetcherLogging.m */; };
 		4F61C6BF1353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A91353A654009CEDA4 /* GTMHTTPFetcherService.m */; };
 		4F61C6C01353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AB1353A654009CEDA4 /* GTMHTTPFetchHistory.m */; };
 		4F61C6C11353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6AD1353A654009CEDA4 /* GTMHTTPUploadFetcher.m */; };
 		4F61C6C21353A654009CEDA4 /* GTMHTTPFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C6A41353A654009CEDA4 /* GTMHTTPFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F61C6C31353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A51353A654009CEDA4 /* GTMHTTPFetcher.m */; };
 		4F61C6C41353A654009CEDA4 /* GTMHTTPFetcherLogging.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C6A61353A654009CEDA4 /* GTMHTTPFetcherLogging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4F61C6C51353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A71353A654009CEDA4 /* GTMHTTPFetcherLogging.m */; };
 		4F61C6C61353A654009CEDA4 /* GTMHTTPFetcherService.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C6A81353A654009CEDA4 /* GTMHTTPFetcherService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F61C6C71353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F61C6A91353A654009CEDA4 /* GTMHTTPFetcherService.m */; };
 		4F61C6C81353A654009CEDA4 /* GTMHTTPFetchHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F61C6AA1353A654009CEDA4 /* GTMHTTPFetchHistory.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -5268,7 +5263,6 @@
 				4F27B836130F2FBD00D02A50 /* GDataEntryFreeBusy.m in Sources */,
 				4F27B8B7130F461200D02A50 /* GDataFeedFreeBusy.m in Sources */,
 				4F61C6B81353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */,
-				4F61C6B91353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */,
 				4F61C6BA1353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */,
 				4F61C6BB1353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */,
 				4F61C6BC1353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */,
@@ -5576,7 +5570,6 @@
 				4F27B834130F2FBD00D02A50 /* GDataEntryFreeBusy.m in Sources */,
 				4F27B8B5130F461200D02A50 /* GDataFeedFreeBusy.m in Sources */,
 				4F61C6AE1353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */,
-				4F61C6AF1353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */,
 				4F61C6B01353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */,
 				4F61C6B11353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */,
 				4F61C6B21353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */,
@@ -5884,7 +5877,6 @@
 				4F27B837130F2FBD00D02A50 /* GDataEntryFreeBusy.m in Sources */,
 				4F27B8B8130F461200D02A50 /* GDataFeedFreeBusy.m in Sources */,
 				4F61C6BD1353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */,
-				4F61C6BE1353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */,
 				4F61C6BF1353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */,
 				4F61C6C01353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */,
 				4F61C6C11353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */,
@@ -6191,7 +6183,6 @@
 				4F27B839130F2FBD00D02A50 /* GDataEntryFreeBusy.m in Sources */,
 				4F27B8BA130F461200D02A50 /* GDataFeedFreeBusy.m in Sources */,
 				4F61C6C31353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */,
-				4F61C6C51353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */,
 				4F61C6C71353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */,
 				4F61C6C91353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */,
 				4F61C6CB1353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */,
@@ -6511,7 +6502,6 @@
 				4F27B835130F2FBD00D02A50 /* GDataEntryFreeBusy.m in Sources */,
 				4F27B8B6130F461200D02A50 /* GDataFeedFreeBusy.m in Sources */,
 				4F61C6B31353A654009CEDA4 /* GTMHTTPFetcher.m in Sources */,
-				4F61C6B41353A654009CEDA4 /* GTMHTTPFetcherLogging.m in Sources */,
 				4F61C6B51353A654009CEDA4 /* GTMHTTPFetcherService.m in Sources */,
 				4F61C6B61353A654009CEDA4 /* GTMHTTPFetchHistory.m in Sources */,
 				4F61C6B71353A654009CEDA4 /* GTMHTTPUploadFetcher.m in Sources */,
