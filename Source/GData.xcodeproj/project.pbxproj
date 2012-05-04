@@ -6546,7 +6546,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
-				OTHER_CFLAGS = "-DDEBUG=1";
 				WARNING_CFLAGS = (
 					"-Wall",
 					"-Werror",
