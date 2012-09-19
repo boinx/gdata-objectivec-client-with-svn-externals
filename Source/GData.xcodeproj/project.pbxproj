@@ -6679,6 +6679,13 @@
 				PRODUCT_NAME = GDataTouchStaticLib;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wfloat-equal",
+					"-Wno-parentheses",
+				);
 			};
 			name = Debug;
 		};
@@ -6699,6 +6706,12 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = YES;
+				WARNING_CFLAGS = (
+					"-Wall",
+					"-Wendif-labels",
+					"-Wnewline-eof",
+					"-Wno-parentheses",
+				);
 			};
 			name = Release;
 		};
