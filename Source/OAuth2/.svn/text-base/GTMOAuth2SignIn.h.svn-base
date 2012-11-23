@@ -144,6 +144,7 @@
 
 - (BOOL)requestRedirectedToRequest:(NSURLRequest *)redirectedRequest;
 - (BOOL)titleChanged:(NSString *)title;
+- (BOOL)cookiesChanged:(NSHTTPCookieStorage *)cookieStorage;
 - (BOOL)loadFailedWithError:(NSError *)error;
 
 // Window controllers must tell the sign-in object if the window was closed
@@ -153,9 +154,17 @@
 
 #pragma mark -
 
-// Revocation of an authorized token from Google
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
+// Revocation of an authorized token from Google
 + (void)revokeTokenForGoogleAuthentication:(GTMOAuth2Authentication *)auth;
+
+// Create a fetcher for obtaining the user's Google email address or profile,
+// according to the current auth scopes.
+//
+// The auth object must have been created with appropriate scopes.
+//
+// The fetcher's response data can be parsed with NSJSONSerialization.
++ (GTMHTTPFetcher *)userInfoFetcherWithAuth:(GTMOAuth2Authentication *)auth;
 #endif
 
 #pragma mark -
@@ -165,6 +174,7 @@
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (NSURL *)googleAuthorizationURL;
 + (NSURL *)googleTokenURL;
++ (NSURL *)googleUserInfoURL;
 #endif
 
 @end

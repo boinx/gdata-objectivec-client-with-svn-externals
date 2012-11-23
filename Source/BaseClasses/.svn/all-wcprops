@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 42
-/svn/!svn/ver/695/trunk/Source/BaseClasses
+/svn/!svn/ver/730/trunk/Source/BaseClasses
 END
 GDataQuery.m
 K 25
@@ -13,13 +13,13 @@ GDataServiceBase.h
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svn/!svn/ver/683/trunk/Source/BaseClasses/GDataServiceBase.h
+/svn/!svn/ver/730/trunk/Source/BaseClasses/GDataServiceBase.h
 END
 GDataObject.m
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/svn/!svn/ver/695/trunk/Source/BaseClasses/GDataObject.m
+/svn/!svn/ver/726/trunk/Source/BaseClasses/GDataObject.m
 END
 GDataEntryBase.h
 K 25
@@ -31,7 +31,7 @@ GDataServiceGoogle.h
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svn/!svn/ver/676/trunk/Source/BaseClasses/GDataServiceGoogle.h
+/svn/!svn/ver/726/trunk/Source/BaseClasses/GDataServiceGoogle.h
 END
 GDataFeedBase.h
 K 25
@@ -43,19 +43,19 @@ GDataServiceBase.m
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svn/!svn/ver/695/trunk/Source/BaseClasses/GDataServiceBase.m
+/svn/!svn/ver/730/trunk/Source/BaseClasses/GDataServiceBase.m
 END
 GDataEntryBase.m
 K 25
 svn:wc:ra_dav:version-url
 V 59
-/svn/!svn/ver/695/trunk/Source/BaseClasses/GDataEntryBase.m
+/svn/!svn/ver/707/trunk/Source/BaseClasses/GDataEntryBase.m
 END
 GDataServiceGoogle.m
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/svn/!svn/ver/668/trunk/Source/BaseClasses/GDataServiceGoogle.m
+/svn/!svn/ver/726/trunk/Source/BaseClasses/GDataServiceGoogle.m
 END
 GDataFeedBase.m
 K 25
@@ -73,5 +73,5 @@ GDataObject.h
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/svn/!svn/ver/695/trunk/Source/BaseClasses/GDataObject.h
+/svn/!svn/ver/712/trunk/Source/BaseClasses/GDataObject.h
 END

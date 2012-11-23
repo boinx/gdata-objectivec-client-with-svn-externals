@@ -1,25 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 41
-/svn/!svn/ver/673/trunk/Source/Networking
+/svn/!svn/ver/707/trunk/Source/Networking
 END
 GDataProgressMonitorInputStream.h
 K 25
 svn:wc:ra_dav:version-url
 V 75
 /svn/!svn/ver/673/trunk/Source/Networking/GDataProgressMonitorInputStream.h
-END
-GDataGatherInputStream.m
-K 25
-svn:wc:ra_dav:version-url
-V 66
-/svn/!svn/ver/275/trunk/Source/Networking/GDataGatherInputStream.m
-END
-GDataMIMEDocument.m
-K 25
-svn:wc:ra_dav:version-url
-V 61
-/svn/!svn/ver/619/trunk/Source/Networking/GDataMIMEDocument.m
 END
 GDataProgressMonitorInputStream.m
 K 25
@@ -50,16 +38,4 @@ K 25
 svn:wc:ra_dav:version-url
 V 70
 /svn/!svn/ver/649/trunk/Source/Networking/GDataAuthenticationFetcher.m
-END
-GDataMIMEDocument.h
-K 25
-svn:wc:ra_dav:version-url
-V 61
-/svn/!svn/ver/649/trunk/Source/Networking/GDataMIMEDocument.h
-END
-GDataGatherInputStream.h
-K 25
-svn:wc:ra_dav:version-url
-V 66
-/svn/!svn/ver/673/trunk/Source/Networking/GDataGatherInputStream.h
 END

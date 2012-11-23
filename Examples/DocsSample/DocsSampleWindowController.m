@@ -17,6 +17,22 @@
 //  DocsSampleWindowController.m
 //
 
+//
+// IMPORTANT:
+//
+// The XML-based API for Google Docs has been replaced with a more efficient
+// and easier-to-use JSON API.  The JSON API is documented at
+//
+//   https://developers.google.com/drive/
+//
+// See the new Objective-C client library and sample code at
+//   http://code.google.com/p/google-api-objectivec-client/
+//
+// This sample application and library support for the XML-based Docs
+// API will eventually be removed.
+//
+
+
 #import "DocsSampleWindowController.h"
 
 #import "GData/GTMOAuth2WindowController.h"
@@ -444,7 +460,7 @@ static DocsSampleWindowController* gDocsSampleWindowController = nil;
     va_end(argList);
   }
   NSBeginAlertSheet(title, nil, nil, nil, [self window], nil, nil,
-                    nil, nil, result);
+                    nil, nil, @"%@", result);
 }
 
 #pragma mark IBActions
@@ -1344,6 +1360,10 @@ static long long gLargestPriorChangestamp = 0;
       GDataServiceGoogleDocs *service = [self docsService];
 
       // insert the entry into the docList feed
+      //
+      // to update (replace) an existing entry by uploading a new file,
+      // use the fetchEntryByUpdatingEntry:forEntryURL: with the URL from
+      // the entry's uploadEditLink
       GDataServiceTicket *ticket;
       ticket = [service fetchEntryByInsertingEntry:newEntry
                                         forFeedURL:uploadURL

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 46
-/svn/!svn/ver/687/trunk/Examples/BloggerSample
+/svn/!svn/ver/729/trunk/Examples/BloggerSample
 END
 main.m
 K 25
@@ -31,7 +31,7 @@ BloggerSampleWindowController.h
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/!svn/ver/313/trunk/Examples/BloggerSample/BloggerSampleWindowController.h
+/svn/!svn/ver/729/trunk/Examples/BloggerSample/BloggerSampleWindowController.h
 END
 BloggerSample_Prefix.pch
 K 25
@@ -43,7 +43,7 @@ BloggerSampleWindowController.m
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/!svn/ver/650/trunk/Examples/BloggerSample/BloggerSampleWindowController.m
+/svn/!svn/ver/729/trunk/Examples/BloggerSample/BloggerSampleWindowController.m
 END
 README.txt
 K 25

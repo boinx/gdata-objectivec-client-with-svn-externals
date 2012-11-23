@@ -28,10 +28,6 @@ BOOL AreBoolsEqual(BOOL b1, BOOL b2);
 // utility for removing non-whitespace control characters
 + (NSString *)stringWithControlsFilteredForString:(NSString *)str;
 
-// utility for replacing whitespace and removing unsafe symbols for a
-// user-agent string
-+ (NSString *)userAgentStringForString:(NSString *)str;
-
 // utility for converting NSNumber to/from string, including inf/-inf
 //
 // an empty string returns a nil NSNumber
@@ -108,9 +104,8 @@ BOOL AreBoolsEqual(BOOL b1, BOOL b2);
 // file type helpers
 //
 
-// utility routine to convert a file path to the file's MIME type using
-// Mac OS X's UTI database
-+ (NSString *)MIMETypeForFileAtPath:(NSString *)path
+// utility routine to convert a file name to the file's MIME type
++ (NSString *)MIMETypeForFileAtPath:(NSString *)filename
                     defaultMIMEType:(NSString *)defaultType;
 
 

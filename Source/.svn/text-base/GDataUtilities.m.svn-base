@@ -14,6 +14,7 @@
  */
 
 #import "GDataUtilities.h"
+
 #include <math.h>
 
 @implementation GDataUtilities
@@ -78,52 +79,6 @@
   }
 
   return str;
-}
-
-+ (NSString *)userAgentStringForString:(NSString *)str {
-
-  // make a proper token without whitespace from the given string
-  //
-  // per http://www.w3.org/Protocols/rfc2616/rfc2616-sec2.html
-  // and http://www.mozilla.org/build/user-agent-strings.html
-
-  if (str == nil) return nil;
-
-  NSMutableString *result = [NSMutableString stringWithString:str];
-
-  // replace spaces with underscores
-  [result replaceOccurrencesOfString:@" "
-                          withString:@"_"
-                             options:0
-                               range:NSMakeRange(0, [result length])];
-
-  // delete http token separators and remaining whitespace
-  static NSCharacterSet *charsToDelete = nil;
-
-  @synchronized([GDataUtilities class]) {
-
-    if (charsToDelete == nil) {
-
-      // make a set of unwanted characters
-      NSString *const kSeparators = @"()<>@,;:\\\"/[]?={}";
-
-      NSMutableCharacterSet *mutableChars
-        = [[[NSCharacterSet whitespaceAndNewlineCharacterSet] mutableCopy] autorelease];
-
-      [mutableChars addCharactersInString:kSeparators];
-
-      charsToDelete = [mutableChars copy]; // hang on to an immutable copy
-    }
-  }
-
-  while (1) {
-    NSRange separatorRange = [result rangeOfCharacterFromSet:charsToDelete];
-    if (separatorRange.location == NSNotFound) break;
-
-    [result deleteCharactersInRange:separatorRange];
-  };
-
-  return result;
 }
 
 + (NSNumber *)doubleNumberOrInfForString:(NSString *)str {
@@ -454,36 +409,20 @@ static const CFStringRef kCharsToForceEscape = CFSTR("!*'();:@&=+$,/?%#[]");
 + (NSString *)MIMETypeForFileAtPath:(NSString *)path
                     defaultMIMEType:(NSString *)defaultType {
 #ifndef GDATA_FOUNDATION_ONLY
-
   NSString *result = defaultType;
-
-  // convert the path to an FSRef
-  FSRef fileFSRef;
-  Boolean isDirectory;
-  OSStatus err = FSPathMakeRef((UInt8 *) [path fileSystemRepresentation],
-                               &fileFSRef, &isDirectory);
-  if (err == noErr) {
-
-    // get the UTI (content type) for the FSRef
-    CFStringRef fileUTI;
-    err = LSCopyItemAttribute(&fileFSRef, kLSRolesAll, kLSItemContentType,
-                              (CFTypeRef *)&fileUTI);
-    if (err == noErr) {
-
-      // get the MIME type for the UTI
-      CFStringRef mimeTypeTag;
-      mimeTypeTag = UTTypeCopyPreferredTagWithClass(fileUTI,
-                                                    kUTTagClassMIMEType);
-      if (mimeTypeTag) {
-
-        // convert the CFStringRef to an autoreleased NSString (ObjC 2.0-safe)
-        result = [(id)CFMakeCollectable(mimeTypeTag) autorelease];
-      }
-      CFRelease(fileUTI);
+  NSString *extension = [path pathExtension];
+  CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension,
+                                                          (CFStringRef)extension,
+                                                          NULL);
+  if (uti) {
+    CFStringRef cfMIMEType = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType);
+    if (cfMIMEType) {
+      result = [[(NSString *)cfMIMEType copy] autorelease];
+      CFRelease(cfMIMEType);
     }
+    CFRelease(uti);
   }
   return result;
-
 #else // !GDATA_FOUNDATION_ONLY
 
   return defaultType;

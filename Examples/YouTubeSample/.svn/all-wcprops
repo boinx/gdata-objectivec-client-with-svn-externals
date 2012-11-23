@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 46
-/svn/!svn/ver/695/trunk/Examples/YouTubeSample
+/svn/!svn/ver/730/trunk/Examples/YouTubeSample
 END
 main.m
 K 25
@@ -31,7 +31,7 @@ YouTubeSampleWindowController.m
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/!svn/ver/695/trunk/Examples/YouTubeSample/YouTubeSampleWindowController.m
+/svn/!svn/ver/730/trunk/Examples/YouTubeSample/YouTubeSampleWindowController.m
 END
 YouTubeSampleAppController.h
 K 25

@@ -75,6 +75,7 @@ _EXTERN NSString* const kGTMOAuth2FetcherKey          _INITIALIZE_AS(@"fetcher")
 _EXTERN NSString* const kGTMOAuth2FetchTypeKey        _INITIALIZE_AS(@"FetchType");
 _EXTERN NSString* const kGTMOAuth2FetchTypeToken      _INITIALIZE_AS(@"token");
 _EXTERN NSString* const kGTMOAuth2FetchTypeRefresh    _INITIALIZE_AS(@"refresh");
+_EXTERN NSString* const kGTMOAuth2FetchTypeAssertion  _INITIALIZE_AS(@"assertion");
 _EXTERN NSString* const kGTMOAuth2FetchTypeUserInfo   _INITIALIZE_AS(@"userInfo");
 
 // Token-issuance errors
@@ -87,8 +88,22 @@ _EXTERN NSString* const kGTMOAuth2ErrorUnauthorizedClient   _INITIALIZE_AS(@"una
 _EXTERN NSString* const kGTMOAuth2ErrorUnsupportedGrantType _INITIALIZE_AS(@"unsupported_grant_type");
 _EXTERN NSString* const kGTMOAuth2ErrorInvalidScope         _INITIALIZE_AS(@"invalid_scope");
 
+// Notification that sign-in has completed, and token fetches will begin (useful
+// for displaying interstitial messages after the window has closed)
+_EXTERN NSString* const kGTMOAuth2UserSignedIn              _INITIALIZE_AS(@"kGTMOAuth2UserSignedIn");
+
 // Notification for token changes
-_EXTERN NSString* const kGTMOAuth2RefreshTokenChanged _INITIALIZE_AS(@"kGTMOAuth2RefreshTokenChanged");
+_EXTERN NSString* const kGTMOAuth2AccessTokenRefreshed _INITIALIZE_AS(@"kGTMOAuth2AccessTokenRefreshed");
+_EXTERN NSString* const kGTMOAuth2RefreshTokenChanged  _INITIALIZE_AS(@"kGTMOAuth2RefreshTokenChanged");
+
+// Notification for WebView loading
+_EXTERN NSString* const kGTMOAuth2WebViewStartedLoading _INITIALIZE_AS(@"kGTMOAuth2WebViewStartedLoading");
+_EXTERN NSString* const kGTMOAuth2WebViewStoppedLoading _INITIALIZE_AS(@"kGTMOAuth2WebViewStoppedLoading");
+_EXTERN NSString* const kGTMOAuth2WebViewKey            _INITIALIZE_AS(@"kGTMOAuth2WebViewKey");
+_EXTERN NSString* const kGTMOAuth2WebViewStopKindKey    _INITIALIZE_AS(@"kGTMOAuth2WebViewStopKindKey");
+_EXTERN NSString* const kGTMOAuth2WebViewFinished       _INITIALIZE_AS(@"finished");
+_EXTERN NSString* const kGTMOAuth2WebViewFailed         _INITIALIZE_AS(@"failed");
+_EXTERN NSString* const kGTMOAuth2WebViewCancelled      _INITIALIZE_AS(@"cancelled");
 
 // Notification for network loss during html sign-in display
 _EXTERN NSString* const kGTMOAuth2NetworkLost         _INITIALIZE_AS(@"kGTMOAuthNetworkLost");
@@ -131,8 +146,9 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 @property (copy) NSString *clientID;
 @property (copy) NSString *clientSecret;
 @property (copy) NSString *redirectURI;
-@property (copy) NSString *scope;
-@property (copy) NSString *tokenType;
+@property (retain) NSString *scope;
+@property (retain) NSString *tokenType;
+@property (retain) NSString *assertion;
 
 // Apps may optionally add parameters here to be provided to the token
 // endpoint on token requests and refreshes
@@ -168,8 +184,8 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 @property (retain) NSString *userEmail;
 @property (retain) NSString *userEmailIsVerified;
 
-// Property indicating if this auth has a refresh token so is suitable for
-// authorizing a request. This does not guarantee that the token is valid.
+// Property indicating if this auth has a refresh or access token so is suitable
+// for authorizing a request. This does not guarantee that the token is valid.
 @property (readonly) BOOL canAuthorize;
 
 // Property indicating if this object will authorize plain http request
@@ -213,6 +229,10 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 //
 // The request argument may be nil to just force a refresh of the access token,
 // if needed.
+//
+// NOTE: To avoid accidental leaks of bearer tokens, the request must
+// be for a URL with the scheme https unless the shouldAuthorizeAllRequests
+// property is set.
 
 // The finish selector should have a signature matching
 //   - (void)authentication:(GTMOAuth2Authentication *)auth
@@ -232,8 +252,8 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // access token
 - (BOOL)authorizeRequest:(NSMutableURLRequest *)request;
 
-// If the authentication is waiting for a refreh to complete, spin the run loop,
-// discarding events, until the fetch has completed
+// If the authentication is waiting for a refresh to complete, spin the run
+// loop, discarding events, until the fetch has completed
 //
 // This is only for use in testing or in tools without a user interface.
 - (void)waitForCompletionWithTimeout:(NSTimeInterval)timeoutInSeconds;
@@ -247,11 +267,18 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // Pending fetcher to get a new access token, if any
 @property (retain) GTMHTTPFetcher *refreshFetcher;
 
+// Check if a request is queued up to be authorized
+- (BOOL)isAuthorizingRequest:(NSURLRequest *)request;
+
 // Check if a request appears to be authorized
 - (BOOL)isAuthorizedRequest:(NSURLRequest *)request;
 
-// Stop any pending refresh fetch
+// Stop any pending refresh fetch. This will also cancel the authorization
+// for all fetch requests pending authorization.
 - (void)stopAuthorization;
+
+// Prevents authorization callback for a given request.
+- (void)stopAuthorizationForRequest:(NSURLRequest *)request;
 
 // OAuth fetch user-agent header value
 - (NSString *)userAgent;

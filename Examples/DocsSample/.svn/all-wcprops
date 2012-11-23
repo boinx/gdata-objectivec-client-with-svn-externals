@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 43
-/svn/!svn/ver/694/trunk/Examples/DocsSample
+/svn/!svn/ver/729/trunk/Examples/DocsSample
 END
 main.m
 K 25
@@ -25,7 +25,7 @@ DocsSampleWindowController.m
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/svn/!svn/ver/694/trunk/Examples/DocsSample/DocsSampleWindowController.m
+/svn/!svn/ver/729/trunk/Examples/DocsSample/DocsSampleWindowController.m
 END
 Info.plist
 K 25
@@ -55,7 +55,7 @@ DocsSampleWindowController.h
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/svn/!svn/ver/680/trunk/Examples/DocsSample/DocsSampleWindowController.h
+/svn/!svn/ver/729/trunk/Examples/DocsSample/DocsSampleWindowController.h
 END
 buildStripHeaders
 K 25

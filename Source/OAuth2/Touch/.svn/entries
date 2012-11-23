@@ -1,14 +1,14 @@
 10
 
 dir
-60
+98
 http://gtm-oauth2.googlecode.com/svn/trunk/Source/Touch
 http://gtm-oauth2.googlecode.com/svn
 
 
 
-2011-09-22T00:40:42.064413Z
-59
+2012-11-06T21:05:32.334309Z
+98
 grobbins@google.com
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2011-09-23T16:07:25.000000Z
-fd6f6e5ab2dbcfee0f8b55efce957dab
-2011-08-26T20:06:19.917229Z
-56
+2012-11-23T16:11:40.000000Z
+b4e91e96d143a8375e1388660f0797be
+2012-10-25T21:40:38.979578Z
+96
 grobbins@google.com
 
 
@@ -58,7 +58,7 @@ grobbins@google.com
 
 
 
-11689
+13388
 
 GTMOAuth2ViewControllerTouch.m
 file
@@ -66,10 +66,10 @@ file
 
 
 
-2011-09-23T16:07:25.000000Z
-170312b43a03783ac4b3940f194a136e
-2011-09-22T00:40:42.064413Z
-59
+2012-11-23T16:11:40.000000Z
+30ac287d4f389361768c8488e256a277
+2012-11-06T21:05:32.334309Z
+98
 grobbins@google.com
 
 
@@ -92,7 +92,7 @@ grobbins@google.com
 
 
 
-29891
+37262
 
 GTMOAuth2ViewTouch.xib
 file
@@ -100,10 +100,10 @@ file
 
 
 
-2011-09-23T16:07:25.000000Z
-c8e062332660528c054b23f6f6c1cb8a
-2011-05-26T19:35:54.519002Z
-33
+2012-11-23T16:11:40.000000Z
+370d39e5bbf7181b3edcf0801f5cb354
+2012-10-31T19:44:39.029728Z
+97
 grobbins@google.com
 
 
@@ -126,5 +126,5 @@ grobbins@google.com
 
 
 
-19498
+21347
 

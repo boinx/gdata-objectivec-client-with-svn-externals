@@ -1,23 +1,23 @@
 K 25
 svn:wc:ra_dav:version-url
 V 35
-/svn/!svn/ver/59/trunk/Source/Touch
+/svn/!svn/ver/98/trunk/Source/Touch
 END
 GTMOAuth2ViewControllerTouch.h
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svn/!svn/ver/56/trunk/Source/Touch/GTMOAuth2ViewControllerTouch.h
+/svn/!svn/ver/96/trunk/Source/Touch/GTMOAuth2ViewControllerTouch.h
 END
 GTMOAuth2ViewControllerTouch.m
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/svn/!svn/ver/59/trunk/Source/Touch/GTMOAuth2ViewControllerTouch.m
+/svn/!svn/ver/98/trunk/Source/Touch/GTMOAuth2ViewControllerTouch.m
 END
 GTMOAuth2ViewTouch.xib
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svn/!svn/ver/33/trunk/Source/Touch/GTMOAuth2ViewTouch.xib
+/svn/!svn/ver/97/trunk/Source/Touch/GTMOAuth2ViewTouch.xib
 END

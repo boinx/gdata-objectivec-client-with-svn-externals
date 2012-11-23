@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 36
-/svn/!svn/ver/685/trunk/Source/Media
+/svn/!svn/ver/721/trunk/Source/Media
 END
 GDataMediaThumbnail.m
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svn/!svn/ver/685/trunk/Source/Media/GDataMediaThumbnail.m
+/svn/!svn/ver/721/trunk/Source/Media/GDataMediaThumbnail.m
 END
 GDataMediaRating.m
 K 25
@@ -121,7 +121,7 @@ GDataMediaThumbnail.h
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/svn/!svn/ver/305/trunk/Source/Media/GDataMediaThumbnail.h
+/svn/!svn/ver/721/trunk/Source/Media/GDataMediaThumbnail.h
 END
 GDataMediaRating.h
 K 25

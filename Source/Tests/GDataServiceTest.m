@@ -83,7 +83,7 @@
 NSTask *StartHTTPServerTask(int portNumber) NS_RETURNS_RETAINED;
 
 // StartHTTPServerTask is used below and in GTMHTTPFetcherTest
-NSTask *StartHTTPServerTask(int portNumber) NS_RETURNS_RETAINED {
+NSTask *StartHTTPServerTask(int portNumber) {
   // run the python http server, located in the Tests directory
   NSString *currentDir = [[NSFileManager defaultManager] currentDirectoryPath];
   NSString *serverPath = [currentDir stringByAppendingPathComponent:@"Tests/GDataTestHTTPServer.py"];
@@ -159,7 +159,7 @@ static int kServerPortNumber = 54579;
 
 - (void)fetchStateChanged:(NSNotification *)note {
   GTMHTTPFetcher *fetcher = [note object];
-  GDataServiceTicketBase *ticket = [fetcher ticket];
+  GDataServiceTicketBase *ticket = [fetcher GDataTicket];
 
   STAssertNotNil(ticket, @"cannot get ticket from fetch notification");
 
@@ -194,7 +194,7 @@ static int kServerPortNumber = 54579;
 
 - (void)retryDelayStateChanged:(NSNotification *)note {
   GTMHTTPFetcher *fetcher = [note object];
-  GDataServiceTicketBase *ticket = [fetcher ticket];
+  GDataServiceTicketBase *ticket = [fetcher GDataTicket];
 
   STAssertNotNil(ticket, @"cannot get ticket from retry delay notification");
 

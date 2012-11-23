@@ -940,16 +940,25 @@ enum {
 
 
 - (GDataServiceTicket *)fetchEntryWithURL:(NSURL *)entryURL
+                               entryClass:(Class)entryClass
                         completionHandler:(GDataServiceGoogleEntryBaseCompletionHandler)handler {
 
   return [self fetchAuthenticatedObjectWithURL:entryURL
-                                   objectClass:kGDataUseRegisteredClass
+                                   objectClass:entryClass
                                   objectToPost:nil
                                           ETag:nil
                                     httpMethod:nil
                                       delegate:nil
                              didFinishSelector:NULL
                              completionHandler:(GDataServiceGoogleCompletionHandler)handler];
+}
+
+- (GDataServiceTicket *)fetchEntryWithURL:(NSURL *)entryURL
+                        completionHandler:(GDataServiceGoogleEntryBaseCompletionHandler)handler {
+
+  return [self fetchEntryWithURL:entryURL
+                      entryClass:kGDataUseRegisteredClass
+               completionHandler:handler];
 }
 
 - (GDataServiceTicket *)fetchEntryByInsertingEntry:(GDataEntryBase *)entryToInsert
@@ -972,6 +981,16 @@ enum {
 
 - (GDataServiceTicket *)fetchEntryByUpdatingEntry:(GDataEntryBase *)entryToUpdate
                                 completionHandler:(GDataServiceGoogleEntryBaseCompletionHandler)handler {
+  NSURL *editURL = [[entryToUpdate editLink] URL];
+
+  return [self fetchEntryByUpdatingEntry:entryToUpdate
+                             forEntryURL:editURL
+                       completionHandler:handler];
+}
+
+- (GDataServiceTicket *)fetchEntryByUpdatingEntry:(GDataEntryBase *)entryToUpdate
+                                      forEntryURL:(NSURL *)entryURL
+                                completionHandler:(GDataServiceGoogleEntryBaseCompletionHandler)handler {
   // Entries should be updated only if they contain copies of any unparsed XML
   // (unknown children and attributes) or if fields to update are explicitly
   // specified in the gd:field attribute.
@@ -991,11 +1010,9 @@ enum {
   // objects being uploaded will always need some namespaces at the root level
   [self addNamespacesIfNoneToObject:entryToUpdate];
 
-  NSURL *editURL = [[entryToUpdate editLink] URL];
-
   NSString *httpMethod = (fieldSelection == nil ? @"PUT" : @"PATCH");
 
-  return [self fetchAuthenticatedObjectWithURL:editURL
+  return [self fetchAuthenticatedObjectWithURL:entryURL
                                    objectClass:[entryToUpdate class]
                                   objectToPost:entryToUpdate
                                           ETag:[entryToUpdate ETag]
@@ -1221,7 +1238,7 @@ enum {
     // existing token
     authToken = authToken_;
   }
-  
+
   // add the auth token to the header
   if ([authToken length] > 0) {
     NSString *value = [NSString stringWithFormat:@"GoogleLogin auth=%@",

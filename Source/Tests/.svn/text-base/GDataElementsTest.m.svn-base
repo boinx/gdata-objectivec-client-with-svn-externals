@@ -1256,31 +1256,6 @@ shouldWrapWithNamespaceAndEntry:(BOOL)shouldWrap {
   
 }
 
-
-- (void)testHealthElements {
-  NSString *str = @"<ContinuityOfCareRecord xmlns='urn:astm-org:CCR'>"
-    "<CCRDocumentObjectID>AgJ5uTnC3A</CCRDocumentObjectID>"
-    "<etc>Frogfoot</etc></ContinuityOfCareRecord>";
-
-  NSError *error = nil;
-  NSXMLElement *element;
-  element = [[[NSXMLElement alloc] initWithXMLString:str
-                                               error:&error] autorelease];
-  GDataContinuityOfCareRecord *ccr;
-  ccr = [GDataContinuityOfCareRecord objectWithXMLElement:element];
-
-  NSDictionary *expectedNS;
-  expectedNS = [NSDictionary dictionaryWithObject:kGDataNamespaceCCR
-                                           forKey:@""];
-  STAssertEqualObjects([ccr namespaces], expectedNS, @"namespaces error");
-
-  NSArray *children = [ccr childXMLElements];
-  NSXMLNode *objid = [children objectAtIndex:0];
-  STAssertEqualObjects([objid stringValue], @"AgJ5uTnC3A",
-                       @"child value error");
-}
-
-
 - (void)testGDataExtendedProperty {
   
   // test the XMLValue key/value APIs
@@ -1535,7 +1510,8 @@ shouldWrapWithNamespaceAndEntry:(BOOL)shouldWrap {
 }
 
 - (void)testControlCharacterRemoval {
-  NSString *str = [NSString stringWithFormat:@"bunnyrabbit%C%C%C", 0, 1, 2];
+  NSString *str = [NSString stringWithFormat:@"bunnyrabbit%C%C%C",
+                   (unichar) 0, (unichar) 1, (unichar) 2];
   
   GDataTextConstruct *tc = [GDataTextConstruct textConstructWithString:str];
   NSXMLElement *elem = [tc XMLElement];

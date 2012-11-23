@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 46
-/svn/!svn/ver/687/trunk/Examples/FinanceSample
+/svn/!svn/ver/704/trunk/Examples/FinanceSample
 END
 main.m
 K 25
@@ -55,7 +55,7 @@ FinanceSampleWindowController.m
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/!svn/ver/650/trunk/Examples/FinanceSample/FinanceSampleWindowController.m
+/svn/!svn/ver/704/trunk/Examples/FinanceSample/FinanceSampleWindowController.m
 END
 buildStripHeaders
 K 25

@@ -31,6 +31,24 @@
 + (NSString *)extensionElementLocalName { return @"lastViewed"; }
 @end
 
+@interface GDataSharedWithMe : GDataValueElementConstruct <GDataExtension>
+@end
+
+@implementation GDataSharedWithMe
++ (NSString *)extensionElementURI       { return kGDataNamespaceDocuments; }
++ (NSString *)extensionElementPrefix    { return kGDataNamespaceDocumentsPrefix; }
++ (NSString *)extensionElementLocalName { return @"sharedWithMeDate"; }
+@end
+
+@interface GDataLastModifiedByMe : GDataValueElementConstruct <GDataExtension>
+@end
+
+@implementation GDataLastModifiedByMe
++ (NSString *)extensionElementURI       { return kGDataNamespaceDocuments; }
++ (NSString *)extensionElementPrefix    { return kGDataNamespaceDocumentsPrefix; }
++ (NSString *)extensionElementLocalName { return @"modifiedByMeDate"; }
+@end
+
 @interface GDataWritersCanInvite : GDataBoolValueConstruct <GDataExtension>
 @end
 
@@ -127,6 +145,8 @@
                                  childClasses:
    [GDataFeedLink class],
    [GDataLastViewed class],
+   [GDataSharedWithMe class],
+   [GDataLastModifiedByMe class],
    [GDataWritersCanInvite class],
    [GDataLastModifiedBy class],
    [GDataQuotaBytesUsed class],
@@ -145,6 +165,8 @@
 
   static struct GDataDescriptionRecord descRecs[] = {
     { @"lastViewed",        @"lastViewed",          kGDataDescValueLabeled },
+    { @"sharedWithMe",      @"sharedWithMe",        kGDataDescValueLabeled },
+    { @"lastModifiedByMe",  @"lastModifiedByMe",    kGDataDescValueLabeled },
     { @"writersCanInvite",  @"writersCanInvite",    kGDataDescValueLabeled },
     { @"lastModifiedBy",    @"lastModifiedBy",      kGDataDescValueLabeled },
     { @"quotaUsed",         @"quotaBytesUsed",      kGDataDescValueLabeled },
@@ -174,6 +196,28 @@
 - (void)setLastViewed:(GDataDateTime *)dateTime {
   GDataLastViewed *obj = [GDataLastViewed valueWithDateTime:dateTime];
   [self setObject:obj forExtensionClass:[GDataLastViewed class]];
+}
+
+- (GDataDateTime *)sharedWithMe {
+  GDataSharedWithMe *obj =
+      [self objectForExtensionClass:[GDataSharedWithMe class]];
+  return [obj dateTimeValue];
+}
+
+- (void)setSharedWithMe:(GDataDateTime *)dateTime {
+  GDataSharedWithMe *obj = [GDataSharedWithMe valueWithDateTime:dateTime];
+  [self setObject:obj forExtensionClass:[GDataSharedWithMe class]];
+}
+
+- (GDataDateTime *)lastModifiedByMe {
+  GDataLastModifiedByMe *obj =
+      [self objectForExtensionClass:[GDataLastModifiedByMe class]];
+  return [obj dateTimeValue];
+}
+
+- (void)setLastModifiedByMe:(GDataDateTime *)dateTime {
+  GDataLastModifiedByMe *obj = [GDataLastModifiedByMe valueWithDateTime:dateTime];
+  [self setObject:obj forExtensionClass:[GDataLastModifiedByMe class]];
 }
 
 - (NSNumber *)writersCanInvite { // bool
@@ -328,26 +372,35 @@
   }
 }
 
+- (BOOL)isShared {
+  BOOL flag = [GDataCategory categories:[self categories]
+              containsCategoryWithLabel:kGDataCategoryLabelShared];
+  return flag;
+}
+
+- (void)setIsShared:(BOOL)flag {
+  GDataCategory *cat = [GDataCategory categoryWithLabel:kGDataCategoryLabelShared];
+  if (flag) {
+    [self addCategory:cat];
+  } else {
+    [self removeCategory:cat];
+  }
+}
+
 #pragma mark -
 
 - (NSArray *)parentLinks {
-
-  NSArray *links = [self links];
-  if (links == nil) return nil;
-
-  NSArray *parentLinks = [GDataUtilities objectsFromArray:links
-                                                withValue:kGDataCategoryDocParent
-                                               forKeyPath:@"rel"];
-  return parentLinks;
+  return [self linksWithRelAttributeValue:kGDataCategoryDocParent];
 }
 
 - (GDataLink *)thumbnailLink {
-  NSArray *links = [self links];
-  GDataLink *thumbnail = [GDataUtilities firstObjectFromArray:links
-                                                    withValue:kGDataDocsThumbnailRel
-                                                   forKeyPath:@"rel"];
-  return thumbnail;
+  return [self linkWithRelAttributeValue:kGDataDocsThumbnailRel];
 }
+
+- (GDataLink *)alternateSelfLink {
+  return [self linkWithRelAttributeValue:kGDataDocsAlternateSelfRel];
+}
+
 
 - (GDataFeedLink *)feedLinkForRel:(NSString *)rel {
 
@@ -382,7 +435,7 @@
 + (NSString *)defaultServiceVersion {
   return kGDataDocsDefaultServiceVersion;
 }
-  
+
 @end
 
 #endif // !GDATA_REQUIRE_SERVICE_INCLUDES || GDATA_INCLUDE_DOCS_SERVICE

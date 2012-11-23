@@ -48,6 +48,7 @@ NSString *const kOOBString = @"urn:ietf:wg:oauth:2.0:oob";
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 - (void)fetchGoogleUserInfo;
 #endif
+- (void)finishSignInWithError:(NSError *)error;
 
 - (void)handleCallbackReached;
 
@@ -102,6 +103,16 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   NSString *str = @"https://accounts.google.com/o/oauth2/token";
   return [NSURL URLWithString:str];
 }
+
++ (NSURL *)googleRevocationURL {
+  NSString *urlStr = @"https://accounts.google.com/o/oauth2/revoke";
+  return [NSURL URLWithString:urlStr];
+}
+
++ (NSURL *)googleUserInfoURL {
+  NSString *urlStr = @"https://www.googleapis.com/oauth2/v1/userinfo";
+  return [NSURL URLWithString:urlStr];
+}
 #endif
 
 + (NSString *)nativeClientRedirectURI {
@@ -151,7 +162,7 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
     // for Google authentication, we want to automatically fetch user info
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
     NSString *host = [authorizationURL host];
-    if ([host isEqual:@"accounts.google.com"]) {
+    if ([host hasSuffix:@".google.com"]) {
       shouldFetchGoogleUserEmail_ = YES;
     }
 #endif
@@ -230,15 +241,18 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   return [self startWebRequest];
 }
 
-- (BOOL)startWebRequest {
+- (NSMutableDictionary *)parametersForWebRequest {
   GTMOAuth2Authentication *auth = self.authentication;
   NSString *clientID = auth.clientID;
   NSString *redirectURI = auth.redirectURI;
 
-  if ([clientID length] == 0 || [redirectURI length] == 0) {
+  BOOL hasClientID = ([clientID length] > 0);
+  BOOL hasRedirect = ([redirectURI length] > 0
+                      || redirectURI == [[self class] nativeClientRedirectURI]);
+  if (!hasClientID || !hasRedirect) {
 #if DEBUG
-    NSAssert([clientID length] > 0, @"GTMOAuth2SignIn: clientID needed");
-    NSAssert([redirectURI length] > 0, @"GTMOAuth2SignIn: redirectURI needed");
+    NSAssert(hasClientID, @"GTMOAuth2SignIn: clientID needed");
+    NSAssert(hasRedirect, @"GTMOAuth2SignIn: redirectURI needed");
 #endif
     return NO;
   }
@@ -253,9 +267,17 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   NSMutableDictionary *paramsDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                      @"code", @"response_type",
                                      clientID, @"client_id",
-                                     redirectURI, @"redirect_uri",
                                      scope, @"scope", // scope may be nil
                                      nil];
+  if (redirectURI) {
+    [paramsDict setObject:redirectURI forKey:@"redirect_uri"];
+  }
+  return paramsDict;
+}
+
+- (BOOL)startWebRequest {
+  NSMutableDictionary *paramsDict = [self parametersForWebRequest];
+
   NSDictionary *additionalParams = self.additionalAuthorizationParameters;
   if (additionalParams) {
     [paramsDict addEntriesFromDictionary:additionalParams];
@@ -333,11 +355,12 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   // for Google's installed app sign-in protocol, we'll look for the
   // end-of-sign-in indicator in the titleChanged: method below
   NSString *redirectURI = self.authentication.redirectURI;
+  if (redirectURI == nil) return NO;
 
   // when we're searching for the window title string, then we can ignore
   // redirects
   NSString *standardURI = [[self class] nativeClientRedirectURI];
-  if ([redirectURI isEqual:standardURI]) return NO;
+  if (standardURI != nil && [redirectURI isEqual:standardURI]) return NO;
 
   // compare the redirectURI, which tells us when the web sign-in is done,
   // to the actual redirection
@@ -417,6 +440,11 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   return NO;
 }
 
+- (BOOL)cookiesChanged:(NSHTTPCookieStorage *)cookieStorage {
+  // We're ignoring these.
+  return NO;
+};
+
 // entry point for the window controller to tell us when a load has failed
 // in the webview
 //
@@ -465,6 +493,12 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
     } else {
       self.pendingFetcher = fetcher;
     }
+
+    // notify the app so it can put up a post-sign in, pre-token exchange UI
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc postNotificationName:kGTMOAuth2UserSignedIn
+                      object:self
+                    userInfo:nil];
   } else {
     // the callback lacked an auth code
     NSString *errStr = auth.errorString;
@@ -480,7 +514,7 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   }
 
   if (error) {
-    [self invokeFinalCallbackWithError:error];
+    [self finishSignInWithError:error];
   }
 }
 
@@ -497,28 +531,22 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
     [self fetchGoogleUserInfo];
   } else {
     // we're not authorizing with Google, so we're done
-    [self invokeFinalCallbackWithError:error];
+    [self finishSignInWithError:error];
   }
 #else
-  [self invokeFinalCallbackWithError:error];
+  [self finishSignInWithError:error];
 #endif
 }
 
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
-- (void)fetchGoogleUserInfo {
-  // fetch the user's email address
-  NSString *infoURLStr = @"https://www.googleapis.com/oauth2/v1/userinfo";
-  NSURL *infoURL = [NSURL URLWithString:infoURLStr];
++ (GTMHTTPFetcher *)userInfoFetcherWithAuth:(GTMOAuth2Authentication *)auth {
+  // create a fetcher for obtaining the user's email or profile
+  NSURL *infoURL = [[self class] googleUserInfoURL];
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:infoURL];
-
-  GTMOAuth2Authentication *auth = self.authentication;
 
   NSString *userAgent = [auth userAgent];
   [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
-
-  // we can do a synchronous authorization since this method is called
-  // only immediately after a fresh access token has been obtained
-  [auth authorizeRequest:request];
+  [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
 
   GTMHTTPFetcher *fetcher;
   id <GTMHTTPFetcherServiceProtocol> fetcherService = auth.fetcherService;
@@ -527,10 +555,17 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   } else {
     fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
   }
+  fetcher.authorizer = auth;
   fetcher.retryEnabled = YES;
   fetcher.maxRetryInterval = 15.0;
   fetcher.comment = @"user info";
+  return fetcher;
+}
 
+- (void)fetchGoogleUserInfo {
+  // fetch the user's email address or profile
+  GTMOAuth2Authentication *auth = self.authentication;
+  GTMHTTPFetcher *fetcher = [[self class] userInfoFetcherWithAuth:auth];
   [fetcher beginFetchWithDelegate:self
                 didFinishSelector:@selector(infoFetcher:finishedWithData:error:)];
 
@@ -575,9 +610,14 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
       }
     }
   }
+  [self finishSignInWithError:error];
+}
+
+#endif // !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
+
+- (void)finishSignInWithError:(NSError *)error {
   [self invokeFinalCallbackWithError:error];
 }
-#endif // !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 
 // convenience method for making the final call to our delegate
 - (void)invokeFinalCallbackWithError:(NSError *)error {
@@ -717,50 +757,56 @@ static void ReachabilityCallBack(SCNetworkReachabilityRef target,
 
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (void)revokeTokenForGoogleAuthentication:(GTMOAuth2Authentication *)auth {
-  if (auth.canAuthorize
+  if (auth.refreshToken != nil
+      && auth.canAuthorize
       && [auth.serviceProvider isEqual:kGTMOAuth2ServiceProviderGoogle]) {
 
-    NSString *urlStr = @"https://accounts.google.com/o/oauth2/revoke";
-    
     // create a signed revocation request for this authentication object
-    NSURL *url = [NSURL URLWithString:urlStr];
+    NSURL *url = [self googleRevocationURL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    
+
     NSString *token = auth.refreshToken;
     NSString *encoded = [GTMOAuth2Authentication encodedOAuthValueForString:token];
-    NSString *body = [@"token=" stringByAppendingString:encoded];
-    
-    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-    [request setHTTPMethod:@"POST"];
+    if (encoded != nil) {
+      NSString *body = [@"token=" stringByAppendingString:encoded];
 
-    NSString *userAgent = [auth userAgent];
-    [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+      [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+      [request setHTTPMethod:@"POST"];
 
-    // there's nothing to be done if revocation succeeds or fails
-    GTMHTTPFetcher *fetcher;
-    id <GTMHTTPFetcherServiceProtocol> fetcherService = auth.fetcherService;
-    if (fetcherService) {
-      fetcher = [fetcherService fetcherWithRequest:request];
-    } else {
-      fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
-    }
+      NSString *userAgent = [auth userAgent];
+      [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
 
-#if NS_BLOCKS_AVAILABLE
-    [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
-  #if DEBUG
-      if (error) {
-        NSString *errStr = [[[NSString alloc] initWithData:data
-                                                  encoding:NSUTF8StringEncoding] autorelease];
-        NSLog(@"revoke error: %@", errStr);
+      // there's nothing to be done if revocation succeeds or fails
+      GTMHTTPFetcher *fetcher;
+      id <GTMHTTPFetcherServiceProtocol> fetcherService = auth.fetcherService;
+      if (fetcherService) {
+        fetcher = [fetcherService fetcherWithRequest:request];
+      } else {
+        fetcher = [GTMHTTPFetcher fetcherWithRequest:request];
       }
-  #endif
-    }];
-#else
-    [fetcher beginFetchWithDelegate:nil didFinishSelector:NULL];
-#endif
-  }
+      fetcher.comment = @"revoke token";
 
+      // Use a completion handler fetch for better debugging, but only if we're
+      // guaranteed that blocks are available in the runtime
+#if (!TARGET_OS_IPHONE && (MAC_OS_X_VERSION_MIN_REQUIRED >= 1060)) || \
+    (TARGET_OS_IPHONE && (__IPHONE_OS_VERSION_MIN_REQUIRED >= 40000))
+      // Blocks are available
+      [fetcher beginFetchWithCompletionHandler:^(NSData *data, NSError *error) {
+  #if DEBUG
+        if (error) {
+          NSString *errStr = [[[NSString alloc] initWithData:data
+                                                    encoding:NSUTF8StringEncoding] autorelease];
+          NSLog(@"revoke error: %@", errStr);
+        }
+  #endif // DEBUG
+      }];
+#else
+      // Blocks may not be available
+      [fetcher beginFetchWithDelegate:nil didFinishSelector:NULL];
+#endif
+    }
+  }
   [auth reset];
 }
 #endif // !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
@@ -768,4 +814,3 @@ static void ReachabilityCallBack(SCNetworkReachabilityRef target,
 @end
 
 #endif // #if GTM_INCLUDE_OAUTH2 || !GDATA_REQUIRE_SERVICE_INCLUDES
-

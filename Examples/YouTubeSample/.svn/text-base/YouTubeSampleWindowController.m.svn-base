@@ -40,8 +40,8 @@ static NSString* const kMostPopularFeed = @"most popular";
 - (void)uploadVideoFile;
 - (void)restartUpload;
 
-- (GDataFeedBase *)entriesFeed;
-- (void)setEntriesFeed:(GDataFeedBase *)feed;
+- (GDataFeedYouTubeVideo *)entriesFeed;
+- (void)setEntriesFeed:(GDataFeedYouTubeVideo *)feed;
 
 - (NSError *)entriesFetchError;
 - (void)setEntriesFetchError:(NSError *)error;
@@ -341,7 +341,7 @@ static NSString *const kKeychainItemName = @"YouTubeSample: YouTube";
     va_end(argList);
   }
   NSBeginAlertSheet(title, nil, nil, nil, [self window], nil, nil,
-                    nil, nil, result);
+                    nil, nil, @"%@", result);
 }
 
 #pragma mark IBActions
@@ -523,7 +523,7 @@ static NSString *const kKeychainItemName = @"YouTubeSample: YouTube";
 
 // feed fetch callback
 - (void)entryListFetchTicket:(GDataServiceTicket *)ticket
-            finishedWithFeed:(GDataFeedBase *)feed
+            finishedWithFeed:(GDataFeedYouTubeVideo *)feed
                        error:(NSError *)error {
 
   [self setEntriesFeed:feed];
@@ -671,7 +671,6 @@ static NSString *const kKeychainItemName = @"YouTubeSample: YouTube";
     // refetch the current entries, in case the list of uploads
     // has changed
     [self fetchAllEntries];
-    [self updateUI];
   } else {
     [self displayAlert:@"Upload failed"
                 format:@"Upload failed: %@", error];
@@ -679,6 +678,7 @@ static NSString *const kKeychainItemName = @"YouTubeSample: YouTube";
   [mUploadProgressIndicator setDoubleValue:0.0];
 
   [self setUploadTicket:nil];
+  [self updateUI];
 }
 
 // Setting likes/dislikes
@@ -834,11 +834,11 @@ static NSString *const kKeychainItemName = @"YouTubeSample: YouTube";
 
 #pragma mark Setters and Getters
 
-- (GDataFeedBase *)entriesFeed {
+- (GDataFeedYouTubeVideo *)entriesFeed {
   return mEntriesFeed;
 }
 
-- (void)setEntriesFeed:(GDataFeedBase *)feed {
+- (void)setEntriesFeed:(GDataFeedYouTubeVideo *)feed {
   [mEntriesFeed autorelease];
   mEntriesFeed = [feed retain];
 }

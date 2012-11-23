@@ -60,6 +60,7 @@ _EXTERN NSString* const kGDataServiceTicketParsingStoppedNotification _INITIALIZ
 
 enum {
   kGDataCouldNotConstructObjectError = -100,
+  kGDataWaitTimedOutError            = -101
 };
 
 @class GDataServiceTicketBase;
@@ -120,6 +121,8 @@ typedef void *GDataServiceUploadProgressHandler;
   NSError *fetchError_;
   BOOL hasCalledCallback_;
   NSUInteger nextLinksFollowedCounter_;
+
+  NSOperation *parseOperation_;
 
   // OAuth support
   id authorizer_;
@@ -209,6 +212,9 @@ typedef void *GDataServiceUploadProgressHandler;
 
 - (NSInteger)statusCode;  // server status from object fetch
 
+- (NSOperation *)parseOperation;
+- (void)setParseOperation:(NSOperation *)op;
+
 // OAuth support
 - (id)authorizer;
 - (void)setAuthorizer:(id)obj;
@@ -218,7 +224,7 @@ typedef void *GDataServiceUploadProgressHandler;
 
 // category to provide opaque access to tickets stored in fetcher properties
 @interface GTMHTTPFetcher (GDataServiceTicketAdditions)
-- (id)ticket;
+- (id)GDataTicket;
 @end
 
 
@@ -525,6 +531,15 @@ typedef void *GDataServiceUploadProgressHandler;
 - (void)setOperationQueue:(id)queue;
 
 // credentials
+//
+// Note: Specifying the username and password is a deprecated method
+//       of user authorization called ClientLogin, and does not work for all
+//       user accounts.
+//       Applications should instead enable users to sign in using OAuth 2,
+//       such as with the gtm-oauth2 view and window controllers.
+//
+//       http://code.google.com/p/gtm-oauth2/wiki/Introduction
+
 - (void)setUserCredentialsWithUsername:(NSString *)username
                               password:(NSString *)password;
 - (NSString *)username;

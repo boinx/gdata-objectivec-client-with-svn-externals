@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 30
-/svn/!svn/ver/698/trunk/Source
+/svn/!svn/ver/730/trunk/Source
 END
 GDataUtilities.h
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/!svn/ver/649/trunk/Source/GDataUtilities.h
+/svn/!svn/ver/730/trunk/Source/GDataUtilities.h
 END
 GDataFramework.h
 K 25
@@ -19,25 +19,25 @@ GDataDefines.h
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/svn/!svn/ver/649/trunk/Source/GDataDefines.h
+/svn/!svn/ver/712/trunk/Source/GDataDefines.h
 END
 GData.h
 K 25
 svn:wc:ra_dav:version-url
 V 38
-/svn/!svn/ver/639/trunk/Source/GData.h
+/svn/!svn/ver/705/trunk/Source/GData.h
 END
 GDataUtilities.m
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/!svn/ver/663/trunk/Source/GDataUtilities.m
+/svn/!svn/ver/730/trunk/Source/GDataUtilities.m
 END
 ReleaseNotes.txt
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/!svn/ver/696/trunk/Source/ReleaseNotes.txt
+/svn/!svn/ver/730/trunk/Source/ReleaseNotes.txt
 END
 GDataFramework.m
 K 25
@@ -49,5 +49,5 @@ GDataTargetNamespace.h
 K 25
 svn:wc:ra_dav:version-url
 V 53
-/svn/!svn/ver/697/trunk/Source/GDataTargetNamespace.h
+/svn/!svn/ver/718/trunk/Source/GDataTargetNamespace.h
 END

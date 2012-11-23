@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 39
-/svn/!svn/ver/690/trunk/Source/Elements
+/svn/!svn/ver/722/trunk/Source/Elements
 END
 GDataBatchStatus.m
 K 25
@@ -235,7 +235,7 @@ GDataCategory.h
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/!svn/ver/619/trunk/Source/Elements/GDataCategory.h
+/svn/!svn/ver/722/trunk/Source/Elements/GDataCategory.h
 END
 GDataCustomProperty.h
 K 25
@@ -367,7 +367,7 @@ GDataElements.h
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/!svn/ver/690/trunk/Source/Elements/GDataElements.h
+/svn/!svn/ver/707/trunk/Source/Elements/GDataElements.h
 END
 GDataAtomPubControl.m
 K 25

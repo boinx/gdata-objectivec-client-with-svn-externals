@@ -1,7 +1,7 @@
 10
 
 dir
-700
+730
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/ContactsSample/English.lproj
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -32,7 +32,7 @@ file
 
 
 
-2011-09-23T16:07:13.000000Z
+2012-11-23T16:11:33.000000Z
 49116d3b5601ad75f61c2b8605bfbd5f
 2008-03-05T22:50:35.171900Z
 107
@@ -66,7 +66,7 @@ file
 
 
 
-2011-09-23T16:07:13.000000Z
+2012-11-23T16:11:33.000000Z
 e50ccfd7a37a0a8aa37e5d66d1b75cdf
 2009-08-13T21:06:47.555285Z
 309
@@ -100,7 +100,7 @@ file
 
 
 
-2011-09-23T16:07:13.000000Z
+2012-11-23T16:11:33.000000Z
 22c986a821a946ef685e1b2194bca210
 2009-09-01T18:45:23.619049Z
 326
@@ -134,7 +134,7 @@ file
 
 
 
-2011-09-23T16:07:13.000000Z
+2012-11-23T16:11:33.000000Z
 d370d924cfc7d7bccd91ca57c0b7cde7
 2009-08-13T21:06:47.555285Z
 309
