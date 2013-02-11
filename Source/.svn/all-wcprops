@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 30
-/svn/!svn/ver/730/trunk/Source
+/svn/!svn/ver/733/trunk/Source
 END
 GDataUtilities.h
 K 25
@@ -31,7 +31,7 @@ GDataUtilities.m
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/!svn/ver/730/trunk/Source/GDataUtilities.m
+/svn/!svn/ver/732/trunk/Source/GDataUtilities.m
 END
 ReleaseNotes.txt
 K 25

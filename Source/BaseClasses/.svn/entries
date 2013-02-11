@@ -1,14 +1,14 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/BaseClasses
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-09-26T23:12:48.705337Z
-730
+2012-12-11T20:51:31.401155Z
+732
 grobbins@google.com
 
 
@@ -236,10 +236,10 @@ file
 
 
 
-2012-11-23T16:11:30.000000Z
-4d45f922734846e2bd0337a4155e36fd
-2012-09-26T23:12:48.705337Z
-730
+2013-02-11T09:44:57.000000Z
+97452e9420da4152311b1b41e2324812
+2012-12-11T20:51:31.401155Z
+732
 grobbins@google.com
 
 
@@ -262,7 +262,7 @@ grobbins@google.com
 
 
 
-73363
+73369
 
 GDataEntryBase.m
 file
@@ -270,44 +270,10 @@ file
 
 
 
-2012-11-23T16:11:30.000000Z
-ef70667f23b42880fb99a1e5ec973ffd
-2011-10-17T19:56:29.156949Z
-707
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-24083
-
-GDataServiceGoogle.m
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-4b010937de9fa711e4e38d33b5bd1f7c
-2012-07-12T01:55:46.353461Z
-726
+2013-02-11T09:44:57.000000Z
+8640ffeb088bec3003e00731a6091b03
+2012-12-11T20:51:31.401155Z
+732
 grobbins@google.com
 
 
@@ -330,7 +296,41 @@ grobbins@google.com
 
 
 
-52070
+24089
+
+GDataServiceGoogle.m
+file
+
+
+
+
+2013-02-11T09:44:57.000000Z
+f6053af95245e6a2c84690f4faa469b1
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+52082
 
 GDataFeedBase.m
 file

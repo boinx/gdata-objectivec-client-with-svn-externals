@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 36
-/svn/!svn/ver/109/trunk/Source/Tests
+/svn/!svn/ver/111/trunk/Source/Tests
 END
 GTMHTTPFetcherCachingTest.m
 K 25
@@ -54,8 +54,8 @@ END
 GTMHTTPServer.m
 K 25
 svn:wc:ra_dav:version-url
-V 51
-/svn/!svn/ver/80/trunk/Source/Tests/GTMHTTPServer.m
+V 52
+/svn/!svn/ver/111/trunk/Source/Tests/GTMHTTPServer.m
 END
 GTMMIMEDocumentTest.m
 K 25
@@ -66,12 +66,12 @@ END
 GTMHTTPFetcherTestServer.m
 K 25
 svn:wc:ra_dav:version-url
-V 62
-/svn/!svn/ver/95/trunk/Source/Tests/GTMHTTPFetcherTestServer.m
+V 63
+/svn/!svn/ver/111/trunk/Source/Tests/GTMHTTPFetcherTestServer.m
 END
 GTMHTTPFetcherFetchingTest.m
 K 25
 svn:wc:ra_dav:version-url
-V 64
-/svn/!svn/ver/96/trunk/Source/Tests/GTMHTTPFetcherFetchingTest.m
+V 65
+/svn/!svn/ver/111/trunk/Source/Tests/GTMHTTPFetcherFetchingTest.m
 END

@@ -1,14 +1,14 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/GData.xcodeproj
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-04-03T22:29:30.550254Z
-720
+2013-01-29T23:51:40.658545Z
+733
 grobbins@google.com
 has-props
 
@@ -32,10 +32,10 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-c674042847d16d746159c719279a7d61
-2012-04-03T22:29:30.550254Z
-720
+2013-02-11T09:44:57.000000Z
+8faa98cc1efdbb4e2c4eb25e5482e0d5
+2013-01-29T23:51:40.658545Z
+733
 grobbins@google.com
 
 
@@ -58,5 +58,5 @@ grobbins@google.com
 
 
 
-749766
+743499
 

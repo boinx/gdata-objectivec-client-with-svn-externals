@@ -1,14 +1,14 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/Docs
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-04-30T18:48:15.943105Z
-723
+2012-12-11T20:51:31.401155Z
+732
 grobbins@google.com
 
 
@@ -406,11 +406,11 @@ file
 
 
 
-2012-11-23T16:11:30.000000Z
-4eaff0f5af73cb160ba87f1223b5ad94
-2011-07-18T15:06:14.294184Z
-680
-gregrobbins@gmail.com
+2013-02-11T09:44:57.000000Z
+00de9697e7ea54d82f4fe855b08067b0
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -432,7 +432,7 @@ gregrobbins@gmail.com
 
 
 
-5607
+5613
 
 GDataFeedDocRevision.m
 file
@@ -536,17 +536,17 @@ gregrobbins
 
 851
 
-GDataEntryFolderDoc.h
+GDataQueryDocs.m
 file
 
 
 
 
 2012-11-23T16:11:30.000000Z
-9f18b065c977dd6113c1c3275ac367ee
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
+0eae371eef807911545e34b7e2840f8f
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
 
 
 
@@ -568,7 +568,7 @@ gregrobbins
 
 
 
-857
+7134
 
 GDataDocTransferFormat.h
 file
@@ -604,17 +604,17 @@ gregrobbins
 
 1229
 
-GDataQueryDocs.m
+GDataEntryFolderDoc.h
 file
 
 
 
 
 2012-11-23T16:11:30.000000Z
-0eae371eef807911545e34b7e2840f8f
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+9f18b065c977dd6113c1c3275ac367ee
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
 
 
 
@@ -636,7 +636,7 @@ gregrobbins@gmail.com
 
 
 
-7134
+857
 
 GDataEntryDocListMetadata.h
 file
@@ -740,40 +740,6 @@ gregrobbins
 
 853
 
-GDataDocTransferFormat.m
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-f17b3b7bdbb324fa03d80f3f4dec6757
-2010-03-02T20:41:09.605035Z
-432
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2094
-
 GDataEntryFolderDoc.m
 file
 
@@ -807,6 +773,40 @@ gregrobbins
 
 
 963
+
+GDataDocTransferFormat.m
+file
+
+
+
+
+2012-11-23T16:11:30.000000Z
+f17b3b7bdbb324fa03d80f3f4dec6757
+2010-03-02T20:41:09.605035Z
+432
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2094
 
 GDataEntryDocListMetadata.m
 file

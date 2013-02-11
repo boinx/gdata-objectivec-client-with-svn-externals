@@ -1,15 +1,15 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/YouTube
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-10-11T19:58:20.755902Z
-706
-gregrobbins
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -298,40 +298,6 @@ gregrobbins@gmail.com
 
 1382
 
-GDataYouTubeRating.m
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-bac4f4c6498ef4e70ced2d4e688879d2
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2287
-
 GDataEntryYouTubeFriend.h
 file
 
@@ -365,6 +331,40 @@ gregrobbins
 
 
 1081
+
+GDataYouTubeRating.m
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+bac4f4c6498ef4e70ced2d4e688879d2
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2287
 
 GDataYouTubeStatistics.h
 file
@@ -1148,40 +1148,6 @@ gregrobbins@gmail.com
 
 2700
 
-GDataEntryYouTubeChannel.h
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-a12ca249bf292d237c945f3a8bedf906
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1222
-
 GDataFeedYouTubeVideo.h
 file
 
@@ -1215,6 +1181,40 @@ gregrobbins
 
 
 885
+
+GDataEntryYouTubeChannel.h
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+a12ca249bf292d237c945f3a8bedf906
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1222
 
 GDataFeedYouTubeFriend.h
 file
@@ -1250,14 +1250,14 @@ gregrobbins
 
 954
 
-GDataFeedYouTubeVideo.m
+GDataEntryYouTubeChannel.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-04f2dd43917dc5bd6fdc39eff71ea7b1
+1cd25e1b8b558892b359447cbbe43c35
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -1282,7 +1282,7 @@ gregrobbins@gmail.com
 
 
 
-1339
+2804
 
 GDataFeedYouTubeVideoMessage.h
 file
@@ -1318,14 +1318,14 @@ gregrobbins
 
 1080
 
-GDataEntryYouTubeChannel.m
+GDataFeedYouTubeVideo.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-1cd25e1b8b558892b359447cbbe43c35
+04f2dd43917dc5bd6fdc39eff71ea7b1
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -1350,7 +1350,7 @@ gregrobbins@gmail.com
 
 
 
-2804
+1339
 
 GDataFeedYouTubeFriend.m
 file
@@ -1454,17 +1454,17 @@ gregrobbins
 
 896
 
-GDataFeedYouTubeVideoMessage.m
+GDataEntryYouTubeCaptionTrack.h
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-4323222184a65474d1a4e4f52e78885f
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+79b0d37c322765830400b8faa1c6e1c7
+2010-11-04T01:13:33.547677Z
+591
+gregrobbins
 
 
 
@@ -1486,7 +1486,7 @@ gregrobbins@gmail.com
 
 
 
-1389
+1163
 
 GDataFeedYouTubeUserEvent.h
 file
@@ -1522,48 +1522,14 @@ gregrobbins
 
 913
 
-GDataEntryYouTubeCaptionTrack.h
+GDataFeedYouTubeVideoMessage.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-79b0d37c322765830400b8faa1c6e1c7
-2010-11-04T01:13:33.547677Z
-591
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1163
-
-GDataEntryYouTubePlaylistLink.m
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-bfabbcc2b7b4c5733ded128a1e858877
+4323222184a65474d1a4e4f52e78885f
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -1588,7 +1554,7 @@ gregrobbins@gmail.com
 
 
 
-2227
+1389
 
 GDataEntryYouTubeUpload.h
 file
@@ -1624,14 +1590,14 @@ gregrobbins@gmail.com
 
 1872
 
-GDataFeedYouTubeFavorite.m
+GDataEntryYouTubePlaylistLink.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-db1b15503672ae1b5503c19dff237be2
+bfabbcc2b7b4c5733ded128a1e858877
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -1656,7 +1622,7 @@ gregrobbins@gmail.com
 
 
 
-1355
+2227
 
 GDataEntryYouTubeComplaint.h
 file
@@ -1692,14 +1658,14 @@ gregrobbins
 
 930
 
-GDataEntryYouTubeCaptionTrack.m
+GDataFeedYouTubeFavorite.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-63813ce79de15c2c225ec4ca2af47eda
+db1b15503672ae1b5503c19dff237be2
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -1724,7 +1690,7 @@ gregrobbins@gmail.com
 
 
 
-3267
+1355
 
 GDataFeedYouTubeUserEvent.m
 file
@@ -1759,6 +1725,40 @@ gregrobbins@gmail.com
 
 
 1362
+
+GDataEntryYouTubeCaptionTrack.m
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+63813ce79de15c2c225ec4ca2af47eda
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3267
 
 GDataYouTubePublicationState.h
 file
@@ -2514,11 +2514,11 @@ file
 
 
 
-2012-11-23T16:11:31.000000Z
-b530f96936adbe053a4295bfd42092d3
-2011-09-12T21:46:12.349011Z
-695
-gregrobbins
+2013-02-11T09:44:57.000000Z
+62c65c2a24b15a2a74718a9e2475c997
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -2540,7 +2540,7 @@ gregrobbins
 
 
 
-8402
+8438
 
 GDataQueryYouTube.h
 file

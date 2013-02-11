@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 43
-/svn/!svn/ver/723/trunk/Source/Clients/Docs
+/svn/!svn/ver/732/trunk/Source/Clients/Docs
 END
 GDataDocs.h
 K 25
@@ -73,7 +73,7 @@ GDataServiceGoogleDocs.m
 K 25
 svn:wc:ra_dav:version-url
 V 68
-/svn/!svn/ver/680/trunk/Source/Clients/Docs/GDataServiceGoogleDocs.m
+/svn/!svn/ver/732/trunk/Source/Clients/Docs/GDataServiceGoogleDocs.m
 END
 GDataFeedDocRevision.m
 K 25
@@ -93,11 +93,11 @@ svn:wc:ra_dav:version-url
 V 62
 /svn/!svn/ver/305/trunk/Source/Clients/Docs/GDataEntryPDFDoc.h
 END
-GDataEntryFolderDoc.h
+GDataQueryDocs.m
 K 25
 svn:wc:ra_dav:version-url
-V 65
-/svn/!svn/ver/305/trunk/Source/Clients/Docs/GDataEntryFolderDoc.h
+V 60
+/svn/!svn/ver/672/trunk/Source/Clients/Docs/GDataQueryDocs.m
 END
 GDataDocTransferFormat.h
 K 25
@@ -105,11 +105,11 @@ svn:wc:ra_dav:version-url
 V 68
 /svn/!svn/ver/432/trunk/Source/Clients/Docs/GDataDocTransferFormat.h
 END
-GDataQueryDocs.m
+GDataEntryFolderDoc.h
 K 25
 svn:wc:ra_dav:version-url
-V 60
-/svn/!svn/ver/672/trunk/Source/Clients/Docs/GDataQueryDocs.m
+V 65
+/svn/!svn/ver/305/trunk/Source/Clients/Docs/GDataEntryFolderDoc.h
 END
 GDataEntryDocListMetadata.h
 K 25
@@ -129,17 +129,17 @@ svn:wc:ra_dav:version-url
 V 63
 /svn/!svn/ver/357/trunk/Source/Clients/Docs/GDataEntryFileDoc.h
 END
-GDataDocTransferFormat.m
-K 25
-svn:wc:ra_dav:version-url
-V 68
-/svn/!svn/ver/432/trunk/Source/Clients/Docs/GDataDocTransferFormat.m
-END
 GDataEntryFolderDoc.m
 K 25
 svn:wc:ra_dav:version-url
 V 65
 /svn/!svn/ver/305/trunk/Source/Clients/Docs/GDataEntryFolderDoc.m
+END
+GDataDocTransferFormat.m
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/432/trunk/Source/Clients/Docs/GDataDocTransferFormat.m
 END
 GDataEntryDocListMetadata.m
 K 25
