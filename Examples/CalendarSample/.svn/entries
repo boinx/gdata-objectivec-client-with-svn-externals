@@ -1,7 +1,7 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/CalendarSample
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -25,40 +25,6 @@ grobbins@google.com
 
 
 f334b912-182a-0410-b59a-f50d4d03ee1a
-
-main.m
-file
-
-
-
-
-2012-11-23T16:11:34.000000Z
-c0f5ada38854be2a7af52c7bd763af80
-2007-04-13T01:48:05.837763Z
-40
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-723
 
 buildCopyScript
 file
@@ -93,6 +59,40 @@ has-props
 
 
 599
+
+main.m
+file
+
+
+
+
+2012-11-23T16:11:34.000000Z
+c0f5ada38854be2a7af52c7bd763af80
+2007-04-13T01:48:05.837763Z
+40
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+723
 
 Info.plist
 file
@@ -369,40 +369,6 @@ gregrobbins@gmail.com
 
 1458
 
-README.txt
-file
-
-
-
-
-2012-11-23T16:11:34.000000Z
-f9256cb770921d2d238dd23f3d55f05a
-2008-11-03T21:29:58.178053Z
-159
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-110
-
 CalendarSampleAppController.m
 file
 
@@ -436,6 +402,40 @@ gregrobbins
 
 
 1100
+
+README.txt
+file
+
+
+
+
+2012-11-23T16:11:34.000000Z
+f9256cb770921d2d238dd23f3d55f05a
+2008-11-03T21:29:58.178053Z
+159
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+110
 
 buildStripHeaders
 file

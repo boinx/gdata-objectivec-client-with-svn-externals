@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 41
-/svn/!svn/ver/707/trunk/Source/Networking
+/svn/!svn/ver/732/trunk/Source/Networking
 END
 GDataProgressMonitorInputStream.h
 K 25
@@ -37,5 +37,5 @@ GDataAuthenticationFetcher.m
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/svn/!svn/ver/649/trunk/Source/Networking/GDataAuthenticationFetcher.m
+/svn/!svn/ver/732/trunk/Source/Networking/GDataAuthenticationFetcher.m
 END

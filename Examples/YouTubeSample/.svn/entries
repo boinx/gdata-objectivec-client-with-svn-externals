@@ -1,14 +1,14 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/YouTubeSample
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-09-26T23:12:48.705337Z
-730
+2012-12-06T21:28:19.926246Z
+731
 grobbins@google.com
 
 
@@ -168,10 +168,10 @@ file
 
 
 
-2012-11-23T16:11:34.000000Z
-b90685f8c12c3ae61c6052776c0bec4c
-2012-09-26T23:12:48.705337Z
-730
+2013-02-11T09:33:29.000000Z
+f36959529646a25eaeea2290cec6ba93
+2012-12-06T21:28:19.926246Z
+731
 grobbins@google.com
 
 
@@ -194,7 +194,7 @@ grobbins@google.com
 
 
 
-29099
+29544
 
 YouTubeSampleAppController.h
 file

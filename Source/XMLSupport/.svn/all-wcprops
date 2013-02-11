@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 41
-/svn/!svn/ver/726/trunk/Source/XMLSupport
+/svn/!svn/ver/732/trunk/Source/XMLSupport
 END
 GDataXMLNode.m
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/svn/!svn/ver/726/trunk/Source/XMLSupport/GDataXMLNode.m
+/svn/!svn/ver/732/trunk/Source/XMLSupport/GDataXMLNode.m
 END
 GDataXMLNode.h
 K 25

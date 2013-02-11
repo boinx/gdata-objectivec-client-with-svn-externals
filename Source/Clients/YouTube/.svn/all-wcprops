@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 46
-/svn/!svn/ver/706/trunk/Source/Clients/YouTube
+/svn/!svn/ver/732/trunk/Source/Clients/YouTube
 END
 GDataEntryYouTubeRating.m
 K 25
@@ -51,17 +51,17 @@ svn:wc:ra_dav:version-url
 V 76
 /svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeUserProfile.m
 END
-GDataYouTubeRating.m
-K 25
-svn:wc:ra_dav:version-url
-V 67
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataYouTubeRating.m
-END
 GDataEntryYouTubeFriend.h
 K 25
 svn:wc:ra_dav:version-url
 V 72
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataEntryYouTubeFriend.h
+END
+GDataYouTubeRating.m
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataYouTubeRating.m
 END
 GDataYouTubeStatistics.h
 K 25
@@ -201,17 +201,17 @@ svn:wc:ra_dav:version-url
 V 73
 /svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubeComment.m
 END
-GDataEntryYouTubeChannel.h
-K 25
-svn:wc:ra_dav:version-url
-V 73
-/svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataEntryYouTubeChannel.h
-END
 GDataFeedYouTubeVideo.h
 K 25
 svn:wc:ra_dav:version-url
 V 70
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideo.h
+END
+GDataEntryYouTubeChannel.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataEntryYouTubeChannel.h
 END
 GDataFeedYouTubeFriend.h
 K 25
@@ -219,11 +219,11 @@ svn:wc:ra_dav:version-url
 V 71
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataFeedYouTubeFriend.h
 END
-GDataFeedYouTubeVideo.m
+GDataEntryYouTubeChannel.m
 K 25
 svn:wc:ra_dav:version-url
-V 70
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideo.m
+V 73
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubeChannel.m
 END
 GDataFeedYouTubeVideoMessage.h
 K 25
@@ -231,11 +231,11 @@ svn:wc:ra_dav:version-url
 V 77
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideoMessage.h
 END
-GDataEntryYouTubeChannel.m
+GDataFeedYouTubeVideo.m
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubeChannel.m
+V 70
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideo.m
 END
 GDataFeedYouTubeFriend.m
 K 25
@@ -255,11 +255,11 @@ svn:wc:ra_dav:version-url
 V 73
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataFeedYouTubeFavorite.h
 END
-GDataFeedYouTubeVideoMessage.m
+GDataEntryYouTubeCaptionTrack.h
 K 25
 svn:wc:ra_dav:version-url
-V 77
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideoMessage.m
+V 78
+/svn/!svn/ver/591/trunk/Source/Clients/YouTube/GDataEntryYouTubeCaptionTrack.h
 END
 GDataFeedYouTubeUserEvent.h
 K 25
@@ -267,17 +267,11 @@ svn:wc:ra_dav:version-url
 V 74
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataFeedYouTubeUserEvent.h
 END
-GDataEntryYouTubeCaptionTrack.h
+GDataFeedYouTubeVideoMessage.m
 K 25
 svn:wc:ra_dav:version-url
-V 78
-/svn/!svn/ver/591/trunk/Source/Clients/YouTube/GDataEntryYouTubeCaptionTrack.h
-END
-GDataEntryYouTubePlaylistLink.m
-K 25
-svn:wc:ra_dav:version-url
-V 78
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubePlaylistLink.m
+V 77
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeVideoMessage.m
 END
 GDataEntryYouTubeUpload.h
 K 25
@@ -285,11 +279,11 @@ svn:wc:ra_dav:version-url
 V 72
 /svn/!svn/ver/669/trunk/Source/Clients/YouTube/GDataEntryYouTubeUpload.h
 END
-GDataFeedYouTubeFavorite.m
+GDataEntryYouTubePlaylistLink.m
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeFavorite.m
+V 78
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubePlaylistLink.m
 END
 GDataEntryYouTubeComplaint.h
 K 25
@@ -297,17 +291,23 @@ svn:wc:ra_dav:version-url
 V 75
 /svn/!svn/ver/305/trunk/Source/Clients/YouTube/GDataEntryYouTubeComplaint.h
 END
-GDataEntryYouTubeCaptionTrack.m
+GDataFeedYouTubeFavorite.m
 K 25
 svn:wc:ra_dav:version-url
-V 78
-/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubeCaptionTrack.m
+V 73
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeFavorite.m
 END
 GDataFeedYouTubeUserEvent.m
 K 25
 svn:wc:ra_dav:version-url
 V 74
 /svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataFeedYouTubeUserEvent.m
+END
+GDataEntryYouTubeCaptionTrack.m
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/672/trunk/Source/Clients/YouTube/GDataEntryYouTubeCaptionTrack.m
 END
 GDataYouTubePublicationState.h
 K 25
@@ -445,7 +445,7 @@ GDataServiceGoogleYouTube.m
 K 25
 svn:wc:ra_dav:version-url
 V 74
-/svn/!svn/ver/695/trunk/Source/Clients/YouTube/GDataServiceGoogleYouTube.m
+/svn/!svn/ver/732/trunk/Source/Clients/YouTube/GDataServiceGoogleYouTube.m
 END
 GDataQueryYouTube.h
 K 25

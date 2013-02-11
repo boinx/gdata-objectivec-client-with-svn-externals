@@ -1,19 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
-V 29
-/svn/!svn/ver/98/trunk/Source
+V 30
+/svn/!svn/ver/101/trunk/Source
 END
 GTMOAuth2Authentication.h
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/!svn/ver/98/trunk/Source/GTMOAuth2Authentication.h
+/svn/!svn/ver/99/trunk/Source/GTMOAuth2Authentication.h
 END
 GTMOAuth2Authentication.m
 K 25
 svn:wc:ra_dav:version-url
 V 55
-/svn/!svn/ver/98/trunk/Source/GTMOAuth2Authentication.m
+/svn/!svn/ver/99/trunk/Source/GTMOAuth2Authentication.m
 END
 ReleaseNotes.txt
 K 25
@@ -24,12 +24,12 @@ END
 GTMOAuth2SignIn.h
 K 25
 svn:wc:ra_dav:version-url
-V 47
-/svn/!svn/ver/90/trunk/Source/GTMOAuth2SignIn.h
+V 48
+/svn/!svn/ver/101/trunk/Source/GTMOAuth2SignIn.h
 END
 GTMOAuth2SignIn.m
 K 25
 svn:wc:ra_dav:version-url
-V 47
-/svn/!svn/ver/98/trunk/Source/GTMOAuth2SignIn.m
+V 48
+/svn/!svn/ver/101/trunk/Source/GTMOAuth2SignIn.m
 END

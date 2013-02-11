@@ -1,14 +1,14 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-09-26T23:12:48.705337Z
-730
+2013-01-29T23:51:40.658545Z
+733
 grobbins@google.com
 has-props
 
@@ -143,16 +143,13 @@ dir
 ACL
 dir
 
-Tools
-dir
-
 Introspection
 dir
 
-Clients
+Tools
 dir
 
-Tests
+Clients
 dir
 
 GDataUtilities.h
@@ -188,6 +185,9 @@ grobbins@google.com
 
 
 3722
+
+Tests
+dir
 
 GDataDefines.h
 file
@@ -263,10 +263,10 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-398c2dd896aed15d03a7b541342cc3a2
-2012-09-26T23:12:48.705337Z
-730
+2013-02-11T09:33:29.000000Z
+26e4d220b6dd48d95acafa9e6264bf32
+2012-12-11T20:51:31.401155Z
+732
 grobbins@google.com
 
 
@@ -289,7 +289,7 @@ grobbins@google.com
 
 
 
-14725
+14757
 
 ReleaseNotes.txt
 file

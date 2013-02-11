@@ -1,15 +1,15 @@
 10
 
 dir
-730
+733
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/Books
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -94,50 +94,16 @@ gregrobbins
 
 1372
 
-GDataVolumeReadingPosition.m
+GDataServiceGoogleBooks.h
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-9b72fbd50621b6f9f4376e2d32d10a26
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2999
-
-GDataDublinCore.m
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-0dcac262bce5fb53983b2df6098e2385
-2009-08-03T20:36:09.536725Z
-305
+41eb34efe92c4c7c0990d49b8fee3d60
+2011-01-24T19:39:38.992768Z
+619
 gregrobbins
 
 
@@ -160,7 +126,7 @@ gregrobbins
 
 
 
-3263
+3498
 
 GDataFeedVolume.h
 file
@@ -196,16 +162,16 @@ gregrobbins
 
 864
 
-GDataServiceGoogleBooks.h
+GDataDublinCore.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-41eb34efe92c4c7c0990d49b8fee3d60
-2011-01-24T19:39:38.992768Z
-619
+0dcac262bce5fb53983b2df6098e2385
+2009-08-03T20:36:09.536725Z
+305
 gregrobbins
 
 
@@ -228,7 +194,41 @@ gregrobbins
 
 
 
-3498
+3263
+
+GDataVolumeReadingPosition.m
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+9b72fbd50621b6f9f4376e2d32d10a26
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2999
 
 GDataBookConstants.m
 file
@@ -332,40 +332,6 @@ gregrobbins@gmail.com
 
 3503
 
-GDataServiceGoogleBooks.m
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-7d2846c456c4d7402e3538b982c0d06c
-2011-01-24T19:39:38.992768Z
-619
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2407
-
 GDataFeedVolume.m
 file
 
@@ -399,6 +365,40 @@ gregrobbins@gmail.com
 
 
 1313
+
+GDataServiceGoogleBooks.m
+file
+
+
+
+
+2013-02-11T09:33:28.000000Z
+6cb1a37ad244aa8be1161c64fdf5c583
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2431
 
 GDataQueryBooks.h
 file
@@ -468,40 +468,6 @@ gregrobbins@gmail.com
 
 1631
 
-GDataBooks.h
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-ffa2e12485e0f422051f0dc7646270bf
-2011-01-24T21:03:50.811897Z
-620
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-971
-
 GDataEntryCollection.h
 file
 
@@ -535,6 +501,40 @@ gregrobbins
 
 
 925
+
+GDataBooks.h
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+ffa2e12485e0f422051f0dc7646270bf
+2011-01-24T21:03:50.811897Z
+620
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+971
 
 GDataFeedCollection.h
 file
