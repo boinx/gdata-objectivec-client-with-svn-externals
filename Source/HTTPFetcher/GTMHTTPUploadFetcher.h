@@ -96,13 +96,13 @@
                                   uploadFileHandle:(NSFileHandle *)fileHandle
                                     uploadMIMEType:(NSString *)uploadMIMEType
                                          chunkSize:(NSUInteger)chunkSize
-                                    fetcherService:(GTMHTTPFetcherService *)fetcherServiceOrNil);
+                                    fetcherService:(GTMHTTPFetcherService *)fetcherServiceOrNil;
 
 + (GTMHTTPUploadFetcher *)uploadFetcherWithLocation:(NSURL *)locationURL
                                    uploadFileHandle:(NSFileHandle *)fileHandle
                                      uploadMIMEType:(NSString *)uploadMIMEType
                                           chunkSize:(NSUInteger)chunkSize
-                                     fetcherService:(GTMHTTPFetcherService *)fetcherServiceOrNil);
+                                     fetcherService:(GTMHTTPFetcherService *)fetcherServiceOrNil;
 - (void)pauseFetching;
 - (void)resumeFetching;
 - (BOOL)isPaused;
