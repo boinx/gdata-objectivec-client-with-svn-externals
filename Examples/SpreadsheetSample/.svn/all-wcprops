@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 50
-/svn/!svn/ver/687/trunk/Examples/SpreadsheetSample
+/svn/!svn/ver/734/trunk/Examples/SpreadsheetSample
 END
 main.m
 K 25
@@ -49,7 +49,7 @@ README.txt
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/svn/!svn/ver/483/trunk/Examples/SpreadsheetSample/README.txt
+/svn/!svn/ver/734/trunk/Examples/SpreadsheetSample/README.txt
 END
 SpreadsheetSampleWindowController.h
 K 25

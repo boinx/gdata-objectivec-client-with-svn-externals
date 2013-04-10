@@ -1,7 +1,7 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -143,13 +143,16 @@ dir
 ACL
 dir
 
-Introspection
-dir
-
 Tools
 dir
 
+Introspection
+dir
+
 Clients
+dir
+
+Tests
 dir
 
 GDataUtilities.h
@@ -185,9 +188,6 @@ grobbins@google.com
 
 
 3722
-
-Tests
-dir
 
 GDataDefines.h
 file

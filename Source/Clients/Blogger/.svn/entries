@@ -1,7 +1,7 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/Blogger
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -128,40 +128,6 @@ gregrobbins@gmail.com
 
 2253
 
-GDataFeedBlogComment.m
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-5960b7396823c62ee2f3d86909087759
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1214
-
 GDataServiceGoogleBlogger.h
 file
 
@@ -195,6 +161,40 @@ gregrobbins
 
 
 2950
+
+GDataFeedBlogComment.m
+file
+
+
+
+
+2012-11-23T16:11:30.000000Z
+5960b7396823c62ee2f3d86909087759
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1214
 
 GDataThreadingElements.h
 file
@@ -298,40 +298,6 @@ gregrobbins
 
 993
 
-GDataFeedBlog.h
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-ba60c26d93216fa4665c630a3d7d53c5
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-872
-
 GDataThreadingElements.m
 file
 
@@ -365,6 +331,40 @@ gregrobbins@gmail.com
 
 
 5722
+
+GDataFeedBlog.h
+file
+
+
+
+
+2012-11-23T16:11:30.000000Z
+ba60c26d93216fa4665c630a3d7d53c5
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+872
 
 GDataEntryBlog.m
 file

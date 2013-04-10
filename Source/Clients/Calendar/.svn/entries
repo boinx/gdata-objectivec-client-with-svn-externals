@@ -1,7 +1,7 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/Calendar
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -536,40 +536,6 @@ gregrobbins
 
 1668
 
-GDataWebContent.h
-file
-
-
-
-
-2012-11-23T16:11:31.000000Z
-cb54304b7da7322ff69b3198844f5ee8
-2011-01-24T19:39:38.992768Z
-619
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2458
-
 GDataFeedFreeBusy.h
 file
 
@@ -604,17 +570,17 @@ gregrobbins
 
 896
 
-GDataFeedEvent.m
+GDataWebContent.h
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-7225b05f3258126beec80587c4d8c702
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+cb54304b7da7322ff69b3198844f5ee8
+2011-01-24T19:39:38.992768Z
+619
+gregrobbins
 
 
 
@@ -636,7 +602,7 @@ gregrobbins@gmail.com
 
 
 
-1602
+2458
 
 GDataReminder.m
 file
@@ -672,14 +638,14 @@ gregrobbins@gmail.com
 
 2719
 
-GDataEntryMessage.m
+GDataFeedEvent.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-68442cb02e03a2b00d68861b2c090fe3
+7225b05f3258126beec80587c4d8c702
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -704,7 +670,7 @@ gregrobbins@gmail.com
 
 
 
-3017
+1602
 
 GDataOriginalEvent.m
 file
@@ -740,17 +706,17 @@ gregrobbins@gmail.com
 
 3109
 
-GDataEntryCalendarSettings.h
+GDataEntryMessage.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-4572f2d990854f76f4d391fbfc284f04
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
+68442cb02e03a2b00d68861b2c090fe3
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
 
 
 
@@ -772,7 +738,7 @@ gregrobbins
 
 
 
-1031
+3017
 
 GDataRecurrenceException.h
 file
@@ -808,17 +774,17 @@ gregrobbins
 
 2163
 
-GDataWebContent.m
+GDataEntryCalendarSettings.h
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-e3be2d4567eb5ff7062780e7493d7a08
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+4572f2d990854f76f4d391fbfc284f04
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
 
 
 
@@ -840,7 +806,7 @@ gregrobbins@gmail.com
 
 
 
-5146
+1031
 
 GDataFeedFreeBusy.m
 file
@@ -876,14 +842,14 @@ gregrobbins
 
 1527
 
-GDataRecurrenceException.m
+GDataWebContent.m
 file
 
 
 
 
 2012-11-23T16:11:31.000000Z
-66a9b40cb4bf30e530603ee40edc8297
+e3be2d4567eb5ff7062780e7493d7a08
 2011-06-15T23:25:04.799360Z
 672
 gregrobbins@gmail.com
@@ -908,7 +874,7 @@ gregrobbins@gmail.com
 
 
 
-5095
+5146
 
 GDataEntryCalendarSettings.m
 file
@@ -943,6 +909,40 @@ gregrobbins
 
 
 2179
+
+GDataRecurrenceException.m
+file
+
+
+
+
+2012-11-23T16:11:31.000000Z
+66a9b40cb4bf30e530603ee40edc8297
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5095
 
 GDataEntryCalendar.h
 file

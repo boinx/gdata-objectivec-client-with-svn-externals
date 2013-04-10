@@ -1,7 +1,7 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Tests
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -162,40 +162,6 @@ grobbins@google.com
 
 2810
 
-GDataServiceTest.m
-file
-
-
-
-
-2013-02-11T09:44:57.000000Z
-d45d4c1810094d3bbb106172c70b825c
-2012-12-11T20:51:31.401155Z
-732
-grobbins@google.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-59712
-
 FeedBooksVolumesTest1.xml
 file
 
@@ -229,6 +195,40 @@ gregrobbins
 
 
 4167
+
+GDataServiceTest.m
+file
+
+
+
+
+2013-02-11T09:44:57.000000Z
+d45d4c1810094d3bbb106172c70b825c
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+59712
 
 FeedBlogPostTest1.xml
 file
@@ -434,40 +434,6 @@ gregrobbins
 
 5022
 
-FeedWebmasterToolsMessages1.xml
-file
-
-
-
-
-2012-11-23T16:11:32.000000Z
-a7d5c8e0e968d88c32ee7b2b59a2db59
-2009-06-30T23:05:40.696751Z
-287
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1576
-
 FeedWebmasterToolsKeywords1.xml
 file
 
@@ -501,6 +467,40 @@ gregrobbins
 
 
 1419
+
+FeedWebmasterToolsMessages1.xml
+file
+
+
+
+
+2012-11-23T16:11:32.000000Z
+a7d5c8e0e968d88c32ee7b2b59a2db59
+2009-06-30T23:05:40.696751Z
+287
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1576
 
 FeedSpreadsheetTest1.xml
 file
@@ -1080,40 +1080,6 @@ gregrobbins
 
 3499
 
-FeedPhotosPhotoComment1.xml
-file
-
-
-
-
-2012-11-23T16:11:32.000000Z
-d08a6f8a20f8b7117c41fd23be92e9c0
-2010-08-17T01:22:04.828670Z
-551
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4526
-
 FeedFinanceTransactionTest1.xml
 file
 
@@ -1147,6 +1113,40 @@ gregrobbins
 
 
 2636
+
+FeedPhotosPhotoComment1.xml
+file
+
+
+
+
+2012-11-23T16:11:32.000000Z
+d08a6f8a20f8b7117c41fd23be92e9c0
+2010-08-17T01:22:04.828670Z
+551
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4526
 
 FeedCalendarEventTest0.xml
 file
@@ -1454,40 +1454,6 @@ gregrobbins
 
 3769
 
-FeedDocListTest1.xml
-file
-
-
-
-
-2012-11-23T16:11:32.000000Z
-c7c4fd8ceb2af9f45df107fd7574615c
-2012-01-26T20:17:56.096081Z
-716
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8589
-
 FeedFinancePortfolioTest1.xml
 file
 
@@ -1522,16 +1488,16 @@ gregrobbins
 
 2228
 
-FeedSpreadsheetListTest1.xml
+FeedDocListTest1.xml
 file
 
 
 
 
 2012-11-23T16:11:32.000000Z
-54c933c624ab70d021c9fa12e1f10d1d
-2009-10-23T23:04:52.141835Z
-375
+c7c4fd8ceb2af9f45df107fd7574615c
+2012-01-26T20:17:56.096081Z
+716
 gregrobbins
 
 
@@ -1554,7 +1520,7 @@ gregrobbins
 
 
 
-4201
+8589
 
 GDataUtilitiesTest.m
 file
@@ -1589,6 +1555,40 @@ grobbins@google.com
 
 
 11715
+
+FeedSpreadsheetListTest1.xml
+file
+
+
+
+
+2012-11-23T16:11:32.000000Z
+54c933c624ab70d021c9fa12e1f10d1d
+2009-10-23T23:04:52.141835Z
+375
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4201
 
 FeedAnalyticsAccountTest1.xml
 file
@@ -1726,40 +1726,6 @@ gregrobbins
 
 2651
 
-FeedYouTubeSubscriptions1.xml
-file
-
-
-
-
-2012-11-23T16:11:32.000000Z
-81db3b51f91dc61d1f4e4e8d3596629b
-2009-10-23T23:04:52.141835Z
-375
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4543
-
 FeedMessageTest1.xml
 file
 
@@ -1794,16 +1760,16 @@ gregrobbins
 
 1431
 
-GDataFrameworkTest.m
+FeedYouTubeSubscriptions1.xml
 file
 
 
 
 
 2012-11-23T16:11:32.000000Z
-d41f3c173d57e9e9a6ff2f19b3fc5d7d
-2009-11-02T19:21:45.488715Z
-388
+81db3b51f91dc61d1f4e4e8d3596629b
+2009-10-23T23:04:52.141835Z
+375
 gregrobbins
 
 
@@ -1826,7 +1792,7 @@ gregrobbins
 
 
 
-1992
+4543
 
 GDataXMLSupportTest.m
 file
@@ -1861,6 +1827,40 @@ gregrobbins
 
 
 12738
+
+GDataFrameworkTest.m
+file
+
+
+
+
+2012-11-23T16:11:32.000000Z
+d41f3c173d57e9e9a6ff2f19b3fc5d7d
+2009-11-02T19:21:45.488715Z
+388
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1992
 
 GDataFeedTest.h
 file
@@ -1930,40 +1930,6 @@ gregrobbins
 
 4945
 
-FeedContactTest1.xml
-file
-
-
-
-
-2012-11-23T16:11:32.000000Z
-b5fe1f6ffbb9a9797ee4a4cfe061e4c2
-2009-10-23T23:04:52.141835Z
-375
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4143
-
 GDataFeedTest.m
 file
 
@@ -1997,6 +1963,40 @@ grobbins@google.com
 
 
 86063
+
+FeedContactTest1.xml
+file
+
+
+
+
+2012-11-23T16:11:32.000000Z
+b5fe1f6ffbb9a9797ee4a4cfe061e4c2
+2009-10-23T23:04:52.141835Z
+375
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4143
 
 FeedContactTest2.xml
 file
