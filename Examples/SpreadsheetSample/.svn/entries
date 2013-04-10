@@ -1,15 +1,15 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/SpreadsheetSample
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-08-09T23:46:53.696096Z
-687
-gregrobbins
+2013-02-20T01:55:00.869252Z
+734
+grobbins@google.com
 
 
 
@@ -273,11 +273,11 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-271629378a5870239107d470b00ac906
-2010-03-31T01:55:13.320287Z
-483
-gregrobbins
+2013-04-10T10:04:33.000000Z
+4f32c6bbf4a1b6b132791b58b887b223
+2013-02-20T01:55:00.869252Z
+734
+grobbins@google.com
 
 
 
@@ -299,7 +299,7 @@ gregrobbins
 
 
 
-328
+171
 
 SpreadsheetSampleWindowController.h
 file

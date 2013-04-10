@@ -1,7 +1,7 @@
 10
 
 dir
-733
+734
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients/Finance
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -60,17 +60,17 @@ gregrobbins@gmail.com
 
 3105
 
-GDataMoneyElements.m
+GDataFinanceSymbol.h
 file
 
 
 
 
 2012-11-23T16:11:30.000000Z
-c448a8caca681d81b4a565dfa102c30d
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
+313b0f74bcb43732012f61acd4f0a8ed
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
 
 
 
@@ -92,7 +92,7 @@ gregrobbins@gmail.com
 
 
 
-4015
+1329
 
 GDataQueryFinance.h
 file
@@ -128,17 +128,17 @@ gregrobbins
 
 1141
 
-GDataFinanceSymbol.h
+GDataMoneyElements.m
 file
 
 
 
 
 2012-11-23T16:11:30.000000Z
-313b0f74bcb43732012f61acd4f0a8ed
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
+c448a8caca681d81b4a565dfa102c30d
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
 
 
 
@@ -160,7 +160,7 @@ gregrobbins
 
 
 
-1329
+4015
 
 GDataFeedFinancePortfolio.m
 file
@@ -264,40 +264,6 @@ gregrobbins
 
 909
 
-GDataQueryFinance.m
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-4abb1ea93f8cae69704e4c122d841049
-2011-06-15T23:25:04.799360Z
-672
-gregrobbins@gmail.com
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2193
-
 GDataFinanceSymbol.m
 file
 
@@ -331,6 +297,40 @@ gregrobbins@gmail.com
 
 
 2501
+
+GDataQueryFinance.m
+file
+
+
+
+
+2012-11-23T16:11:30.000000Z
+4abb1ea93f8cae69704e4c122d841049
+2011-06-15T23:25:04.799360Z
+672
+gregrobbins@gmail.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2193
 
 GDataEntryFinanceTransaction.m
 file
@@ -400,40 +400,6 @@ gregrobbins@gmail.com
 
 1450
 
-GDataFinance.h
-file
-
-
-
-
-2012-11-23T16:11:30.000000Z
-7b6d3d427f3f8a1949b42478fb25f4c9
-2008-06-25T21:02:13.968482Z
-134
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1087
-
 GDataFinanceTransactionData.h
 file
 
@@ -467,6 +433,40 @@ gregrobbins
 
 
 1701
+
+GDataFinance.h
+file
+
+
+
+
+2012-11-23T16:11:30.000000Z
+7b6d3d427f3f8a1949b42478fb25f4c9
+2008-06-25T21:02:13.968482Z
+134
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1087
 
 GDataFinanceTransactionData.m
 file

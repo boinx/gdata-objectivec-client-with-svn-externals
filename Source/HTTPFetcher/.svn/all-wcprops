@@ -1,7 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 30
-/svn/!svn/ver/116/trunk/Source
+/svn/!svn/ver/119/trunk/Source
+END
+GTMHTTPFetcherLogViewController.h
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/119/trunk/Source/GTMHTTPFetcherLogViewController.h
 END
 GTMReadMonitorInputStream.m
 K 25
@@ -27,11 +33,17 @@ svn:wc:ra_dav:version-url
 V 47
 /svn/!svn/ver/79/trunk/Source/GTMMIMEDocument.h
 END
+GTMHTTPFetcherLogViewController.m
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/119/trunk/Source/GTMHTTPFetcherLogViewController.m
+END
 GTMHTTPFetcherLogging.h
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/!svn/ver/111/trunk/Source/GTMHTTPFetcherLogging.h
+/svn/!svn/ver/118/trunk/Source/GTMHTTPFetcherLogging.h
 END
 UnitTests-Info.plist
 K 25
@@ -55,7 +67,7 @@ GTMHTTPFetcherLogging.m
 K 25
 svn:wc:ra_dav:version-url
 V 54
-/svn/!svn/ver/111/trunk/Source/GTMHTTPFetcherLogging.m
+/svn/!svn/ver/118/trunk/Source/GTMHTTPFetcherLogging.m
 END
 GTMHTTPFetcherService.h
 K 25
