@@ -272,6 +272,10 @@ typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewController
 // subclasses may override authNibBundle to specify a custom bundle
 + (NSBundle *)authNibBundle;
 
+// subclasses may override setUpNavigation to provide their own navigation
+// controls
+- (void)setUpNavigation;
+
 // apps may replace the sign-in class with their own subclass of it
 + (Class)signInClass;
 + (void)setSignInClass:(Class)theClass;
@@ -289,8 +293,13 @@ typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewController
 
 // create an authentication object for Google services from the access
 // token and secret stored in the keychain; if no token is available, return
-// an unauthorized auth object
+// an unauthorized auth object. OK to pass NULL for the error parameter.
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
++ (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
+                                                     clientID:(NSString *)clientID
+                                                 clientSecret:(NSString *)clientSecret
+                                                        error:(NSError **)error;
+// Equivalent to calling the method above with a NULL error parameter.
 + (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
                                                      clientID:(NSString *)clientID
                                                  clientSecret:(NSString *)clientSecret;
@@ -300,16 +309,21 @@ typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewController
 //
 // returns YES if the authentication object was authorized from the keychain
 + (BOOL)authorizeFromKeychainForName:(NSString *)keychainItemName
-                      authentication:(GTMOAuth2Authentication *)auth;
+                      authentication:(GTMOAuth2Authentication *)auth
+                               error:(NSError **)error;
 
 // method for deleting the stored access token and secret, useful for "signing
 // out"
 + (BOOL)removeAuthFromKeychainForName:(NSString *)keychainItemName;
 
 // method for saving the stored access token and secret
+//
+// returns YES if the save was successful.  OK to pass NULL for the error
+// parameter.
 + (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
                       accessibility:(CFTypeRef)accessibility
-                     authentication:(GTMOAuth2Authentication *)auth;
+                     authentication:(GTMOAuth2Authentication *)auth
+                              error:(NSError **)error;
 
 // older version, defaults to kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
 + (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
