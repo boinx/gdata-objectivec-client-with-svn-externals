@@ -55,6 +55,7 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 - (void)infoFetcher:(GTMHTTPFetcher *)fetcher
    finishedWithData:(NSData *)data
               error:(NSError *)error;
++ (NSData *)decodeWebSafeBase64:(NSString *)base64Str;
 #endif
 
 - (void)closeTheWindow;
@@ -64,8 +65,6 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 - (void)reachabilityTarget:(SCNetworkReachabilityRef)reachabilityRef
               changedFlags:(SCNetworkConnectionFlags)flags;
 - (void)reachabilityTimerFired:(NSTimer *)timer;
-
-+ (NSData *)decodeWebSafeBase64:(NSString *)base64Str;
 @end
 
 @implementation GTMOAuth2SignIn
@@ -304,6 +303,10 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
 // utility for making a request from an old URL with some additional parameters
 + (NSMutableURLRequest *)mutableURLRequestWithURL:(NSURL *)oldURL
                                       paramString:(NSString *)paramStr {
+  if ([paramStr length] == 0) {
+    return [NSMutableURLRequest requestWithURL:oldURL];
+  }
+
   NSString *query = [oldURL query];
   if ([query length] > 0) {
     query = [query stringByAppendingFormat:@"&%@", paramStr];
@@ -557,12 +560,17 @@ finishedWithFetcher:(GTMHTTPFetcher *)fetcher
   NSURL *infoURL = [[self class] googleUserInfoURL];
   NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:infoURL];
 
-  NSString *userAgent = [auth userAgent];
-  [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+  if ([auth respondsToSelector:@selector(userAgent)]) {
+    NSString *userAgent = [auth userAgent];
+    [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+  }
   [request setValue:@"no-cache" forHTTPHeaderField:@"Cache-Control"];
 
   GTMHTTPFetcher *fetcher;
-  id <GTMHTTPFetcherServiceProtocol> fetcherService = auth.fetcherService;
+  id <GTMHTTPFetcherServiceProtocol> fetcherService = nil;
+  if ([auth respondsToSelector:@selector(fetcherService)]) {
+    fetcherService = auth.fetcherService;
+  };
   if (fetcherService) {
     fetcher = [fetcherService fetcherWithRequest:request];
   } else {

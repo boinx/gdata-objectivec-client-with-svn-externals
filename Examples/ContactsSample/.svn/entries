@@ -1,14 +1,14 @@
 10
 
 dir
-734
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/ContactsSample
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2012-07-12T01:55:46.353461Z
-726
+2013-05-13T21:59:32.971046Z
+737
 grobbins@google.com
 
 
@@ -236,10 +236,10 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-20117d76876da7e81c0a8cb4ecb0252f
-2012-07-12T01:55:46.353461Z
-726
+2013-06-26T15:03:50.000000Z
+a28c2144018f8c098db5a1fb042440ac
+2013-05-13T21:59:32.971046Z
+737
 grobbins@google.com
 
 
@@ -262,7 +262,7 @@ grobbins@google.com
 
 
 
-59434
+59447
 
 EditEntryWindowController.h
 file

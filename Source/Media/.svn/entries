@@ -1,7 +1,7 @@
 10
 
 dir
-734
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Media
 http://gdata-objectivec-client.googlecode.com/svn
 
@@ -94,40 +94,6 @@ gregrobbins
 
 1903
 
-GDataMediaPlayer.h
-file
-
-
-
-
-2012-11-23T16:11:29.000000Z
-09933e6d80d378c0058cf43ca06c0f61
-2009-08-03T20:36:09.536725Z
-305
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1277
-
 GDataMediaGroup.h
 file
 
@@ -161,6 +127,40 @@ gregrobbins
 
 
 3402
+
+GDataMediaPlayer.h
+file
+
+
+
+
+2012-11-23T16:11:29.000000Z
+09933e6d80d378c0058cf43ca06c0f61
+2009-08-03T20:36:09.536725Z
+305
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1277
 
 GDataNormalPlayTime.h
 file
@@ -196,40 +196,6 @@ gregrobbins
 
 1575
 
-GDataMediaPlayer.m
-file
-
-
-
-
-2012-11-23T16:11:29.000000Z
-f9ac4274b9099f512de5090efae2585a
-2011-08-09T23:09:47.464059Z
-685
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2265
-
 GDataMediaGroup.m
 file
 
@@ -263,6 +229,40 @@ gregrobbins
 
 
 7520
+
+GDataMediaPlayer.m
+file
+
+
+
+
+2012-11-23T16:11:29.000000Z
+f9ac4274b9099f512de5090efae2585a
+2011-08-09T23:09:47.464059Z
+685
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2265
 
 GDataNormalPlayTime.m
 file
@@ -366,16 +366,16 @@ gregrobbins
 
 1575
 
-GDataMediaCredit.h
+GDataMediaRestriction.m
 file
 
 
 
 
 2012-11-23T16:11:29.000000Z
-ba2a1a353862a12929c5c4cb0c40c20f
-2009-08-03T20:36:09.536725Z
-305
+399d30879ac34c266f9ed467d45f9442
+2011-08-09T23:09:47.464059Z
+685
 gregrobbins
 
 
@@ -398,7 +398,7 @@ gregrobbins
 
 
 
-1250
+2445
 
 GDataMediaContent.h
 file
@@ -434,16 +434,16 @@ gregrobbins
 
 2329
 
-GDataMediaRestriction.m
+GDataMediaCredit.h
 file
 
 
 
 
 2012-11-23T16:11:29.000000Z
-399d30879ac34c266f9ed467d45f9442
-2011-08-09T23:09:47.464059Z
-685
+ba2a1a353862a12929c5c4cb0c40c20f
+2009-08-03T20:36:09.536725Z
+305
 gregrobbins
 
 
@@ -466,7 +466,7 @@ gregrobbins
 
 
 
-2445
+1250
 
 GDataMediaKeywords.m
 file

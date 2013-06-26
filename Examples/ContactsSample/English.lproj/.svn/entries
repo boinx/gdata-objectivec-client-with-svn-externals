@@ -1,15 +1,15 @@
 10
 
 dir
-734
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/ContactsSample/English.lproj
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2009-09-01T18:45:23.619049Z
-326
-gregrobbins
+2013-05-10T18:28:11.115413Z
+735
+grobbins@google.com
 
 
 
@@ -66,11 +66,11 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-e50ccfd7a37a0a8aa37e5d66d1b75cdf
-2009-08-13T21:06:47.555285Z
-309
-gregrobbins
+2013-06-26T15:03:50.000000Z
+f5394dd38b5659ed51e1be8831f7823c
+2013-05-10T18:28:11.115413Z
+735
+grobbins@google.com
 
 
 
@@ -92,7 +92,7 @@ gregrobbins
 
 
 
-55179
+53810
 
 ContactsSampleWindow.xib
 file
@@ -100,11 +100,11 @@ file
 
 
 
-2012-11-23T16:11:33.000000Z
-22c986a821a946ef685e1b2194bca210
-2009-09-01T18:45:23.619049Z
-326
-gregrobbins
+2013-06-26T15:03:50.000000Z
+348445a981ef63a8d3dc4f97faee0c87
+2013-05-10T18:28:11.115413Z
+735
+grobbins@google.com
 
 
 
@@ -126,7 +126,7 @@ gregrobbins
 
 
 
-123874
+117049
 
 MainMenu.xib
 file
