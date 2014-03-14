@@ -22,7 +22,7 @@
 #import "GDataDocFeature.h"
 #import "GDataDocConstants.h"
 
-static NSString *const kLangAttr = @"xml:lang";
+//static NSString *const kLangAttr = @"xml:lang";
 
 @interface GDataDocFeatureName : GDataValueElementConstruct <GDataExtension>
 @end
