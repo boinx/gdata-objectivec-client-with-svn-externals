@@ -152,8 +152,8 @@ const char *kKeychainAccountName = "OAuth";
 
 - (void)awakeFromNib {
   // load the requested initial sign-in page
-  [self.webView setResourceLoadDelegate:self];
-  [self.webView setPolicyDelegate:self];
+  [self.webView setResourceLoadDelegate:(id)self];
+  [self.webView setPolicyDelegate:(id)self];
 
   // the app may prefer some html other than blank white to be displayed
   // before the sign-in web page loads
