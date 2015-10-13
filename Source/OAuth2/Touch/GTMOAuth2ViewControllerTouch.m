@@ -24,11 +24,12 @@
 
 #if TARGET_OS_IPHONE
 
-#define GTMOAUTH2VIEWCONTROLLERTOUCH_DEFINE_GLOBALS 1
 #import "GTMOAuth2ViewControllerTouch.h"
 
 #import "GTMOAuth2SignIn.h"
 #import "GTMOAuth2Authentication.h"
+
+NSString *const kGTMOAuth2KeychainErrorDomain = @"com.google.GTMOAuthKeychain";
 
 static NSString * const kGTMOAuth2AccountName = @"OAuth";
 static GTMOAuth2Keychain* sDefaultKeychain = nil;
@@ -55,14 +56,20 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
             forwardButton = forwardButton_,
             navButtonsView = navButtonsView_,
             rightBarButtonItem = rightBarButtonItem_,
-            webView = webView_;
+            webView = webView_,
+            initialActivityIndicator = initialActivityIndicator_;
 
 @synthesize keychainItemName = keychainItemName_,
+            keychainItemAccessibility = keychainItemAccessibility_,
             initialHTMLString = initialHTMLString_,
             browserCookiesURL = browserCookiesURL_,
             signIn = signIn_,
             userData = userData_,
             properties = properties_;
+
+#if NS_BLOCKS_AVAILABLE
+@synthesize popViewBlock = popViewBlock_;
+#endif
 
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (id)controllerWithScope:(NSString *)scope
@@ -87,11 +94,13 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
    finishedSelector:(SEL)finishedSelector {
   // convenient entry point for Google authentication
 
+  Class signInClass = [[self class] signInClass];
+
   GTMOAuth2Authentication *auth;
-  auth = [GTMOAuth2SignIn standardGoogleAuthenticationForScope:scope
-                                                      clientID:clientID
-                                                  clientSecret:clientSecret];
-  NSURL *authorizationURL = [GTMOAuth2SignIn googleAuthorizationURL];
+  auth = [signInClass standardGoogleAuthenticationForScope:scope
+                                                  clientID:clientID
+                                              clientSecret:clientSecret];
+  NSURL *authorizationURL = [signInClass googleAuthorizationURL];
   return [self initWithAuthentication:auth
                      authorizationURL:authorizationURL
                      keychainItemName:keychainItemName
@@ -105,7 +114,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
                  clientID:(NSString *)clientID
              clientSecret:(NSString *)clientSecret
          keychainItemName:(NSString *)keychainItemName
-        completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler {
+        completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler {
   return [[[self alloc] initWithScope:scope
                              clientID:clientID
                          clientSecret:clientSecret
@@ -117,14 +126,16 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
            clientID:(NSString *)clientID
        clientSecret:(NSString *)clientSecret
    keychainItemName:(NSString *)keychainItemName
-  completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler {
+  completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler {
   // convenient entry point for Google authentication
 
+  Class signInClass = [[self class] signInClass];
+
   GTMOAuth2Authentication *auth;
-  auth = [GTMOAuth2SignIn standardGoogleAuthenticationForScope:scope
-                                                      clientID:clientID
-                                                  clientSecret:clientSecret];
-  NSURL *authorizationURL = [GTMOAuth2SignIn googleAuthorizationURL];
+  auth = [signInClass standardGoogleAuthenticationForScope:scope
+                                                  clientID:clientID
+                                              clientSecret:clientSecret];
+  NSURL *authorizationURL = [signInClass googleAuthorizationURL];
   self = [self initWithAuthentication:auth
                      authorizationURL:authorizationURL
                      keychainItemName:keychainItemName
@@ -148,7 +159,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
                               authorizationURL:authorizationURL
                               keychainItemName:keychainItemName
                                       delegate:delegate
-                              finishedSelector:finishedSelector] autorelease];  
+                              finishedSelector:finishedSelector] autorelease];
 }
 
 - (id)initWithAuthentication:(GTMOAuth2Authentication *)auth
@@ -158,27 +169,32 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
             finishedSelector:(SEL)finishedSelector {
 
   NSString *nibName = [[self class] authNibName];
+  NSBundle *nibBundle = [[self class] authNibBundle];
 
-  self = [super initWithNibName:nibName bundle:nil];
+  self = [super initWithNibName:nibName bundle:nibBundle];
   if (self != nil) {
     delegate_ = [delegate retain];
     finishedSelector_ = finishedSelector;
 
+    Class signInClass = [[self class] signInClass];
+
     // use the supplied auth and OAuth endpoint URLs
-    signIn_ = [[GTMOAuth2SignIn alloc] initWithAuthentication:auth
-                                             authorizationURL:authorizationURL
-                                                     delegate:self
-                                           webRequestSelector:@selector(signIn:displayRequest:)
-                                             finishedSelector:@selector(signIn:finishedWithAuth:error:)];
-    
+    signIn_ = [[signInClass alloc] initWithAuthentication:auth
+                                         authorizationURL:authorizationURL
+                                                 delegate:self
+                                       webRequestSelector:@selector(signIn:displayRequest:)
+                                         finishedSelector:@selector(signIn:finishedWithAuth:error:)];
+
     // if the user is signing in to a Google service, we'll delete the
     // Google authentication browser cookies upon completion
     //
     // for other service domains, or to disable clearing of the cookies,
     // set the browserCookiesURL property explicitly
     NSString *authorizationHost = [signIn_.authorizationURL host];
-    if ([authorizationHost isEqual:@"accounts.google.com"]) {
-      NSURL *cookiesURL = [NSURL URLWithString:@"https://accounts.google.com/"];
+    if ([authorizationHost hasSuffix:@".google.com"]) {
+      NSString *urlStr = [NSString stringWithFormat:@"https://%@/",
+                          authorizationHost];
+      NSURL *cookiesURL = [NSURL URLWithString:urlStr];
       [self setBrowserCookiesURL:cookiesURL];
     }
 
@@ -191,7 +207,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 + (id)controllerWithAuthentication:(GTMOAuth2Authentication *)auth
                   authorizationURL:(NSURL *)authorizationURL
                   keychainItemName:(NSString *)keychainItemName
-                 completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler {
+                 completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler {
   return [[[self alloc] initWithAuthentication:auth
                               authorizationURL:authorizationURL
                               keychainItemName:keychainItemName
@@ -201,7 +217,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 - (id)initWithAuthentication:(GTMOAuth2Authentication *)auth
             authorizationURL:(NSURL *)authorizationURL
             keychainItemName:(NSString *)keychainItemName
-           completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler {
+           completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler {
   // fall back to the non-blocks init
   self = [self initWithAuthentication:auth
                      authorizationURL:authorizationURL
@@ -216,8 +232,11 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 #endif
 
 - (void)dealloc {
+  [webView_ setDelegate:nil];
+
   [backButton_ release];
   [forwardButton_ release];
+  [initialActivityIndicator_ release];
   [navButtonsView_ release];
   [rightBarButtonItem_ release];
   [webView_ release];
@@ -226,6 +245,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   [delegate_ release];
 #if NS_BLOCKS_AVAILABLE
   [completionBlock_ release];
+  [popViewBlock_ release];
 #endif
   [keychainItemName_ release];
   [initialHTMLString_ release];
@@ -241,13 +261,29 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   return @"GTMOAuth2ViewTouch";
 }
 
++ (NSBundle *)authNibBundle {
+  // subclasses may override this to specify a custom nib bundle
+  return nil;
+}
+
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
                                                      clientID:(NSString *)clientID
                                                  clientSecret:(NSString *)clientSecret {
-  NSURL *tokenURL = [GTMOAuth2SignIn googleTokenURL];
-  NSString *redirectURI = [GTMOAuth2SignIn nativeClientRedirectURI];
-  
+  return [self authForGoogleFromKeychainForName:keychainItemName
+                                       clientID:clientID
+                                   clientSecret:clientSecret
+                                          error:NULL];
+}
+
++ (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
+                                                     clientID:(NSString *)clientID
+                                                 clientSecret:(NSString *)clientSecret
+                                                        error:(NSError **)error {
+  Class signInClass = [self signInClass];
+  NSURL *tokenURL = [signInClass googleTokenURL];
+  NSString *redirectURI = [signInClass nativeClientRedirectURI];
+
   GTMOAuth2Authentication *auth;
   auth = [GTMOAuth2Authentication authenticationWithServiceProvider:kGTMOAuth2ServiceProviderGoogle
                                                            tokenURL:tokenURL
@@ -255,20 +291,23 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
                                                            clientID:clientID
                                                        clientSecret:clientSecret];
   [[self class] authorizeFromKeychainForName:keychainItemName
-                              authentication:auth];
+                              authentication:auth
+                                       error:error];
   return auth;
 }
+
 #endif
 
 + (BOOL)authorizeFromKeychainForName:(NSString *)keychainItemName
-                      authentication:(GTMOAuth2Authentication *)newAuth {
+                      authentication:(GTMOAuth2Authentication *)newAuth
+                               error:(NSError **)error {
   newAuth.accessToken = nil;
 
   BOOL didGetTokens = NO;
   GTMOAuth2Keychain *keychain = [GTMOAuth2Keychain defaultKeychain];
   NSString *password = [keychain passwordForService:keychainItemName
                                             account:kGTMOAuth2AccountName
-                                              error:nil];
+                                              error:error];
   if (password != nil) {
     [newAuth setKeysForResponseString:password];
     didGetTokens = YES;
@@ -285,17 +324,40 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 
 + (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
                      authentication:(GTMOAuth2Authentication *)auth {
+  return [self saveParamsToKeychainForName:keychainItemName
+                             accessibility:NULL
+                            authentication:auth
+                                     error:NULL];
+}
+
++ (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
+                      accessibility:(CFTypeRef)accessibility
+                     authentication:(GTMOAuth2Authentication *)auth
+                              error:(NSError **)error {
   [self removeAuthFromKeychainForName:keychainItemName];
   // don't save unless we have a token that can really authorize requests
-  if (![auth canAuthorize]) return NO;
+  if (![auth canAuthorize]) {
+    if (error) {
+      *error = [NSError errorWithDomain:kGTMOAuth2ErrorDomain
+                                   code:kGTMOAuth2ErrorTokenUnavailable
+                               userInfo:nil];
+    }
+    return NO;
+  }
+
+  if (accessibility == NULL
+      && &kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly != NULL) {
+    accessibility = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly;
+  }
 
   // make a response string containing the values we want to save
   NSString *password = [auth persistenceResponseString];
   GTMOAuth2Keychain *keychain = [GTMOAuth2Keychain defaultKeychain];
   return [keychain setPassword:password
                     forService:keychainItemName
+                 accessibility:accessibility
                        account:kGTMOAuth2AccountName
-                         error:nil];
+                         error:error];
 }
 
 - (void)loadView {
@@ -311,6 +373,13 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   if (nibPath != nil && [[NSFileManager defaultManager] fileExistsAtPath:nibPath]) {
     [super loadView];
   } else {
+    // One of the requirements of loadView is that a valid view object is set to
+    // self.view upon completion. Otherwise, subclasses that attempt to
+    // access self.view after calling [super loadView] will enter an infinite
+    // loop due to the fact that UIViewController's -view accessor calls
+    // loadView when self.view is nil.
+    self.view = [[[UIView alloc] init] autorelease];
+
 #if DEBUG
     NSLog(@"missing %@.nib", nibName);
 #endif
@@ -319,31 +388,68 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 
 
 - (void)viewDidLoad {
-  // the app may prefer some html other than blank white to be displayed
-  // before the sign-in web page loads
-  NSString *html = self.initialHTMLString;
-  if ([html length] > 0) {
-    [[self webView] loadHTMLString:html baseURL:nil];
-  }
+  [self setUpNavigation];
+}
 
+- (void)setUpNavigation {
   rightBarButtonItem_.customView = navButtonsView_;
   self.navigationItem.rightBarButtonItem = rightBarButtonItem_;
 }
 
 - (void)popView {
-  if (self.navigationController.topViewController == self) {
-    if (!self.view.isHidden) {
-      // set the flag to our viewWillDisappear method so it knows
+#if NS_BLOCKS_AVAILABLE
+  void (^popViewBlock)() = self.popViewBlock;
+#else
+  id popViewBlock = nil;
+#endif
+
+  if (popViewBlock || self.navigationController.topViewController == self) {
+    if (!self.view.hidden) {
+      // Set the flag to our viewWillDisappear method so it knows
       // this is a disappearance initiated by the sign-in object,
       // not the user cancelling via the navigation controller
-      isPoppingSelf_ = YES;
+      didDismissSelf_ = YES;
 
-      [self.navigationController popViewControllerAnimated:YES];
+      if (popViewBlock) {
+#if NS_BLOCKS_AVAILABLE
+        popViewBlock();
+        self.popViewBlock = nil;
+#endif
+      } else {
+        [self.navigationController popViewControllerAnimated:YES];
+      }
       self.view.hidden = YES;
-
-      isPoppingSelf_ = NO;
     }
   }
+}
+
+- (void)notifyWithName:(NSString *)name
+               webView:(UIWebView *)webView
+                  kind:(NSString *)kind {
+  BOOL isStarting = [name isEqual:kGTMOAuth2WebViewStartedLoading];
+  if (hasNotifiedWebViewStartedLoading_ == isStarting) {
+    // Duplicate notification
+    //
+    // UIWebView's delegate methods are so unbalanced that there's little
+    // point trying to keep a count, as it could easily end up stuck greater
+    // than zero.
+    //
+    // We don't really have a way to track the starts and stops of
+    // subframe loads, too, as the webView in the notification is always
+    // for the topmost request.
+    return;
+  }
+  hasNotifiedWebViewStartedLoading_ = isStarting;
+
+  // Notification for webview load starting and stopping
+  NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                        webView, kGTMOAuth2WebViewKey,
+                        kind, kGTMOAuth2WebViewStopKindKey, // kind may be nil
+                        nil];
+  NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+  [nc postNotificationName:name
+                    object:self
+                  userInfo:dict];
 }
 
 - (void)cancelSigningIn {
@@ -364,11 +470,24 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   hasDoneFinalRedirect_ = YES;
 }
 
+static Class gSignInClass = Nil;
+
++ (Class)signInClass {
+  if (gSignInClass == Nil) {
+    gSignInClass = [GTMOAuth2SignIn class];
+  }
+  return gSignInClass;
+}
+
++ (void)setSignInClass:(Class)theClass {
+  gSignInClass = theClass;
+}
+
 #pragma mark Token Revocation
 
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
 + (void)revokeTokenForGoogleAuthentication:(GTMOAuth2Authentication *)auth {
-  [GTMOAuth2SignIn revokeTokenForGoogleAuthentication:auth];
+  [[self signInClass] revokeTokenForGoogleAuthentication:auth];
 }
 #endif
 
@@ -409,6 +528,14 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   return ([name length] > 0);
 }
 
+- (BOOL)showsInitialActivityIndicator {
+  return (mustShowActivityIndicator_ == 1 || initialHTMLString_ == nil);
+}
+
+- (void)setShowsInitialActivityIndicator:(BOOL)flag {
+  mustShowActivityIndicator_ = (flag ? 1 : -1);
+}
+
 #pragma mark User Properties
 
 - (void)setProperty:(id)obj forKey:(NSString *)key {
@@ -435,8 +562,9 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 #pragma mark SignIn callbacks
 
 - (void)signIn:(GTMOAuth2SignIn *)signIn displayRequest:(NSURLRequest *)request {
-  // this is the signIn object's webRequest method, telling the controller
-  // to either display the request in the webview, or close the window
+  // This is the signIn object's webRequest method, telling the controller
+  // to either display the request in the webview, or if the request is nil,
+  // to close the window.
   //
   // All web requests and all window closing goes through this routine
 
@@ -456,7 +584,26 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
     if (isDateValid) {
       // Display the request.
       self.request = request;
-      [self.webView loadRequest:[self request]];
+      // The app may prefer some html other than blank white to be displayed
+      // before the sign-in web page loads.
+      // The first fetch might be slow, so the client programmer may want
+      // to show a local "loading" message.
+      // On iOS 5+, UIWebView will ignore loadHTMLString: if it's followed by
+      // a loadRequest: call, so if there is a "loading" message we defer
+      // the loadRequest: until after after we've drawn the "loading" message.
+      //
+      // If there is no initial html string, we show the activity indicator
+      // unless the user set showsInitialActivityIndicator to NO; if there
+      // is an initial html string, we hide the indicator unless the user set
+      // showsInitialActivityIndicator to YES.
+      NSString *html = self.initialHTMLString;
+      if ([html length] > 0) {
+        [initialActivityIndicator_ setHidden:(mustShowActivityIndicator_ < 1)];
+        [self.webView loadHTMLString:html baseURL:nil];
+      } else {
+        [initialActivityIndicator_ setHidden:(mustShowActivityIndicator_ < 0)];
+        [self.webView loadRequest:request];
+      }
     } else {
       // clock date is invalid, so signing in would fail with an unhelpful error
       // from the server. Warn the user in an html string showing a watch icon,
@@ -466,7 +613,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
       //
       // Even better is for apps to check the system clock and show some more
       // helpful, localized instructions for users; this is really a fallback.
-      NSString *html = @"<html><body><div align=center><font size='7'>"
+      NSString *const html = @"<html><body><div align=center><font size='7'>"
         @"&#x231A; ?<br><i>System Clock Incorrect</i><br>%@"
         @"</font></div></body></html>";
       NSString *errHTML = [NSString stringWithFormat:html, [NSDate date]];
@@ -490,7 +637,11 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
         NSString *keychainItemName = self.keychainItemName;
         if (auth.canAuthorize) {
           // save the auth params in the keychain
-          [[self class] saveParamsToKeychainForName:keychainItemName authentication:auth];
+          CFTypeRef accessibility = self.keychainItemAccessibility;
+          [[self class] saveParamsToKeychainForName:keychainItemName
+                                      accessibility:accessibility
+                                     authentication:auth
+                                              error:NULL];
         } else {
           // remove the auth params from the keychain
           [[self class] removeAuthFromKeychainForName:keychainItemName];
@@ -547,6 +698,9 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 #pragma mark Protocol implementations
 
 - (void)viewWillAppear:(BOOL)animated {
+  // See the comment on clearBrowserCookies in viewWillDisappear.
+  [self clearBrowserCookies];
+
   if (!isViewShown_) {
     isViewShown_ = YES;
     if ([self isNavigationBarTranslucent]) {
@@ -571,20 +725,38 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-  if (!isPoppingSelf_) {
-    // we are not popping ourselves, so presumably we are being popped by the
+  if (!didDismissSelf_) {
+    // We won't receive further webview delegate messages, so be sure the
+    // started loading notification is balanced, if necessary
+    [self notifyWithName:kGTMOAuth2WebViewStoppedLoading
+                 webView:self.webView
+                    kind:kGTMOAuth2WebViewCancelled];
+
+    // We are not popping ourselves, so presumably we are being popped by the
     // navigation controller; tell the sign-in object to close up shop
     //
     // this will indirectly call our signIn:finishedWithAuth:error: method
     // for us
     [signIn_ windowWasClosed];
+
+#if NS_BLOCKS_AVAILABLE
+    self.popViewBlock = nil;
+#endif
   }
 
   // prevent the next sign-in from showing in the WebView that the user is
-  // already signed in
+  // already signed in.  It's possible for the WebView to set the cookies even
+  // after this, so we also clear them when the view first appears.
   [self clearBrowserCookies];
 
   [super viewWillDisappear:animated];
+}
+
+- (void)viewDidLayoutSubviews {
+  // We don't call super's version of this method because
+  // -[UIViewController viewDidLayoutSubviews] is documented as a no-op, that
+  // didn't exist before iOS 5.
+  [initialActivityIndicator_ setCenter:[webView_ center]];
 }
 
 - (BOOL)webView:(UIWebView *)webView
@@ -607,10 +779,17 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+  [self notifyWithName:kGTMOAuth2WebViewStartedLoading
+               webView:webView
+                  kind:nil];
   [self updateUI];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+  [self notifyWithName:kGTMOAuth2WebViewStoppedLoading
+               webView:webView
+                  kind:kGTMOAuth2WebViewFinished];
+
   NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
   if ([title length] > 0) {
     [signIn_ titleChanged:title];
@@ -622,14 +801,41 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 #endif
   }
 
+  if (self.request && [self.initialHTMLString length] > 0) {
+    // The request was pending.
+    [self setInitialHTMLString:nil];
+    [self.webView loadRequest:self.request];
+  } else {
+    [initialActivityIndicator_ setHidden:YES];
+    [signIn_ cookiesChanged:[NSHTTPCookieStorage sharedHTTPCookieStorage]];
 
-  [self updateUI];
+    [self updateUI];
+  }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+  [self notifyWithName:kGTMOAuth2WebViewStoppedLoading
+               webView:webView
+                  kind:kGTMOAuth2WebViewFailed];
+
   // Tell the sign-in object that a load failed; if it was the authorization
   // URL, it will pop the view and return an error to the delegate.
   if (didViewAppear_) {
+    BOOL isUserInterruption = ([error code] == NSURLErrorCancelled
+                               && [[error domain] isEqual:NSURLErrorDomain]);
+    if (isUserInterruption) {
+      // Ignore this error:
+      // Users report that this error occurs when clicking too quickly on the
+      // accept button, before the page has completely loaded.  Ignoring
+      // this error seems to provide a better experience than does immediately
+      // cancelling sign-in.
+      //
+      // This error also occurs whenever UIWebView is sent the stopLoading
+      // message, so if we ever send that message intentionally, we need to
+      // revisit this bypass.
+      return;
+    }
+
     [signIn_ loadFailedWithError:error];
   } else {
     // UIWebview needs time to stabilize. Animations need time to complete.
@@ -640,6 +846,17 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   }
 }
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+// When running on a device with an OS version < 6, this gets called.
+//
+// Since it is never called in iOS 6 or greater, if your min deployment
+// target is iOS6 or greater, then you don't need to have this method compiled
+// into your app.
+//
+// When running on a device with an OS version 6 or greater, this code is
+// not called. - (NSUInteger)supportedInterfaceOrientations; would be called,
+// if it existed. Since it is absent,
+// Allow the default orientations: All for iPad, all but upside down for iPhone.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
   BOOL value = YES;
   if (!isInsideShouldAutorotateToInterfaceOrientation_) {
@@ -654,6 +871,8 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
   }
   return value;
 }
+#endif
+
 
 @end
 
@@ -729,6 +948,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 // Simulator - just simulated, not secure.
 - (BOOL)setPassword:(NSString *)password
          forService:(NSString *)service
+      accessibility:(CFTypeRef)accessibility
             account:(NSString *)account
               error:(NSError **)error {
   BOOL didSucceed = NO;
@@ -812,6 +1032,7 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
 // iPhone
 - (BOOL)setPassword:(NSString *)password
          forService:(NSString *)service
+      accessibility:(CFTypeRef)accessibility
             account:(NSString *)account
               error:(NSError **)error {
   OSStatus status = kGTMOAuth2KeychainErrorBadArguments;
@@ -821,6 +1042,11 @@ finishedWithAuth:(GTMOAuth2Authentication *)auth
       NSMutableDictionary *keychainQuery = [self keychainQueryForService:service account:account];
       NSData *passwordData = [password dataUsingEncoding:NSUTF8StringEncoding];
       [keychainQuery setObject:passwordData forKey:(id)kSecValueData];
+
+      if (accessibility != NULL && &kSecAttrAccessible != NULL) {
+        [keychainQuery setObject:(id)accessibility
+                          forKey:(id)kSecAttrAccessible];
+      }
       status = SecItemAdd((CFDictionaryRef)keychainQuery, NULL);
     }
   }

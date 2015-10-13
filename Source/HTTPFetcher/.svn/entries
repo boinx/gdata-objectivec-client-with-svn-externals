@@ -1,15 +1,15 @@
 10
 
 dir
-74
+128
 http://gtm-http-fetcher.googlecode.com/svn/trunk/Source
 http://gtm-http-fetcher.googlecode.com/svn
 
 
 
-2011-09-22T01:51:31.012931Z
-72
-gregrobbins
+2013-08-02T17:46:14.517463Z
+128
+grobbins@google.com
 
 
 
@@ -26,17 +26,51 @@ gregrobbins
 
 b3aa69f0-f65c-a609-0a27-78855af037c1
 
+GTMHTTPFetcherLogViewController.h
+file
+
+
+
+
+2013-04-10T10:04:37.000000Z
+5b09ad443a93be0ac11191c32c9988ad
+2013-03-26T01:04:10.670097Z
+119
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2445
+
 GTMReadMonitorInputStream.m
 file
 
 
 
 
-2011-09-23T16:07:20.000000Z
-65e0a6b63a422bd7c285646703f17080
-2011-08-18T20:01:53.058247Z
-64
-gregrobbins
+2013-02-11T09:45:00.000000Z
+e2dee0fbe837644e302f6ee74f747914
+2012-12-06T21:20:50.206628Z
+111
+grobbins@google.com
 
 
 
@@ -58,7 +92,7 @@ gregrobbins
 
 
 
-5333
+5357
 
 GTMHTTPUploadFetcher.h
 file
@@ -66,11 +100,11 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-09886f7dc486db1dd0bc61e3d3097470
-2011-09-12T21:41:08.549063Z
-71
-gregrobbins
+2013-04-10T10:04:37.000000Z
+a35dd747a70e8c2387cf51872c100359
+2013-02-11T22:45:33.271850Z
+116
+grobbins@google.com
 has-props
 
 
@@ -92,7 +126,7 @@ has-props
 
 
 
-4791
+5102
 
 GTMHTTPFetcher.m
 file
@@ -100,11 +134,11 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-773598619646fe1b94471c92199529b0
-2011-08-30T20:41:58.630505Z
-68
-gregrobbins
+2013-08-06T07:53:12.000000Z
+4917aa9fa21a051bb1fff4e2685d6e4a
+2013-07-25T01:05:13.307389Z
+126
+grobbins@google.com
 has-props
 
 
@@ -126,7 +160,7 @@ has-props
 
 
 
-50447
+65580
 
 GTMMIMEDocument.h
 file
@@ -134,10 +168,10 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-9e32ebe73bd3a876103ab1a2c13f96bb
-2010-08-26T01:42:03.064224Z
-7
+2012-11-23T16:11:37.000000Z
+e11e120c6a7331538767896836c202c4
+2011-10-19T23:26:43.796967Z
+79
 gregrobbins
 
 
@@ -160,10 +194,44 @@ gregrobbins
 
 
 
-1982
+2047
 
 GTMHTTPFetcher.xcodeproj
 dir
+
+GTMHTTPFetcherLogViewController.m
+file
+
+
+
+
+2013-04-10T10:04:37.000000Z
+bf2ed2963a25b9ee8bb24fa2d89fbb1d
+2013-03-26T01:04:10.670097Z
+119
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8519
 
 GTMHTTPFetcherLogging.h
 file
@@ -171,11 +239,11 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-7e2061361ca01b2ffa72542c375c70f6
-2011-05-17T20:56:02.197668Z
-44
-gregrobbins
+2013-04-10T10:04:37.000000Z
+26e4f027b345f78911759d5612c85594
+2013-03-19T20:36:44.363429Z
+118
+grobbins@google.com
 
 
 
@@ -197,7 +265,7 @@ gregrobbins
 
 
 
-2977
+3730
 
 UnitTests-Info.plist
 file
@@ -205,7 +273,7 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
+2012-11-23T16:11:37.000000Z
 37506ef0d81d26d7e9e75c5ae54882c6
 2010-08-26T01:42:03.064224Z
 7
@@ -239,285 +307,10 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-bba6a8ba4ca464f5cbffd3f524e12bcf
-2011-09-12T21:41:08.549063Z
-71
-gregrobbins
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-29079
-
-GTMMIMEDocument.m
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-191c621b96d257537ff553b6c3baf56b
-2010-08-26T01:42:03.064224Z
-7
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-8734
-
-GTMHTTPFetcherLogging.m
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-8c91d7ee7712bae194678e5b7be073d2
-2011-09-22T01:51:31.012931Z
-72
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-37537
-
-GTMHTTPFetcherService.h
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-4e9720cdad41d14b39af6d3845aeb96b
-2011-07-09T01:02:34.615066Z
-57
-gregrobbins
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3470
-
-Tests
-dir
-
-GTMGatherInputStream.h
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-5c5259a531ba0e1bcbc982ce04390c74
-2010-08-26T01:42:03.064224Z
-7
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2484
-
-GTMHTTPFetcherService.m
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-24c88ab565f78bf5622f77b175fd2552
-2011-09-09T22:05:47.192150Z
-70
-gregrobbins
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-10792
-
-ReleaseNotes.txt
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-5eb7e44d38ec4f99175e152afb398c7e
-2011-09-12T21:41:08.549063Z
-71
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-984
-
-GTMGatherInputStream.m
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-3e6ff2196743d40db37996d8999b0e01
-2010-08-26T01:42:03.064224Z
-7
-gregrobbins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5116
-
-GTMHTTPFetchHistory.h
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-b2bdb2797c7d6d70d7b22a0aaa93aa91
-2011-06-03T18:00:11.727236Z
-50
+2013-08-06T07:53:12.000000Z
+67a242ac429dc1eb60867cb74a267fae
+2013-08-02T17:46:14.517463Z
+128
 grobbins@google.com
 has-props
 
@@ -540,7 +333,282 @@ has-props
 
 
 
-6512
+31467
+
+GTMMIMEDocument.m
+file
+
+
+
+
+2013-06-26T15:03:53.000000Z
+1fa63aa6ad6007ef6c008882c4902627
+2013-06-13T00:08:40.312113Z
+125
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8701
+
+GTMHTTPFetcherLogging.m
+file
+
+
+
+
+2013-08-06T07:53:12.000000Z
+d1cfc3cfc6650fa79bdd420e8b71b788
+2013-07-25T01:05:13.307389Z
+126
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+41941
+
+GTMHTTPFetcherService.h
+file
+
+
+
+
+2013-02-11T09:45:00.000000Z
+b1739d82b7b69d59c918cd836c49ed09
+2013-02-08T01:20:14.092796Z
+115
+grobbins@google.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4649
+
+Tests
+dir
+
+GTMGatherInputStream.h
+file
+
+
+
+
+2012-11-23T16:11:37.000000Z
+70f68ae849f39cacb742b3b81a5c5e39
+2011-11-23T18:52:34.771138Z
+90
+gregrobbins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2548
+
+GTMHTTPFetcherService.m
+file
+
+
+
+
+2013-08-06T07:53:12.000000Z
+ecb24b9857a2cc41f5cf1bdc2c8fe8a6
+2013-07-25T01:05:13.307389Z
+126
+grobbins@google.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15003
+
+ReleaseNotes.txt
+file
+
+
+
+
+2012-11-23T16:11:37.000000Z
+2b6ba05ce2586f03cdef2f9cb7ca9dbe
+2012-09-29T05:22:16.253611Z
+109
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1783
+
+GTMGatherInputStream.m
+file
+
+
+
+
+2013-02-11T09:45:00.000000Z
+a0375f3a9b8c46f5259824a980456ab2
+2013-01-29T23:34:58.048134Z
+112
+grobbins@google.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5121
+
+GTMHTTPFetchHistory.h
+file
+
+
+
+
+2013-08-06T07:53:12.000000Z
+e21a47aa847710a16e58119223140abb
+2013-07-25T01:05:13.307389Z
+126
+grobbins@google.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6096
 
 GTMReadMonitorInputStream.h
 file
@@ -548,7 +616,7 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
+2012-11-23T16:11:37.000000Z
 e8645b7844771e968b7fd1aa7ef611e0
 2011-08-18T20:01:53.058247Z
 64
@@ -582,44 +650,10 @@ file
 
 
 
-2011-09-23T16:07:20.000000Z
-443c800fee18146eb15036fae74a82d5
-2011-08-18T20:01:53.058247Z
-64
-gregrobbins
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-26046
-
-GTMHTTPFetchHistory.m
-file
-
-
-
-
-2011-09-23T16:07:20.000000Z
-72277bf13ccfc79abb1ee24347d7d2c6
-2011-06-03T18:00:11.727236Z
-50
+2013-08-06T07:53:12.000000Z
+359a0a6d2bcc0b60d46d2c4baa82423c
+2013-07-25T01:05:13.307389Z
+126
 grobbins@google.com
 has-props
 
@@ -642,5 +676,39 @@ has-props
 
 
 
-16925
+29146
+
+GTMHTTPFetchHistory.m
+file
+
+
+
+
+2013-08-06T07:53:12.000000Z
+596ba1fc2a20d7227a3c75ef8c13196c
+2013-07-25T01:05:13.307389Z
+126
+grobbins@google.com
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17717
 

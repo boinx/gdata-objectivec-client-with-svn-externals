@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/svn/!svn/ver/683/trunk/Source/Clients/Spreadsheets
+/svn/!svn/ver/728/trunk/Source/Clients/Spreadsheets
 END
 GDataEntrySpreadsheetCell.h
 K 25
@@ -79,7 +79,7 @@ GDataEntryWorksheet.m
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/svn/!svn/ver/672/trunk/Source/Clients/Spreadsheets/GDataEntryWorksheet.m
+/svn/!svn/ver/728/trunk/Source/Clients/Spreadsheets/GDataEntryWorksheet.m
 END
 GDataQuerySpreadsheet.m
 K 25
@@ -187,7 +187,7 @@ GDataFeedSpreadsheetCell.m
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/!svn/ver/683/trunk/Source/Clients/Spreadsheets/GDataFeedSpreadsheetCell.m
+/svn/!svn/ver/728/trunk/Source/Clients/Spreadsheets/GDataFeedSpreadsheetCell.m
 END
 GDataSpreadsheetData.h
 K 25

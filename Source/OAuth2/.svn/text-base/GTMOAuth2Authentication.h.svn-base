@@ -23,39 +23,29 @@
 // GTMHTTPFetcher.h brings in GTLDefines/GDataDefines
 #import "GTMHTTPFetcher.h"
 
-#undef _EXTERN
-#undef _INITIALIZE_AS
-#ifdef GTMOAUTH2AUTHENTICATION_DEFINE_GLOBALS
-  #define _EXTERN
-  #define _INITIALIZE_AS(x) =x
-#else
-  #if defined(__cplusplus)
-    #define _EXTERN extern "C"
-  #else
-    #define _EXTERN extern
-  #endif
-  #define _INITIALIZE_AS(x)
-#endif
-
 // Until all OAuth 2 providers are up to the same spec, we'll provide a crude
 // way here to override the "Bearer" string in the Authorization header
 #ifndef GTM_OAUTH2_BEARER
 #define GTM_OAUTH2_BEARER "Bearer"
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Service provider name allows stored authorization to be associated with
 // the authorizing service
-_EXTERN NSString* const kGTMOAuth2ServiceProviderGoogle _INITIALIZE_AS(@"Google");
+extern NSString *const kGTMOAuth2ServiceProviderGoogle;
 
 //
 // GTMOAuth2SignIn constants, included here for use by clients
 //
-_EXTERN NSString* const kGTMOAuth2ErrorDomain  _INITIALIZE_AS(@"com.google.GTMOAuth2");
+extern NSString *const kGTMOAuth2ErrorDomain;
 
 // Error userInfo keys
-_EXTERN NSString* const kGTMOAuth2ErrorMessageKey _INITIALIZE_AS(@"error");
-_EXTERN NSString* const kGTMOAuth2ErrorRequestKey _INITIALIZE_AS(@"request");
-_EXTERN NSString* const kGTMOAuth2ErrorJSONKey    _INITIALIZE_AS(@"json");
+extern NSString *const kGTMOAuth2ErrorMessageKey;
+extern NSString *const kGTMOAuth2ErrorRequestKey;
+extern NSString *const kGTMOAuth2ErrorJSONKey;
 
 enum {
   // Error code indicating that the window was prematurely closed
@@ -68,31 +58,52 @@ enum {
 
 
 // Notifications for token fetches
-_EXTERN NSString* const kGTMOAuth2FetchStarted        _INITIALIZE_AS(@"kGTMOAuth2FetchStarted");
-_EXTERN NSString* const kGTMOAuth2FetchStopped        _INITIALIZE_AS(@"kGTMOAuth2FetchStopped");
+extern NSString *const kGTMOAuth2FetchStarted;
+extern NSString *const kGTMOAuth2FetchStopped;
 
-_EXTERN NSString* const kGTMOAuth2FetcherKey          _INITIALIZE_AS(@"fetcher");
-_EXTERN NSString* const kGTMOAuth2FetchTypeKey        _INITIALIZE_AS(@"FetchType");
-_EXTERN NSString* const kGTMOAuth2FetchTypeToken      _INITIALIZE_AS(@"token");
-_EXTERN NSString* const kGTMOAuth2FetchTypeRefresh    _INITIALIZE_AS(@"refresh");
-_EXTERN NSString* const kGTMOAuth2FetchTypeUserInfo   _INITIALIZE_AS(@"userInfo");
+extern NSString *const kGTMOAuth2FetcherKey;
+extern NSString *const kGTMOAuth2FetchTypeKey;
+extern NSString *const kGTMOAuth2FetchTypeToken;
+extern NSString *const kGTMOAuth2FetchTypeRefresh;
+extern NSString *const kGTMOAuth2FetchTypeAssertion;
+extern NSString *const kGTMOAuth2FetchTypeUserInfo;
 
 // Token-issuance errors
-_EXTERN NSString* const kGTMOAuth2ErrorKey                  _INITIALIZE_AS(@"error");
+extern NSString *const kGTMOAuth2ErrorKey;
+extern NSString *const kGTMOAuth2ErrorObjectKey;
 
-_EXTERN NSString* const kGTMOAuth2ErrorInvalidRequest       _INITIALIZE_AS(@"invalid_request");
-_EXTERN NSString* const kGTMOAuth2ErrorInvalidClient        _INITIALIZE_AS(@"invalid_client");
-_EXTERN NSString* const kGTMOAuth2ErrorInvalidGrant         _INITIALIZE_AS(@"invalid_grant");
-_EXTERN NSString* const kGTMOAuth2ErrorUnauthorizedClient   _INITIALIZE_AS(@"unauthorized_client");
-_EXTERN NSString* const kGTMOAuth2ErrorUnsupportedGrantType _INITIALIZE_AS(@"unsupported_grant_type");
-_EXTERN NSString* const kGTMOAuth2ErrorInvalidScope         _INITIALIZE_AS(@"invalid_scope");
+extern NSString *const kGTMOAuth2ErrorInvalidRequest;
+extern NSString *const kGTMOAuth2ErrorInvalidClient;
+extern NSString *const kGTMOAuth2ErrorInvalidGrant;
+extern NSString *const kGTMOAuth2ErrorUnauthorizedClient;
+extern NSString *const kGTMOAuth2ErrorUnsupportedGrantType;
+extern NSString *const kGTMOAuth2ErrorInvalidScope;
+
+// Notification that sign-in has completed, and token fetches will begin (useful
+// for displaying interstitial messages after the window has closed)
+extern NSString *const kGTMOAuth2UserSignedIn;
 
 // Notification for token changes
-_EXTERN NSString* const kGTMOAuth2RefreshTokenChanged _INITIALIZE_AS(@"kGTMOAuth2RefreshTokenChanged");
+extern NSString *const kGTMOAuth2AccessTokenRefreshed;
+extern NSString *const kGTMOAuth2RefreshTokenChanged;
+extern NSString *const kGTMOAuth2AccessTokenRefreshFailed;
+
+// Notification for WebView loading
+extern NSString *const kGTMOAuth2WebViewStartedLoading;
+extern NSString *const kGTMOAuth2WebViewStoppedLoading;
+extern NSString *const kGTMOAuth2WebViewKey;
+extern NSString *const kGTMOAuth2WebViewStopKindKey;
+extern NSString *const kGTMOAuth2WebViewFinished;
+extern NSString *const kGTMOAuth2WebViewFailed;
+extern NSString *const kGTMOAuth2WebViewCancelled;
 
 // Notification for network loss during html sign-in display
-_EXTERN NSString* const kGTMOAuth2NetworkLost         _INITIALIZE_AS(@"kGTMOAuthNetworkLost");
-_EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuthNetworkFound");
+extern NSString *const kGTMOAuth2NetworkLost;
+extern NSString *const kGTMOAuth2NetworkFound;
+
+#ifdef __cplusplus
+}
+#endif
 
 @interface GTMOAuth2Authentication : NSObject <GTMFetcherAuthorizationProtocol>  {
  @private
@@ -105,7 +116,10 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
   NSURL *tokenURL_;
   NSDate *expirationDate_;
 
+  NSString *authorizationTokenKey_;
+
   NSDictionary *additionalTokenRequestParameters_;
+  NSDictionary *additionalGrantTypeRequestParameters_;
 
   // queue of requests for authorization waiting for a valid access token
   GTMHTTPFetcher *refreshFetcher_;
@@ -131,12 +145,25 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 @property (copy) NSString *clientID;
 @property (copy) NSString *clientSecret;
 @property (copy) NSString *redirectURI;
-@property (copy) NSString *scope;
-@property (copy) NSString *tokenType;
+@property (retain) NSString *scope;
+@property (retain) NSString *tokenType;
+@property (retain) NSString *assertion;
+@property (retain) NSString *refreshScope;
 
 // Apps may optionally add parameters here to be provided to the token
-// endpoint on token requests and refreshes
+// endpoint on token requests and refreshes.
 @property (retain) NSDictionary *additionalTokenRequestParameters;
+
+// Apps may optionally add parameters here to be provided to the token
+// endpoint on specific token requests and refreshes, keyed by the grant_type.
+// For example, if a different "type" parameter is required for obtaining
+// the auth code and on refresh, this might be:
+//
+//  viewController.authentication.additionalGrantTypeRequestParameters = @{
+//    @"authorization_code" : @{ @"type" : @"code" },
+//    @"refresh_token" : @{ @"type" : @"refresh" }
+//  };
+@property (retain) NSDictionary *additionalGrantTypeRequestParameters;
 
 // Response properties
 @property (retain) NSMutableDictionary *parameters;
@@ -160,6 +187,9 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // with the authorizing service.
 @property (copy) NSString *serviceProvider;
 
+// User ID; not used for authentication
+@property (retain) NSString *userID;
+
 // User email and verified status; not used for authentication
 //
 // The verified string can be checked with -boolValue. If the result is false,
@@ -168,8 +198,8 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 @property (retain) NSString *userEmail;
 @property (retain) NSString *userEmailIsVerified;
 
-// Property indicating if this auth has a refresh token so is suitable for
-// authorizing a request. This does not guarantee that the token is valid.
+// Property indicating if this auth has a refresh or access token so is suitable
+// for authorizing a request. This does not guarantee that the token is valid.
 @property (readonly) BOOL canAuthorize;
 
 // Property indicating if this object will authorize plain http request
@@ -196,6 +226,11 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // not set, the class SBJSON must be available in the runtime.
 @property (assign) Class parserClass;
 
+// Key for the response parameter used for the authorization header; by default,
+// "access_token" is used, but some servers may expect alternatives, like
+// "id_token".
+@property (copy) NSString *authorizationTokenKey;
+
 // Convenience method for creating an authentication object
 + (id)authenticationWithServiceProvider:(NSString *)serviceProvider
                                tokenURL:(NSURL *)tokenURL
@@ -213,6 +248,10 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 //
 // The request argument may be nil to just force a refresh of the access token,
 // if needed.
+//
+// NOTE: To avoid accidental leaks of bearer tokens, the request must
+// be for a URL with the scheme https unless the shouldAuthorizeAllRequests
+// property is set.
 
 // The finish selector should have a signature matching
 //   - (void)authentication:(GTMOAuth2Authentication *)auth
@@ -232,8 +271,8 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // access token
 - (BOOL)authorizeRequest:(NSMutableURLRequest *)request;
 
-// If the authentication is waiting for a refreh to complete, spin the run loop,
-// discarding events, until the fetch has completed
+// If the authentication is waiting for a refresh to complete, spin the run
+// loop, discarding events, until the fetch has completed
 //
 // This is only for use in testing or in tools without a user interface.
 - (void)waitForCompletionWithTimeout:(NSTimeInterval)timeoutInSeconds;
@@ -247,11 +286,18 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 // Pending fetcher to get a new access token, if any
 @property (retain) GTMHTTPFetcher *refreshFetcher;
 
+// Check if a request is queued up to be authorized
+- (BOOL)isAuthorizingRequest:(NSURLRequest *)request;
+
 // Check if a request appears to be authorized
 - (BOOL)isAuthorizedRequest:(NSURLRequest *)request;
 
-// Stop any pending refresh fetch
+// Stop any pending refresh fetch. This will also cancel the authorization
+// for all fetch requests pending authorization.
 - (void)stopAuthorization;
+
+// Prevents authorization callback for a given request.
+- (void)stopAuthorizationForRequest:(NSURLRequest *)request;
 
 // OAuth fetch user-agent header value
 - (NSString *)userAgent;
@@ -296,7 +342,9 @@ _EXTERN NSString* const kGTMOAuth2NetworkFound        _INITIALIZE_AS(@"kGTMOAuth
 
 + (NSDictionary *)dictionaryWithResponseString:(NSString *)responseStr;
 
-+ (NSString *)scopeWithStrings:(NSString *)firsStr, ... NS_REQUIRES_NIL_TERMINATION;
++ (NSDictionary *)dictionaryWithJSONData:(NSData *)data;
+
++ (NSString *)scopeWithStrings:(NSString *)firstStr, ... NS_REQUIRES_NIL_TERMINATION;
 @end
 
 #endif // GTM_INCLUDE_OAUTH2 || !GDATA_REQUIRE_SERVICE_INCLUDES

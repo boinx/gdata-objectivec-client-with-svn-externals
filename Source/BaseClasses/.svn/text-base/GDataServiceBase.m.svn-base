@@ -70,7 +70,7 @@ static void XorPlainMutableData(NSMutableData *mutableData) {
 
 // category to provide opaque access to tickets stored in fetcher properties
 @implementation GTMHTTPFetcher (GDataServiceTicketAdditions)
-- (id)ticket {
+- (id)GDataTicket {
   return [self propertyForKey:kFetcherTicketKey];
 }
 @end
@@ -83,15 +83,18 @@ static void XorPlainMutableData(NSMutableData *mutableData) {
 + (GTMHTTPUploadFetcher *)uploadFetcherWithRequest:(NSURLRequest *)request
                                         uploadData:(NSData *)data
                                     uploadMIMEType:(NSString *)uploadMIMEType
-                                         chunkSize:(NSUInteger)chunkSize;
+                                         chunkSize:(NSUInteger)chunkSize
+                                    fetcherService:(GTMHTTPFetcherService *)fetcherService;
 + (GTMHTTPUploadFetcher *)uploadFetcherWithRequest:(NSURLRequest *)request
                                   uploadFileHandle:(NSFileHandle *)uploadFileHandle
                                     uploadMIMEType:(NSString *)uploadMIMEType
-                                         chunkSize:(NSUInteger)chunkSize;
+                                         chunkSize:(NSUInteger)chunkSize
+                                    fetcherService:(GTMHTTPFetcherService *)fetcherService;
 + (GTMHTTPUploadFetcher *)uploadFetcherWithLocation:(NSURL *)locationURL
                                    uploadFileHandle:(NSFileHandle *)uploadFileHandle
                                      uploadMIMEType:(NSString *)uploadMIMEType
-                                          chunkSize:(NSUInteger)chunkSize;
+                                          chunkSize:(NSUInteger)chunkSize
+                                     fetcherService:(GTMHTTPFetcherService *)fetcherService;
 - (void)pauseFetching;
 - (void)resumeFetching;
 - (BOOL)isPaused;
@@ -189,55 +192,8 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected;
 }
 
 + (NSString *)systemVersionString {
-
-  NSString *systemString = @"";
-
-#ifndef GDATA_FOUNDATION_ONLY
-  // Mac build
-  SInt32 systemMajor = 0, systemMinor = 0, systemRelease = 0;
-  (void) Gestalt(gestaltSystemVersionMajor, &systemMajor);
-  (void) Gestalt(gestaltSystemVersionMinor, &systemMinor);
-  (void) Gestalt(gestaltSystemVersionBugFix, &systemRelease);
-
-  systemString = [NSString stringWithFormat:@"MacOSX/%d.%d.%d",
-    (int)systemMajor, (int)systemMinor, (int)systemRelease];
-
-#elif GDATA_IPHONE && TARGET_OS_IPHONE
-  // compiling against the iPhone SDK
-
-  static NSString *savedSystemString = nil;
-
-  @synchronized([GDataServiceBase class]) {
-
-    if (savedSystemString == nil) {
-      // avoid the slowness of calling currentDevice repeatedly on the iPhone
-      UIDevice* currentDevice = [UIDevice currentDevice];
-
-      NSString *rawModel = [currentDevice model];
-      NSString *model = [GDataUtilities userAgentStringForString:rawModel];
-
-      NSString *systemVersion = [currentDevice systemVersion];
-
-      savedSystemString = [[NSString alloc] initWithFormat:@"%@/%@",
-                           model, systemVersion]; // "iPod_Touch/2.2"
-    }
-  }
-  systemString = savedSystemString;
-
-#elif GDATA_IPHONE
-  // GDATA_IPHONE defined but compiling against the Mac SDK
-  systemString = @"iPhone/x.x";
-
-#elif defined(_SYS_UTSNAME_H)
-  // Foundation-only build
-  struct utsname unameRecord;
-  uname(&unameRecord);
-
-  systemString = [NSString stringWithFormat:@"%s/%s",
-                  unameRecord.sysname, unameRecord.release]; // "Darwin/8.11.1"
-#endif
-
-  return systemString;
+  NSString *str = GTMSystemVersionString();
+  return str;
 }
 
 - (NSString *)requestUserAgent {
@@ -598,19 +554,21 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected;
       fetcher = [uploadClass uploadFetcherWithRequest:request
                                            uploadData:uploadData
                                        uploadMIMEType:uploadMIMEType
-                                            chunkSize:uploadChunkSize];
+                                            chunkSize:uploadChunkSize
+                                       fetcherService:fetcherService_];
     } else if (uploadLocationURL) {
       fetcher = [uploadClass uploadFetcherWithLocation:uploadLocationURL
                                       uploadFileHandle:uploadFileHandle
                                         uploadMIMEType:uploadMIMEType
-                                             chunkSize:uploadChunkSize];
+                                             chunkSize:uploadChunkSize
+                                        fetcherService:fetcherService_];
     } else {
       fetcher = [uploadClass uploadFetcherWithRequest:request
                                      uploadFileHandle:uploadFileHandle
                                        uploadMIMEType:uploadMIMEType
-                                            chunkSize:uploadChunkSize];
+                                            chunkSize:uploadChunkSize
+                                       fetcherService:fetcherService_];
     }
-    [fetcher setRunLoopModes:[self runLoopModes]];
   } else {
     fetcher = [fetcherService_ fetcherWithRequest:request];
   }
@@ -775,6 +733,7 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
     op = [[[NSInvocationOperation alloc] initWithTarget:self
                                                selector:parseSel
                                                  object:fetcher] autorelease];
+    [ticket setParseOperation:op];
     [operationQueue_ addOperation:op];
     // the fetcher now belongs to the parsing thread
   } else {
@@ -798,13 +757,32 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
   NSError *error = nil;
   GDataObject* object = nil;
 
-  Class objectClass = (Class)[fetcher propertyForKey:kFetcherObjectClassKey];
-  GDataServiceTicketBase *ticket = [fetcher propertyForKey:kFetcherTicketKey];
+  // Generally protect the fetcher properties, since canceling a ticket would
+  // release the fetcher properties dictionary
+  NSMutableDictionary *properties = [[[fetcher properties] retain] autorelease];
+
+  // The callback thread is retaining the fetcher, so the fetcher shouldn't keep
+  // retaining the callback thread
+  NSThread *callbackThread = [properties valueForKey:kFetcherCallbackThreadKey];
+  [[callbackThread retain] autorelease];
+  [properties removeObjectForKey:kFetcherCallbackThreadKey];
+
+  GDataServiceTicketBase *ticket = [properties valueForKey:kFetcherTicketKey];
+  [[ticket retain] autorelease];
+
+  NSDictionary *responseHeaders = [fetcher responseHeaders];
+  [[responseHeaders retain] autorelease];
+
+  NSOperation *parseOperation = [ticket parseOperation];
+
+  Class objectClass = (Class)[properties objectForKey:kFetcherObjectClassKey];
 
   NSData *data = [fetcher downloadedData];
   NSXMLDocument *xmlDocument = [[[NSXMLDocument alloc] initWithData:data
                                                             options:0
                                                               error:&error] autorelease];
+  if ([parseOperation isCancelled]) return;
+
   if (xmlDocument) {
 
     NSXMLElement* root = [xmlDocument rootElement];
@@ -822,7 +800,6 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
     }
 
     // use the actual service version indicated by the response headers
-    NSDictionary *responseHeaders = [fetcher responseHeaders];
     NSString *serviceVersion = [responseHeaders objectForKey:@"Gdata-Version"];
 
     // feeds may optionally be instantiated without unknown elements tracked
@@ -847,7 +824,7 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
     [object setProperty:xmlDocument forKey:kGDataXMLDocumentPropertyKey];
 #endif
 
-    [fetcher setProperty:object forKey:kFetcherParsedObjectKey];
+    [properties setValue:object forKey:kFetcherParsedObjectKey];
     [object release];
 
 #if GDATA_LOG_PERFORMANCE
@@ -855,19 +832,14 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
     NSLog(@"allocation of %@ took %f seconds", objectClass, secs2 - secs1);
 #endif
   }
-  [fetcher setProperty:error forKey:kFetcherParseErrorKey];
+  [properties setValue:error forKey:kFetcherParseErrorKey];
+
+  if ([parseOperation isCancelled]) return;
 
   SEL parseDoneSel = @selector(handleParsedObjectForFetcher:);
 
   if (operationQueue_ != nil) {
-    // call back on the caller's original thread
-    NSThread *callbackThread = [[[fetcher propertyForKey:kFetcherCallbackThreadKey] retain] autorelease];
-
-    // the callback thread is retaining the fetcher, so the fetcher shouldn't
-    // keep retaining the callback thread
-    [fetcher setProperty:nil forKey:kFetcherCallbackThreadKey];
-
-    NSArray *runLoopModes = [fetcher propertyForKey:kFetcherCallbackRunLoopModesKey];
+    NSArray *runLoopModes = [properties valueForKey:kFetcherCallbackRunLoopModesKey];
     if (runLoopModes) {
       [self performSelector:parseDoneSel
                    onThread:callbackThread
@@ -885,7 +857,7 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
   } else {
     // in 10.4, there's no performSelector:onThread:
     [self performSelector:parseDoneSel withObject:fetcher];
-    [fetcher setProperty:nil forKey:kFetcherCallbackThreadKey];
+    [properties removeObjectForKey:kFetcherCallbackThreadKey];
   }
 
   // We drain here to keep the clang static analyzer quiet.
@@ -896,6 +868,9 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
 
   // after parsing is complete, this is invoked on the thread that the
   // fetch was performed on
+
+  GDataServiceTicketBase *ticket = [fetcher propertyForKey:kFetcherTicketKey];
+  [ticket setParseOperation:nil];
 
   // unpack the callback parameters
   id delegate = [fetcher propertyForKey:kFetcherDelegateKey];
@@ -909,8 +884,6 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
 #else
   completionHandler = NULL;
 #endif
-
-  GDataServiceTicketBase *ticket = [fetcher propertyForKey:kFetcherTicketKey];
 
   NSNotificationCenter *defaultNC = [NSNotificationCenter defaultCenter];
   [defaultNC postNotificationName:kGDataServiceTicketParsingStoppedNotification
@@ -1285,12 +1258,18 @@ totalBytesExpectedToSend:(NSInteger)totalBytesExpected {
     [[NSRunLoop currentRunLoop] runUntilDate:stopDate];
   }
 
-  GDataObject *fetchedObject = [ticket fetchedObject];
+  NSError *fetchError = [ticket fetchError];
 
-  if (outObjectOrNil) *outObjectOrNil = fetchedObject;
-  if (outErrorOrNil)  *outErrorOrNil = [ticket fetchError];
+  if (![ticket hasCalledCallback] && fetchError == nil) {
+    fetchError = [NSError errorWithDomain:kGDataServiceErrorDomain
+                                     code:kGDataWaitTimedOutError
+                                 userInfo:nil];
+  }
 
-  return (fetchedObject != nil);
+  if (outObjectOrNil) *outObjectOrNil = [ticket fetchedObject];
+  if (outErrorOrNil)  *outErrorOrNil = fetchError;
+
+  return (fetchError == nil);
 }
 
 #pragma mark -
@@ -1480,7 +1459,7 @@ return [self fetchPublicFeedWithBatchFeed:batchFeed
 
 - (void)setUserAgent:(NSString *)userAgent {
   // remove whitespace and unfriendly characters
-  NSString *str = [GDataUtilities userAgentStringForString:userAgent];
+  NSString *str = GTMCleanedUserAgentString(userAgent);
   [self setExactUserAgent:str];
 }
 
@@ -1780,51 +1759,23 @@ return [self fetchPublicFeedWithBatchFeed:batchFeed
 
 #pragma mark -
 
++ (NSBundle *)owningBundle {
+  NSBundle *bundle = [NSBundle bundleForClass:self];
+  if (bundle == nil
+      || [[bundle bundleIdentifier] isEqual:@"com.google.GDataFramework"]) {
+
+    bundle = [NSBundle mainBundle];
+  }
+  return bundle;
+}
+
 // return a generic name and version for the current application; this avoids
 // anonymous server transactions.  Applications should call setUserAgent
 // to avoid the need for this method to be used.
 + (NSString *)defaultApplicationIdentifier {
-
-  static NSString *sAppID = nil;
-  if (sAppID != nil) return sAppID;
-
-  // if there's a bundle ID, use that; otherwise, use the process name
-
-  // if this code is compiled directly into an app or plug-in, we want
-  // that app or plug-in's bundle; if it was loaded as part of the
-  // GData framework, we'll settle for the main bundle's ID
-  NSBundle *owningBundle = [NSBundle bundleForClass:self];
-  if (owningBundle == nil
-      || [[owningBundle bundleIdentifier] isEqual:@"com.google.GDataFramework"]) {
-
-    owningBundle = [NSBundle mainBundle];
-  }
-
-  NSString *identifier;
-
-  NSString *bundleID = [owningBundle bundleIdentifier];
-  if ([bundleID length] > 0) {
-    identifier = bundleID;
-  } else {
-    // fall back on the procname, prefixed by "proc" to flag that it's
-    // autogenerated and perhaps unreliable
-    NSString *procName = [[NSProcessInfo processInfo] processName];
-    identifier = [NSString stringWithFormat:@"proc_%@", procName];
-  }
-
-  // if there's a version number, append that
-  NSString *version = [owningBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
-  if ([version length] == 0) {
-    version = [owningBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
-  }
-
-  if ([version length] > 0) {
-    identifier = [identifier stringByAppendingFormat:@"-%@", version];
-  }
-
-  // clean up whitespace and special characters
-  sAppID = [[GDataUtilities userAgentStringForString:identifier] copy];
-  return sAppID;
+  NSBundle *bundle = [[self class] owningBundle];
+  NSString *appID = GTMApplicationIdentifier(bundle);
+  return appID;
 }
 @end
 
@@ -1874,13 +1825,15 @@ return [self fetchPublicFeedWithBatchFeed:batchFeed
   [accumulatedFeed_ release];
   [fetchError_ release];
 
+  [parseOperation_ release];
+
   [authorizer_ release];
 
   [super dealloc];
 }
 
 - (NSString *)description {
-  NSString *templateStr = @"%@ %p: {service:%@ currentFetcher:%@ userData:%@}";
+  NSString *const templateStr = @"%@ %p: {service:%@ currentFetcher:%@ userData:%@}";
   return [NSString stringWithFormat:templateStr,
     [self class], self, service_, currentFetcher_, userData_];
 }
@@ -1914,6 +1867,10 @@ return [self fetchPublicFeedWithBatchFeed:batchFeed
 }
 
 - (void)cancelTicket {
+  NSOperation *op = [self parseOperation];
+  [op cancel];
+  [self setParseOperation:nil];
+
   [objectFetcher_ stopFetching];
   [objectFetcher_ setProperties:nil];
 
@@ -2158,6 +2115,15 @@ return [self fetchPublicFeedWithBatchFeed:batchFeed
 
 - (NSUInteger)nextLinksFollowedCounter {
   return nextLinksFollowedCounter_;
+}
+
+- (NSOperation *)parseOperation {
+  return parseOperation_;
+}
+
+- (void)setParseOperation:(NSOperation *)op {
+  [parseOperation_ autorelease];
+  parseOperation_ = [op retain];
 }
 
 // OAuth support

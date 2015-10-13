@@ -1,15 +1,15 @@
 10
 
 dir
-700
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/XMLSupport
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-04-26T20:38:00.284843Z
-649
-gregrobbins
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2011-09-23T16:07:08.000000Z
-905c13160d9ab2351ab1179359a11a55
-2011-01-24T19:39:38.992768Z
-619
-gregrobbins
+2013-02-11T09:44:57.000000Z
+a1435f0acf6829db236ab3ab79c1c6e0
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -58,7 +58,7 @@ gregrobbins
 
 
 
-51492
+51543
 
 GDataXMLNode.h
 file
@@ -66,7 +66,7 @@ file
 
 
 
-2011-09-23T16:07:08.000000Z
+2012-11-23T16:11:30.000000Z
 b96c7a4944b6f88176a442793494a28e
 2011-04-26T20:38:00.284843Z
 649

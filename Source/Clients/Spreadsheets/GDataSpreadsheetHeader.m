@@ -26,7 +26,7 @@
 // For spreadsheet header, like
 //    <gs:header row="1" />
 
-static NSString* const kRowAttr = @"row";
+//static NSString* const kRowAttr = @"row";
 
 @implementation GDataSpreadsheetHeader
 

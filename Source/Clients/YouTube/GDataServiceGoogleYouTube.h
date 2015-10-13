@@ -71,8 +71,6 @@ _EXTERN NSString* const kGDataYouTubeUserFeedIDRecommendations       _INITIALIZE
   NSString *developerKey_; // required for uploading 
 }
 
-+ (NSString *)serviceRootURLString;
-
 // Utilities for making feed URLs.  To set query parameters, use the
 // methods in GDataQueryYouTube.
 //

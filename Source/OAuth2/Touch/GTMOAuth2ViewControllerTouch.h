@@ -33,26 +33,26 @@
 
 #import "GTMOAuth2Authentication.h"
 
-#undef _EXTERN
-#undef _INITIALIZE_AS
-#ifdef GTMOAUTH2VIEWCONTROLLERTOUCH_DEFINE_GLOBALS
-#define _EXTERN
-#define _INITIALIZE_AS(x) =x
-#else
-#define _EXTERN extern
-#define _INITIALIZE_AS(x)
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-_EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com.google.GTMOAuthKeychain");
+extern NSString *const kGTMOAuth2KeychainErrorDomain;
 
+#ifdef __cplusplus
+}
+#endif
 
 @class GTMOAuth2SignIn;
 @class GTMOAuth2ViewControllerTouch;
+
+typedef void (^GTMOAuth2ViewControllerCompletionHandler)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error);
 
 @interface GTMOAuth2ViewControllerTouch : UIViewController<UINavigationControllerDelegate, UIWebViewDelegate> {
  @private
   UIButton *backButton_;
   UIButton *forwardButton_;
+  UIActivityIndicatorView *initialActivityIndicator_;
   UIView *navButtonsView_;
   UIBarButtonItem *rightBarButtonItem_;
   UIWebView *webView_;
@@ -72,14 +72,21 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
   SEL finishedSelector_;
 
 #if NS_BLOCKS_AVAILABLE
-  void (^completionBlock_)(GTMOAuth2ViewControllerTouch *, GTMOAuth2Authentication *, NSError *);
+  GTMOAuth2ViewControllerCompletionHandler completionBlock_;
+
+  void (^popViewBlock_)(void);
 #endif
 
   NSString *keychainItemName_;
+  CFTypeRef keychainItemAccessibility_;
 
   // if non-nil, the html string to be displayed immediately upon opening
   // of the web view
   NSString *initialHTMLString_;
+
+  // set to 1 or -1 if the user sets the showsInitialActivityIndicator
+  // property
+  int mustShowActivityIndicator_;
 
   // if non-nil, the URL for which cookies will be deleted when the
   // browser view is dismissed
@@ -88,10 +95,12 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
   id userData_;
   NSMutableDictionary *properties_;
 
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
   // We delegate the decision to our owning NavigationController (if any).
   // But, the NavigationController will call us back, and ask us.
   // BOOL keeps us from infinite looping.
   BOOL isInsideShouldAutorotateToInterfaceOrientation_;
+#endif
 
   // YES, when view first shown in this signIn session.
   BOOL isViewShown_;
@@ -99,19 +108,30 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
   // YES, after the view has fully transitioned in.
   BOOL didViewAppear_;
 
+  // YES between sends of start and stop notifications
+  BOOL hasNotifiedWebViewStartedLoading_;
+
   // To prevent us from calling our delegate's selector more than once.
   BOOL hasCalledFinished_;
 
   // Set in a webView callback.
   BOOL hasDoneFinalRedirect_;
 
-  // Set during the pop initiated by the sign-in object
-  BOOL isPoppingSelf_;
+  // Set during the pop initiated by the sign-in object; otherwise,
+  // viewWillDisappear indicates that some external change of the view
+  // has stopped the sign-in.
+  BOOL didDismissSelf_;
 }
 
 // the application and service name to use for saving the auth tokens
 // to the keychain
 @property (nonatomic, copy) NSString *keychainItemName;
+
+// the keychain item accessibility is a system constant for use
+// with kSecAttrAccessible.
+//
+// Since it's a system constant, we do not need to retain it.
+@property (nonatomic, assign) CFTypeRef keychainItemAccessibility;
 
 // optional html string displayed immediately upon opening the web view
 //
@@ -119,6 +139,11 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
 // may be used for a "Loading..." type of message or to set the
 // initial view color
 @property (nonatomic, copy) NSString *initialHTMLString;
+
+// an activity indicator shows during initial webview load when no initial HTML
+// string is specified, but the activity indicator can be forced to be shown
+// with this property
+@property (nonatomic, assign) BOOL showsInitialActivityIndicator;
 
 // the underlying object to hold authentication tokens and authorize http
 // requests
@@ -130,12 +155,19 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
 // user interface elements
 @property (nonatomic, retain) IBOutlet UIButton *backButton;
 @property (nonatomic, retain) IBOutlet UIButton *forwardButton;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *initialActivityIndicator;
 @property (nonatomic, retain) IBOutlet UIView *navButtonsView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *rightBarButtonItem;
 @property (nonatomic, retain) IBOutlet UIWebView *webView;
 
+#if NS_BLOCKS_AVAILABLE
+// An optional block to be called when the view should be popped. If not set,
+// the view controller will use its navigation controller to pop the view.
+@property (nonatomic, copy) void (^popViewBlock)(void);
+#endif
+
 // the default timeout for an unreachable network during display of the
-// sign-in page is 10 seconds; set this to 0 to have no timeout
+// sign-in page is 30 seconds; set this to 0 to have no timeout
 @property (nonatomic, assign) NSTimeInterval networkLossTimeoutInterval;
 
 // if set, cookies are deleted for this URL when the view is hidden
@@ -195,13 +227,13 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
                  clientID:(NSString *)clientID
              clientSecret:(NSString *)clientSecret
          keychainItemName:(NSString *)keychainItemName
-        completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler;
+        completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler;
 
 - (id)initWithScope:(NSString *)scope
            clientID:(NSString *)clientID
        clientSecret:(NSString *)clientSecret
    keychainItemName:(NSString *)keychainItemName
-  completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler;
+  completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler;
 #endif
 #endif
 
@@ -224,20 +256,27 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
 + (id)controllerWithAuthentication:(GTMOAuth2Authentication *)auth
                   authorizationURL:(NSURL *)authorizationURL
                   keychainItemName:(NSString *)keychainItemName  // may be nil
-                 completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler;
+                 completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler;
 
 - (id)initWithAuthentication:(GTMOAuth2Authentication *)auth
             authorizationURL:(NSURL *)authorizationURL
             keychainItemName:(NSString *)keychainItemName
-           completionHandler:(void (^)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error))handler;
+           completionHandler:(GTMOAuth2ViewControllerCompletionHandler)handler;
 #endif
-
-// Override default in UIViewController. If we have a navigationController, ask
-// it. else default result (i.e., Portrait mode only).
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 // subclasses may override authNibName to specify a custom name
 + (NSString *)authNibName;
+
+// subclasses may override authNibBundle to specify a custom bundle
++ (NSBundle *)authNibBundle;
+
+// subclasses may override setUpNavigation to provide their own navigation
+// controls
+- (void)setUpNavigation;
+
+// apps may replace the sign-in class with their own subclass of it
++ (Class)signInClass;
++ (void)setSignInClass:(Class)theClass;
 
 - (void)cancelSigningIn;
 
@@ -252,8 +291,13 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
 
 // create an authentication object for Google services from the access
 // token and secret stored in the keychain; if no token is available, return
-// an unauthorized auth object
+// an unauthorized auth object. OK to pass NULL for the error parameter.
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
++ (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
+                                                     clientID:(NSString *)clientID
+                                                 clientSecret:(NSString *)clientSecret
+                                                        error:(NSError **)error;
+// Equivalent to calling the method above with a NULL error parameter.
 + (GTMOAuth2Authentication *)authForGoogleFromKeychainForName:(NSString *)keychainItemName
                                                      clientID:(NSString *)clientID
                                                  clientSecret:(NSString *)clientSecret;
@@ -263,14 +307,23 @@ _EXTERN NSString* const kGTMOAuth2KeychainErrorDomain       _INITIALIZE_AS(@"com
 //
 // returns YES if the authentication object was authorized from the keychain
 + (BOOL)authorizeFromKeychainForName:(NSString *)keychainItemName
-                      authentication:(GTMOAuth2Authentication *)auth;
+                      authentication:(GTMOAuth2Authentication *)auth
+                               error:(NSError **)error;
 
 // method for deleting the stored access token and secret, useful for "signing
 // out"
 + (BOOL)removeAuthFromKeychainForName:(NSString *)keychainItemName;
 
-// method for saving the stored access token and secret; typically, this method
-// is used only by this.
+// method for saving the stored access token and secret
+//
+// returns YES if the save was successful.  OK to pass NULL for the error
+// parameter.
++ (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
+                      accessibility:(CFTypeRef)accessibility
+                     authentication:(GTMOAuth2Authentication *)auth
+                              error:(NSError **)error;
+
+// older version, defaults to kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
 + (BOOL)saveParamsToKeychainForName:(NSString *)keychainItemName
                      authentication:(GTMOAuth2Authentication *)auth;
 
@@ -302,8 +355,12 @@ enum {
                            error:(NSError **)error;
 
 // OK to pass nil for the error parameter.
+//
+// accessibility should be one of the constants for kSecAttrAccessible
+// such as kSecAttrAccessibleWhenUnlocked
 - (BOOL)setPassword:(NSString *)password
          forService:(NSString *)service
+      accessibility:(CFTypeRef)accessibility
             account:(NSString *)account
               error:(NSError **)error;
 

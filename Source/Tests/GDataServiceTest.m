@@ -83,7 +83,7 @@
 NSTask *StartHTTPServerTask(int portNumber) NS_RETURNS_RETAINED;
 
 // StartHTTPServerTask is used below and in GTMHTTPFetcherTest
-NSTask *StartHTTPServerTask(int portNumber) NS_RETURNS_RETAINED {
+NSTask *StartHTTPServerTask(int portNumber) {
   // run the python http server, located in the Tests directory
   NSString *currentDir = [[NSFileManager defaultManager] currentDirectoryPath];
   NSString *serverPath = [currentDir stringByAppendingPathComponent:@"Tests/GDataTestHTTPServer.py"];
@@ -159,7 +159,7 @@ static int kServerPortNumber = 54579;
 
 - (void)fetchStateChanged:(NSNotification *)note {
   GTMHTTPFetcher *fetcher = [note object];
-  GDataServiceTicketBase *ticket = [fetcher ticket];
+  GDataServiceTicketBase *ticket = [fetcher GDataTicket];
 
   STAssertNotNil(ticket, @"cannot get ticket from fetch notification");
 
@@ -194,7 +194,7 @@ static int kServerPortNumber = 54579;
 
 - (void)retryDelayStateChanged:(NSNotification *)note {
   GTMHTTPFetcher *fetcher = [note object];
-  GDataServiceTicketBase *ticket = [fetcher ticket];
+  GDataServiceTicketBase *ticket = [fetcher GDataTicket];
 
   STAssertNotNil(ticket, @"cannot get ticket from retry delay notification");
 
@@ -1116,10 +1116,10 @@ ofTotalByteCount:(unsigned long long)dataLength {
   GTMHTTPFetcher *fetcher = [ticket currentFetcher];
   [fetcher setMinRetryInterval:1.0]; // force exact starting interval of 1.0 sec
 
-  NSInteger count = [fetcher retryCount];
+  NSUInteger count = [fetcher retryCount];
   NSInteger allowedRetryCount = [[ticket userData] intValue];
 
-  BOOL shouldRetry = (count < allowedRetryCount);
+  BOOL shouldRetry = ((NSInteger)count < allowedRetryCount);
 
   STAssertEquals([fetcher nextRetryInterval], pow(2.0, [fetcher retryCount]),
                  @"unexpected next retry interval (expected %f, was %f)",
@@ -1154,7 +1154,7 @@ ofTotalByteCount:(unsigned long long)dataLength {
 
   unsigned char *bytes = [data mutableBytes];
   for (NSUInteger idx = 0; idx < length; idx++) {
-    bytes[idx] = ((idx + 1) % 256);
+    bytes[idx] = (unsigned char)((idx + 1) % 256);
   }
 
   return data;
@@ -1435,7 +1435,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
   NSNumber *pauseAtNum = [ticket propertyForKey:kPauseAtKey];
   if (pauseAtNum) {
     int pauseAt = [pauseAtNum intValue];
-    if (pauseAt < numberOfBytesRead) {
+    if (pauseAt < (int)numberOfBytesRead) {
       // we won't be paused again
       [ticket setProperty:nil forKey:kPauseAtKey];
 
@@ -1452,7 +1452,7 @@ hasDeliveredByteCount:(unsigned long long)numberOfBytesRead
   NSNumber *retryAtNum = [ticket propertyForKey:kRetryAtKey];
   if (retryAtNum) {
     int retryAt = [retryAtNum intValue];
-    if (retryAt < numberOfBytesRead) {
+    if (retryAt < (int)numberOfBytesRead) {
       // we won't be retrying again
       [ticket setProperty:nil forKey:kRetryAtKey];
 

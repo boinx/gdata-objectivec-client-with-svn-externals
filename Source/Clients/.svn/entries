@@ -1,15 +1,15 @@
 10
 
 dir
-700
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Source/Clients
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-09-12T21:46:12.349011Z
-695
-gregrobbins
+2012-12-11T20:51:31.401155Z
+732
+grobbins@google.com
 
 
 
@@ -36,9 +36,6 @@ Blogger
 dir
 
 Finance
-dir
-
-Health
 dir
 
 Analytics

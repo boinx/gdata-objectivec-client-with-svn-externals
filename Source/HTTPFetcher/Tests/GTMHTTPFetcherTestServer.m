@@ -27,6 +27,10 @@
 - (id)objectWithString:(NSString*)jsonrep error:(NSError**)error;
 @end
 
+@interface GTMNSJSONSerialization : NSObject
++ (id)JSONObjectWithData:(NSData *)data options:(NSUInteger)opt error:(NSError **)error;
+@end
+
 @implementation GTMHTTPFetcherTestServer
 
 - (id)initWithDocRoot:(NSString *)docRoot {
@@ -75,29 +79,18 @@
 }
 
 - (id)JSONFromData:(NSData *)data {
-  // TODO - replace with the system JSON parser
-  Class jsonClass = NSClassFromString(@"SBJsonParser");
-  if (!jsonClass) {
-    jsonClass = NSClassFromString(@"SBJSON");
-  }
-  if (!jsonClass) {
-    NSLog(@"JSON parser missing");
-  } else {
-    GTMSBJSON *parser = [[[jsonClass alloc] init] autorelease];
+  NSError *error = nil;
+  const NSUInteger kOpts = NSJSONReadingMutableContainers;
+  id obj = [NSJSONSerialization JSONObjectWithData:data
+                                           options:kOpts
+                                             error:&error];
+  if (obj == nil) {
     NSString *jsonStr = [[[NSString alloc] initWithData:data
                                                encoding:NSUTF8StringEncoding] autorelease];
-    if (jsonStr) {
-      // convert from JSON string to NSObject
-      NSError *error = nil;
-      id obj = [parser objectWithString:jsonStr error:&error];
-      if (obj == nil) {
-        NSLog(@"JSON parse error: %@\n  for JSON string: %@",
-              error, jsonStr);
-      }
-      return obj;
-    }
+    NSLog(@"JSON parse error: %@\n  for JSON string: %@",
+          error, jsonStr);
   }
-  return nil;
+  return obj;
 }
 
 - (GTMHTTPResponseMessage *)httpServer:(GTMHTTPServer *)server
@@ -105,7 +98,7 @@
   NSAssert(server == server_, @"how'd we get a different server?!");
 
   GTMHTTPResponseMessage *response;
-  UInt32 resultStatus = 0;
+  int resultStatus = 0;
   NSData *data = nil;
   NSMutableDictionary *responseHeaders = [NSMutableDictionary dictionary];
 
@@ -153,48 +146,61 @@
     long long totalToUpload = 0;
     if ([crScanner scanString:@"bytes */" intoString:NULL]
         && [crScanner scanLongLong:&totalToUpload]) {
-      // this is a query for where to resume; we'll arbitrarily resume at
-      // half the total length of the upload
-      long long resumeLocation = totalToUpload / 2;
-      NSString *range = [NSString stringWithFormat:@"bytes=0-%lld",
-                         resumeLocation];
-      [responseHeaders setValue:range forKey:@"Range"];
-      resultStatus = 308;
-      goto SendResponse;
-    }
-
-    long long rangeLow = 0;
-    long long rangeHigh = 0;
-    if ([crScanner scanString:@"bytes " intoString:nil]
-        && [crScanner scanLongLong:&rangeLow]
-        && [crScanner scanString:@"-" intoString:NULL]
-        && [crScanner scanLongLong:&rangeHigh]
-        && [crScanner scanString:@"/" intoString:NULL]
-        && [crScanner scanLongLong:&totalToUpload]) {
-      // a chunk request
-      if ((rangeHigh + 1) < totalToUpload) {
-        // this is a middle chunk, so send a 308 status to ask for more chunks
+      if (totalToUpload > 0) {
+        // this is a query for where to resume; we'll arbitrarily resume at
+        // half the total length of the upload
+        long long resumeLocation = totalToUpload / 2;
         NSString *range = [NSString stringWithFormat:@"bytes=0-%lld",
-                           rangeHigh];
+                           resumeLocation];
         [responseHeaders setValue:range forKey:@"Range"];
         resultStatus = 308;
         goto SendResponse;
       } else {
-        // this is the final chunk; remove the ".upload" at the end and
+        // the upload is empty so this is the final chunk; remove the ".upload" at the end and
         // fall through to return the requested resource at the path
         path = [path stringByDeletingPathExtension];
+      }
+    } else {
+      long long rangeLow = 0;
+      long long rangeHigh = 0;
+      if ([crScanner scanString:@"bytes " intoString:nil]
+          && [crScanner scanLongLong:&rangeLow]
+          && [crScanner scanString:@"-" intoString:NULL]
+          && [crScanner scanLongLong:&rangeHigh]
+          && [crScanner scanString:@"/" intoString:NULL]
+          && [crScanner scanLongLong:&totalToUpload]) {
+        // a chunk request
+        if ((rangeHigh + 1) < totalToUpload) {
+          // this is a middle chunk, so send a 308 status to ask for more chunks
+          NSString *range = [NSString stringWithFormat:@"bytes=0-%lld",
+                             rangeHigh];
+          [responseHeaders setValue:range forKey:@"Range"];
+          resultStatus = 308;
+          goto SendResponse;
+        } else {
+          // this is the final chunk; remove the ".upload" at the end and
+          // fall through to return the requested resource at the path
+          path = [path stringByDeletingPathExtension];
+        }
       }
     }
   }
 
   // if there's an "auth=foo" query parameter, then the value of the
   // Authorization header should be "foo"
-  NSString *authStr = [self valueForParameter:@"oauth" query:query];
+  NSString *authStr = [self valueForParameter:@"oauth2" query:query];
   if (authStr) {
-    NSString *oauthMatch = [@"OAuth " stringByAppendingString:authStr];
-    if (![authorization isEqualToString:oauthMatch]) {
+    NSString *bearerStr = [@"Bearer " stringByAppendingString:authStr];
+    if (authorization == nil
+        || ![authorization isEqualToString:bearerStr]) {
       // return status 401 Unauthorized
-      GTMHTTPResponseMessage *response = [GTMHTTPResponseMessage emptyResponseWithCode:401];
+      NSString *errStr = [NSString stringWithFormat:@"Authorization \"%@\" should be \"%@\"",
+                          authorization, bearerStr];
+      NSData *errData = [errStr dataUsingEncoding:NSUTF8StringEncoding];
+      GTMHTTPResponseMessage *response;
+      response = [GTMHTTPResponseMessage responseWithBody:errData
+                                              contentType:@"text/plain"
+                                               statusCode:401];
       return response;
     }
   }
@@ -205,7 +211,7 @@
     // status code
     resultStatus = [statusStr intValue];
 
-    NSString *template = @"{ \"error\" : { \"message\" : \"Server Status %u\","
+    NSString *const template = @"{ \"error\" : { \"message\" : \"Server Status %u\","
                          @" \"code\" : %u } }";
     NSString *errorStr = [NSString stringWithFormat:template,
                           resultStatus, resultStatus];

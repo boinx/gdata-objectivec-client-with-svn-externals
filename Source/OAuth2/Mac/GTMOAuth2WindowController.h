@@ -23,8 +23,8 @@
 //
 // Sample usage for signing in to a Google service:
 //
-//  static NSString *const kKeychainItemName = @”My App: Google Buzz”;
-//  NSString *scope = @"https://www.googleapis.com/auth/buzz";
+//  static NSString *const kKeychainItemName = @”My App: Google Plus”;
+//  NSString *scope = @"https://www.googleapis.com/auth/plus.me";
 //
 //
 //  GTMOAuth2WindowController *windowController;
@@ -286,6 +286,10 @@
 
 // Subclasses may override authNibName to specify a custom name
 + (NSString *)authNibName;
+
+// apps may replace the sign-in class with their own subclass of it
++ (Class)signInClass;
++ (void)setSignInClass:(Class)theClass;
 
 // Revocation of an authorized token from Google
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT

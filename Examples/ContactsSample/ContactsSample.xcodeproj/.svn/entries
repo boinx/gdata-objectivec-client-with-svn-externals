@@ -1,15 +1,15 @@
 10
 
 dir
-700
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples/ContactsSample/ContactsSample.xcodeproj
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-08-09T23:46:53.696096Z
-687
-gregrobbins
+2013-05-10T18:28:11.115413Z
+735
+grobbins@google.com
 
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2011-09-23T16:07:13.000000Z
-f29a3452562cf6174b1fe6861095838e
-2011-08-09T23:46:53.696096Z
-687
-gregrobbins
+2013-06-26T15:03:50.000000Z
+090b1026f68b40f6068e71a3cf3964a7
+2013-05-10T18:28:11.115413Z
+735
+grobbins@google.com
 
 
 
@@ -58,5 +58,5 @@ gregrobbins
 
 
 
-20785
+20824
 

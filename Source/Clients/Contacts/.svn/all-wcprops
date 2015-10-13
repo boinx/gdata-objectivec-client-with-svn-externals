@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/svn/!svn/ver/672/trunk/Source/Clients/Contacts
+/svn/!svn/ver/732/trunk/Source/Clients/Contacts
 END
 GDataContactConstants.h
 K 25
@@ -87,23 +87,23 @@ svn:wc:ra_dav:version-url
 V 73
 /svn/!svn/ver/672/trunk/Source/Clients/Contacts/GDataContactSensitivity.m
 END
-GDataEntryContactBase.m
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/svn/!svn/ver/649/trunk/Source/Clients/Contacts/GDataEntryContactBase.m
-END
 GDataContactUserDefinedField.h
 K 25
 svn:wc:ra_dav:version-url
 V 78
 /svn/!svn/ver/305/trunk/Source/Clients/Contacts/GDataContactUserDefinedField.h
 END
-GDataServiceGoogleContact.m
+GDataEntryContactBase.m
 K 25
 svn:wc:ra_dav:version-url
-V 75
-/svn/!svn/ver/619/trunk/Source/Clients/Contacts/GDataServiceGoogleContact.m
+V 71
+/svn/!svn/ver/649/trunk/Source/Clients/Contacts/GDataEntryContactBase.m
+END
+GDataContactLink.m
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/672/trunk/Source/Clients/Contacts/GDataContactLink.m
 END
 GDataContacts.h
 K 25
@@ -111,11 +111,11 @@ svn:wc:ra_dav:version-url
 V 63
 /svn/!svn/ver/502/trunk/Source/Clients/Contacts/GDataContacts.h
 END
-GDataContactLink.m
+GDataServiceGoogleContact.m
 K 25
 svn:wc:ra_dav:version-url
-V 66
-/svn/!svn/ver/672/trunk/Source/Clients/Contacts/GDataContactLink.m
+V 75
+/svn/!svn/ver/732/trunk/Source/Clients/Contacts/GDataServiceGoogleContact.m
 END
 GDataFeedContact.h
 K 25
@@ -165,29 +165,29 @@ svn:wc:ra_dav:version-url
 V 71
 /svn/!svn/ver/305/trunk/Source/Clients/Contacts/GDataFeedContactGroup.h
 END
-GDataContactEvent.h
-K 25
-svn:wc:ra_dav:version-url
-V 67
-/svn/!svn/ver/619/trunk/Source/Clients/Contacts/GDataContactEvent.h
-END
 GDataContactElements.m
 K 25
 svn:wc:ra_dav:version-url
 V 70
 /svn/!svn/ver/305/trunk/Source/Clients/Contacts/GDataContactElements.m
 END
-GDataEntryContactProfile.h
+GDataContactEvent.h
 K 25
 svn:wc:ra_dav:version-url
-V 74
-/svn/!svn/ver/305/trunk/Source/Clients/Contacts/GDataEntryContactProfile.h
+V 67
+/svn/!svn/ver/619/trunk/Source/Clients/Contacts/GDataContactEvent.h
 END
 GDataContactRelation.m
 K 25
 svn:wc:ra_dav:version-url
 V 70
 /svn/!svn/ver/672/trunk/Source/Clients/Contacts/GDataContactRelation.m
+END
+GDataEntryContactProfile.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/305/trunk/Source/Clients/Contacts/GDataEntryContactProfile.h
 END
 GDataContactLanguage.h
 K 25

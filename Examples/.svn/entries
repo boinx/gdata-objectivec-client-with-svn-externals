@@ -1,15 +1,15 @@
 10
 
 dir
-700
+738
 http://gdata-objectivec-client.googlecode.com/svn/trunk/Examples
 http://gdata-objectivec-client.googlecode.com/svn
 
 
 
-2011-09-12T21:46:12.349011Z
-695
-gregrobbins
+2013-06-13T21:57:25.831948Z
+738
+grobbins@google.com
 
 
 
@@ -26,42 +26,15 @@ gregrobbins
 
 f334b912-182a-0410-b59a-f50d4d03ee1a
 
-BooksSample
-dir
-
 ContactsSample
 dir
 
 SpreadsheetTableSample
 dir
 
-MapsSample
-dir
-
-BloggerSample
-dir
-
-FinanceSample
-dir
-
-HealthSample
-dir
-
 SpreadsheetSample
 dir
 
-AnalyticsSample
-dir
-
-DocsSample
-dir
-
 GooglePhotosSample
-dir
-
-CalendarSample
-dir
-
-YouTubeSample
 dir
 

@@ -1,19 +1,15 @@
 10
 
 dir
-590
-http://json-framework.googlecode.com/svn/tags/2.1.1/Source
-http://json-framework.googlecode.com/svn
+1571
+https://github.com/stig/json-framework.git/tags/v2.3.2/Classes
+https://github.com/stig/json-framework.git
 
 
 
-2008-09-20T13:09:23.921321Z
-384
-sbrautaset
-
-
-
-
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -24,7 +20,11 @@ sbrautaset
 
 
 
-7ed384e2-a94a-0410-aa17-6fca9987d09a
+
+
+
+
+c149197c-92b2-435d-9462-ce57b7db7bff
 
 JSON.h
 file
@@ -32,11 +32,11 @@ file
 
 
 
-2011-09-23T16:07:30.000000Z
-ecd771567019852723f91734b4c100a2
-2008-06-03T20:15:10.180005Z
-305
-sbrautaset
+2012-11-23T16:11:47.000000Z
+770572441872b9b20ebcacc873e88c36
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -58,19 +58,19 @@ sbrautaset
 
 
 
-1978
+2757
 
-SBJSON.h
+SBJsonBase.h
 file
 
 
 
 
-2011-09-23T16:07:30.000000Z
-a4ffbfe93af8ff81690edcc6d1823260
-2008-09-20T13:09:23.921321Z
-384
-sbrautaset
+2012-11-23T16:11:47.000000Z
+048b288f47c5a61c084536c82c81f9af
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -92,19 +92,19 @@ sbrautaset
 
 
 
-5071
+2946
 
-NSString+SBJSON.h
+SBJsonParser.h
 file
 
 
 
 
-2011-09-23T16:07:30.000000Z
-c45be3335b9581617033c2b6cd16cc0a
-2008-07-24T06:56:58.775559Z
-338
-sbrautaset
+2012-11-23T16:11:47.000000Z
+cfcea99e48fca644ff5e0d1c9aea6825
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -126,7 +126,143 @@ sbrautaset
 
 
 
-1797
+3215
+
+SBJsonWriter.h
+file
+
+
+
+
+2012-11-23T16:11:47.000000Z
+00f7293c6720339920462ea05ce8f19a
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4569
+
+SBJsonBase.m
+file
+
+
+
+
+2012-11-23T16:11:47.000000Z
+4885652fed0a995c1aff1cf47c15117c
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2753
+
+SBJsonParser.m
+file
+
+
+
+
+2012-11-23T16:11:47.000000Z
+7a18b0b07593f2d0f797e382b1465d8a
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+15226
+
+SBJsonWriter.m
+file
+
+
+
+
+2012-11-23T16:11:47.000000Z
+82a502150d22fde391f454326d43be10
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+8301
 
 NSObject+SBJSON.h
 file
@@ -134,11 +270,11 @@ file
 
 
 
-2011-09-23T16:07:30.000000Z
-cc18fe4b1c667a46468b2f436118f142
-2008-07-24T06:56:58.775559Z
-338
-sbrautaset
+2012-11-23T16:11:47.000000Z
+512b1831ad0c042fc72ce8e2376b6a2b
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -160,19 +296,19 @@ sbrautaset
 
 
 
-2184
+2143
 
-SBJSON.m
+NSString+SBJSON.h
 file
 
 
 
 
-2011-09-23T16:07:30.000000Z
-a435f56eb0325e40defeda28a2013155
-2008-09-20T13:09:23.921321Z
-384
-sbrautaset
+2012-11-23T16:11:47.000000Z
+897656e4de7e915d2ed40b83f1b68ef7
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -194,41 +330,7 @@ sbrautaset
 
 
 
-23192
-
-NSString+SBJSON.m
-file
-
-
-
-
-2011-09-23T16:07:30.000000Z
-c4031648bec176a12bc8d35edb9a67f0
-2008-07-24T06:56:58.775559Z
-338
-sbrautaset
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2010
+2032
 
 NSObject+SBJSON.m
 file
@@ -236,11 +338,11 @@ file
 
 
 
-2011-09-23T16:07:30.000000Z
-2db9a6a7f9763c2d7e344202313a1e95
-2008-07-24T06:56:58.775559Z
-338
-sbrautaset
+2012-11-23T16:11:47.000000Z
+a53b0accb78efe66f4c4c72176b21b61
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
 
 
 
@@ -262,5 +364,39 @@ sbrautaset
 
 
 
-2081
+1917
+
+NSString+SBJSON.m
+file
+
+
+
+
+2012-11-23T16:11:47.000000Z
+09f29f15b58d5af84e3b770d9dd8cbab
+2011-01-10T22:08:12.000000Z
+1292
+stig.brautaset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1885
 

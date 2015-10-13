@@ -1,47 +1,71 @@
 K 25
 svn:wc:ra_dav:version-url
-V 35
-/svn/!svn/ver/385/tags/2.1.1/Source
+V 58
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes
 END
 JSON.h
 K 25
 svn:wc:ra_dav:version-url
-V 42
-/svn/!svn/ver/385/tags/2.1.1/Source/JSON.h
+V 65
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/JSON.h
 END
-SBJSON.h
+SBJsonBase.h
 K 25
 svn:wc:ra_dav:version-url
-V 44
-/svn/!svn/ver/385/tags/2.1.1/Source/SBJSON.h
+V 71
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonBase.h
 END
-NSString+SBJSON.h
+SBJsonParser.h
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/!svn/ver/385/tags/2.1.1/Source/NSString+SBJSON.h
+V 73
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonParser.h
+END
+SBJsonWriter.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonWriter.h
+END
+SBJsonBase.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonBase.m
+END
+SBJsonParser.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonParser.m
+END
+SBJsonWriter.m
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/SBJsonWriter.m
 END
 NSObject+SBJSON.h
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/!svn/ver/385/tags/2.1.1/Source/NSObject+SBJSON.h
+V 76
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/NSObject+SBJSON.h
 END
-SBJSON.m
+NSString+SBJSON.h
 K 25
 svn:wc:ra_dav:version-url
-V 44
-/svn/!svn/ver/385/tags/2.1.1/Source/SBJSON.m
-END
-NSString+SBJSON.m
-K 25
-svn:wc:ra_dav:version-url
-V 53
-/svn/!svn/ver/385/tags/2.1.1/Source/NSString+SBJSON.m
+V 76
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/NSString+SBJSON.h
 END
 NSObject+SBJSON.m
 K 25
 svn:wc:ra_dav:version-url
-V 53
-/svn/!svn/ver/385/tags/2.1.1/Source/NSObject+SBJSON.m
+V 76
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/NSObject+SBJSON.m
+END
+NSString+SBJSON.m
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/stig/json-framework.git/!svn/ver/1292/tags/v2.3.2/Classes/NSString+SBJSON.m
 END

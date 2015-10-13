@@ -221,8 +221,13 @@ typedef void *GDataServiceGoogleEntryBaseCompletionHandler;
                          completionHandler:(void (^)(GDataServiceTicket *ticket, GDataFeedBase *feed, NSError *error))handler;
 
 // fetch an entry, authenticated
- - (GDataServiceTicket *)fetchEntryWithURL:(NSURL *)entryURL
+- (GDataServiceTicket *)fetchEntryWithURL:(NSURL *)entryURL
                          completionHandler:(void (^)(GDataServiceTicket *ticket, GDataEntryBase *entry, NSError *error))handler;
+
+// fetch an entry, authenticated, with specified class
+- (GDataServiceTicket *)fetchEntryWithURL:(NSURL *)entryURL
+                               entryClass:(Class)entryClass
+                        completionHandler:(void (^)(GDataServiceTicket *ticket, GDataEntryBase *entry, NSError *error))handler;
 
 // insert an entry, authenticated
 - (GDataServiceTicket *)fetchEntryByInsertingEntry:(GDataEntryBase *)entryToInsert
@@ -231,6 +236,12 @@ typedef void *GDataServiceGoogleEntryBaseCompletionHandler;
 
 // update an entry, authenticated
 - (GDataServiceTicket *)fetchEntryByUpdatingEntry:(GDataEntryBase *)entryToUpdate
+                                completionHandler:(void (^)(GDataServiceTicket *ticket, GDataEntryBase *entry, NSError *error))handler;
+
+// update an entry, authenticated (use this for updating via chunked uploads,
+// with the URL from the entry's uploadEditLink)
+- (GDataServiceTicket *)fetchEntryByUpdatingEntry:(GDataEntryBase *)entryToUpdate
+                                      forEntryURL:(NSURL *)entryURL
                                 completionHandler:(void (^)(GDataServiceTicket *ticket, GDataEntryBase *entry, NSError *error))handler;
 
 // delete an entry, authenticated

@@ -31,6 +31,12 @@
 - (GDataDateTime *)lastViewed;
 - (void)setLastViewed:(GDataDateTime *)dateTime;
 
+- (GDataDateTime *)sharedWithMe;
+- (void)setSharedWithMe:(GDataDateTime *)dateTime;
+
+- (GDataDateTime *)lastModifiedByMe;
+- (void)setLastModifiedByMe:(GDataDateTime *)dateTime;
+
 - (NSNumber *)writersCanInvite; // bool
 - (void)setWritersCanInvite:(NSNumber *)num;
 
@@ -71,10 +77,18 @@
 - (BOOL)isViewed;
 - (void)setIsViewed:(BOOL)flag;
 
+- (BOOL)isShared;
+- (void)setIsShared:(BOOL)flag;
+
 // convenience accessors
 - (NSArray *)parentLinks;
 
 - (GDataLink *)thumbnailLink;
+
+// An alternate self link. Used only in GDataEntryDocBase subclasses that
+// appear in GDataFeedDocChange. The value is the selfLink of the
+// GDataEntryDocBase.
+- (GDataLink *)alternateSelfLink;
 
 - (GDataFeedLink *)ACLFeedLink;
 - (GDataFeedLink *)revisionFeedLink;
